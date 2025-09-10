@@ -1,0 +1,96 @@
+{
+  "users": [
+    {
+      "id": "01",
+      "first_name": "Андрей",
+      "last_name": "Кочебасов",
+      "email": "@mail.ru",
+      "password": 1234,
+      "phone": 89020329370,
+      "created_at": 213545346345234434,
+      "role_id": "-erferg345-",
+      "addresses": {
+        "address_id_0": { "name": "У дома" },
+        "address_id_1": { "name": "На даче" }
+      }
+    }
+  ],
+
+  "products": [
+    {
+      "id": "product_id",
+      "name": "Donats",
+      "description": "Delicious food",
+      "price": 100,
+      "stock_quantity": 5,
+      "image_URL": "https://avatars.mds.yandex.net/i?id=ae40f5386bf0c3df08e5a33f471e8539c17fcdbe-15273796-images-thumbs&n=13",
+      "category_id": "-ewr23r23f32f-",
+      "comments": {
+        "comment_id_0": {
+          "stars": 5,
+          "title": "Всё супер!",
+          "description": "Очень вкусный пончик. Взял 10 штук себе и друзьям!",
+          "user_id": "-wewewfdrgh345345-",
+          "created_at": 342352324625
+        },
+        "comment_id_1": {
+          "stars": 5,
+          "title": "Всё супер!",
+          "description": "Очень вкусный пончик. Взял уже 100 штук себе и друзьям!",
+          "user_id": "-wewewfdrgh345345-",
+          "created_at": 342352324625
+        }
+      }
+    }
+  ],
+
+  "orders": [
+    {
+      "id": "order_id",
+      "user_id": "-wewewfdrgh345345-",
+      "created_at": 12414415324,
+      "status": "Собираем ваш заказ",
+      "shipping_address_id": "-f23rgrerg42525324-",
+      "total_amount": 1000
+    }
+  ],
+
+  "shop_cart": [
+    {
+      "id": "user_id",
+      "product_list": [
+        { "product_id": "-efwewerwr3124234-", "quantity": 5, "amount": 500 },
+        { "product_id": "-efwewerwr3124234-", "quantity": 5, "amount": 500 },
+        { "product_id": "-efwewerwr3124234-", "quantity": 5, "amount": 500 }
+      ],
+      "total_amount": 1500
+    }
+  ],
+
+  "addresses": [
+    {
+      "id": "address_0",
+      "region": "Вологодская область",
+      "city": "Cherepovets",
+      "street": "Lenina",
+      "house": 3,
+      "apartment": 99,
+      "postal_code": 164899
+    },
+    {
+      "id": "address_1",
+      "region": "Вологодская область",
+      "city": "Кадников",
+      "street": "Розы Люксембург",
+      "house": 3,
+      "apartment": 12,
+      "postal_code": 111555
+    }
+  ],
+
+  "roles": [
+    { "id": "r1", "name": "Администратор" },
+    { "id": "r2", "name": "Гость" },
+    { "id": "r3", "name": "Аноним" }
+  ]
+}

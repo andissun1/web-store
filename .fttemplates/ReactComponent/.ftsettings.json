@@ -1,0 +1,6 @@
+{
+  "name": "ReactComponent",
+  "openFilesWhenDone": ["<FTName>.jsx"],
+  "omitParentDirectory": false,
+  "overwriteExistingFiles": "never"
+}
