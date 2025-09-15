@@ -4,6 +4,7 @@
       "id": "01",
       "first_name": "Андрей",
       "last_name": "Кочебасов",
+      "login": "andissun",
       "email": "@mail.ru",
       "password": 1234,
       "phone": 89020329370,
@@ -89,8 +90,7 @@
   ],
 
   "roles": [
-    { "id": "r1", "name": "Администратор" },
-    { "id": "r2", "name": "Гость" },
-    { "id": "r3", "name": "Аноним" }
+    { "id": "r1", "name": "admin" },
+    { "id": "r2", "name": "user" }
   ]
 }

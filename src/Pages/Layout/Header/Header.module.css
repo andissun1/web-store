@@ -1,0 +1,148 @@
+/* Самая верхняя полоса */
+.firstLine {
+  background-color: #e5ebff;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  height: 43px;
+  margin: auto;
+
+  max-width: 1470px;
+}
+
+.firstLine ul {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  width: 100%;
+
+  cursor: pointer;
+
+  padding: 0;
+}
+
+.firstLine li {
+  padding-right: 10px;
+  text-align: left;
+}
+
+.firstLine div {
+  min-width: max-content;
+
+  display: flex;
+  align-items: center;
+
+  color: #969696;
+}
+
+.firstLine a {
+  min-width: max-content;
+
+  display: flex;
+  align-items: center;
+
+  text-decoration: none;
+  color: black;
+}
+
+/* Часть с поисковиком */
+.secondLine {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+
+  max-width: 1470px;
+  height: 50px;
+  margin: 20px auto;
+}
+
+.secondLine a > img {
+  height: 90%;
+}
+
+.secondLine > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-right: 30px;
+}
+
+.secondLine button > span {
+  font-size: 20px;
+}
+
+/* Стилизация инпута */
+.secondLine form {
+  flex: 7;
+  display: flex;
+}
+
+.secondLine input {
+  width: calc(100% - 50px);
+
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+
+  color: rgb(45, 45, 45);
+
+  border: 1px solid rgb(128, 128, 128);
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  padding: 7px;
+
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.secondLine input::placeholder {
+  color: #dde0e8;
+}
+
+.secondLine input:focus {
+  outline: none;
+  border-color: rgb(204, 204, 204);
+}
+
+.secondLine form > button {
+  width: 50px;
+  height: 50px;
+
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.secondLine form > button span {
+  font-size: 24px;
+}
+
+/* Панелька с кнопками */
+.controlPannel {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.controlPannel a {
+  display: flex;
+  align-items: center;
+  font-size: 28px;
+  text-decoration: none;
+  color: black;
+}
+
+.controlPannel a > span {
+  font-family: PT Root UI;
+  font-size: 18px;
+  color: #7188d4;
+  font-weight: 600;
+  margin-left: 10px;
+}

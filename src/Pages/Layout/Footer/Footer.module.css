@@ -1,0 +1,108 @@
+.footerLayout {
+  background-color: rgb(229, 235, 255);
+  padding: 39px 0;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 1470px;
+  margin: auto;
+}
+
+.footerContent > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  margin-right: 30px;
+  padding-bottom: 24px;
+}
+
+.footerContent a > img {
+  height: 90%;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+}
+
+.wrapper nav {
+  flex: 5;
+  width: 100%;
+  display: flex;
+  height: 185px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80%;
+  padding: 0 80px 16px 0;
+
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-family: inherit;
+}
+
+.column a {
+  font-family: inherit;
+  font-weight: lighter;
+  font-size: smaller;
+  text-decoration: none;
+  color: black;
+}
+
+.contactsWrapper {
+  flex: 2;
+}
+
+.contactsWrapper > div:first-of-type {
+  height: 27px;
+  margin-bottom: 16px;
+
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.phones {
+  display: flex;
+  font-size: 18px;
+}
+
+.phones div:first-of-type {
+  padding-right: 15px;
+  border-right: 2px solid rgb(204, 204, 204);
+}
+
+.phones div:last-of-type {
+  padding-left: 15px;
+}
+
+.rights {
+  width: 100%;
+  border-top: 1px solid rgb(204, 204, 204);
+  padding-top: 26px;
+
+  color: rgb(142, 160, 221);
+}
+
+.address {
+  font-size: 18px;
+  padding-top: 12px;
+}
+
+.socialItems {
+  padding-top: 32px;
+  width: 100%;
+}
+
+.socialItems img {
+  width: 30px;
+  margin-right: 15px;
+}

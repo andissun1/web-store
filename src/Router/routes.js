@@ -8,42 +8,54 @@ import { Favorites } from '../Pages/Favorites/Favorites';
 import { Search } from '../Pages/Search/Search';
 import { NewOrder } from '../Pages/NewOrder/NewOrder';
 import { AdminConsole } from '../Pages/AdminConsole/AdminConsole';
+import { ErorPage } from '../Pages/ErorPage/ErorPage';
+import { Layout } from '../Pages/Layout/Layout';
 
 export const routes = createBrowserRouter([
   {
     path: '/',
-    Component: Main,
-  },
-  {
-    path: '/collection',
-    Component: Collection,
-  },
-  {
-    path: '/product',
-    Component: Product,
-  },
-  {
-    path: '/shopCart',
-    Component: ShopCart,
-  },
-  {
-    path: '/auth',
-    Component: Auth,
-  },
-  {
-    path: '/favorites',
-    Component: Favorites,
-  },
-  {
-    path: '/search',
-    Component: Search,
-  },
-  {
-    path: '/newOrder',
-    Component: NewOrder,
-  },
-  {
-    path: '/AdminConsole',
-    Component: AdminConsole,
+    Component: Layout,
+    children: [
+      {
+        index: true,
+        Component: Main,
+      },
+      {
+        path: 'collection',
+        Component: Collection,
+      },
+      {
+        path: 'product',
+        Component: Product,
+      },
+      {
+        path: 'shopCart',
+        Component: ShopCart,
+      },
+      {
+        path: 'auth',
+        Component: Auth,
+      },
+      {
+        path: 'favorites',
+        Component: Favorites,
+      },
+      {
+        path: 'search',
+        Component: Search,
+      },
+      {
+        path: 'newOrder',
+        Component: NewOrder,
+      },
+      {
+        path: 'AdminConsole',
+        Component: AdminConsole,
+      },
+      {
+        path: 'AdminConsole',
+        Component: ErorPage,
+      },
+    ],
   },
 ]);
