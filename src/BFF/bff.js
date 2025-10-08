@@ -3,62 +3,51 @@ const ROLES = {
   user: 'r2',
 };
 
-const getUsers = () =>
-  fetch('http://localhost:3000/users').then((loadedUsers) => loadedUsers.json());
-
-const getUserByLogin = async (loginToFind) => {
-  const users = await getUsers();
-  return users.find(({ login }) => login === loginToFind);
-};
-
-const addUser = async (login, password) => {
-  await fetch('http://localhost:3000/users', {
-    method: 'POST',
-    headers: { 'Content-Type': 'applicaton/json;charset=utf-8' },
-    body: JSON.stringify({
-      login,
-      password,
-      created_at: new Date(),
-      role_id: 'r2',
-    }),
-  });
-};
-
-// Все функции по расширению прав на управление контентом
-const allActions = {
-  logOut() {
-    Object.keys(session).forEach((key) => {
-      delete session[key];
-    });
-    console.log('Выход из системы');
+// --- Работа с сессиями пользователя и настройка доступов ---
+const sessions = {
+  async create(user) {
+    const hash = Math.random().toFixed(50);
+    await server.addSession(hash, user);
+    return hash;
   },
-  removeComment() {
-    console.log('Удаление комментария');
+
+  async remove(hash) {
+    const session = await server.getSession(hash);
+    if (!session) return;
+    server.removeSession(session.id);
   },
-};
 
-const createSession = async (role_id) => {
-  const session = {};
-
-  switch (role_id) {
-    case ROLES.admin:
-      session.removeComment = allActions.removeComment;
-      break;
-    case ROLES.user:
-      console.log('Роль пользователя получена');
-
-      break;
-
-    default:
-      // Не расширяем функционал для анонимных пользователей
-      break;
-  }
-
-  return session;
+  async access(hash, accessRoles) {
+    const session = await server.getSession(hash);
+    if (!session) return false;
+    return accessRoles.includes(session.user.role_id);
+  },
 };
 
 // --- Основная часть бэка ---
 export const server = {
+  async getUsers() {
+    return fetch('http://localhost:3000/users').then((loadedUsers) => loadedUsers.json());
+  },
+
+  async getUserByLogin(loginToFind) {
+    const users = await getUsers();
+    return users.find(({ login }) => login === loginToFind);
+  },
+
+  async addUser(login, password) {
+    await fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'applicaton/json;charset=utf-8' },
+      body: JSON.stringify({
+        login,
+        password,
+        created_at: new Date().toLocaleDateString(),
+        role_id: 'r2',
+      }),
+    });
+  },
+
   async authorize(authLogin, authPassword) {
     const user = getUserByLogin(authLogin);
 
@@ -69,7 +58,7 @@ export const server = {
 
     return {
       error: null,
-      response: createSession(user.role_id),
+      response: sessions.create(user),
     };
   },
 
@@ -78,11 +67,35 @@ export const server = {
 
     if (user) return { error: 'Такой логин уже занят', response: null };
 
-    await addUser(regLogin, regPassword);
+    const newUser = await this.addUser(regLogin, regPassword);
 
     return {
       error: null,
-      response: createSession(ROLES.user),
+      response: sessions.create({ ...newUser, session: await sessions.create(newUser) }),
     };
+  },
+
+  async getSession(hash) {
+    const session = await fetch(`http://localhost:3000/sessions?hash=${hash}`).then(
+      (response) => response.json()
+    );
+    return session[0];
+  },
+
+  async addSession(hash, user) {
+    await fetch(`http://localhost:3000/sessions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      body: JSON.stringify({
+        hash,
+        user,
+      }),
+    }).then((response) => response.json());
+  },
+
+  async removeSession(sessionId) {
+    await fetch(`http://localhost:3000/sessions/${sessionId}`, {
+      method: 'DELETE',
+    });
   },
 };

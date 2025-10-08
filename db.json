@@ -92,5 +92,19 @@
   "roles": [
     { "id": "r1", "name": "admin" },
     { "id": "r2", "name": "user" }
+  ],
+
+  "sessions": [
+    {
+      "hash": "0.40400413909629595554662273571011610329151153564453",
+      "id": 1,
+      "user": {
+        "login": "qweqwe",
+        "password": "qweqwe",
+        "registed_at": "2044-06-24 08:12",
+        "role_id": "r3",
+        "id": "OlpY1wv"
+      }
+    }
   ]
 }
