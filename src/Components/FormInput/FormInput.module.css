@@ -1,0 +1,36 @@
+.formInput > label {
+  display: block;
+  margin-bottom: 0.5em;
+  line-height: 1;
+}
+
+.formInput > label::after {
+  font-size: 0.9em;
+  margin-left: 0.2em;
+  line-height: 0.7em;
+  content: '*';
+  color: red;
+}
+
+.formInput > input {
+  width: 100%;
+  height: 25px;
+  padding: calc(1em * 0.4);
+  font-family: 'PT Root UI';
+  font-size: 16px;
+
+  color: #2d2d2d;
+  background: white;
+  border: 1px solid #808080;
+  border-radius: 6px;
+
+  outline: 0;
+  vertical-align: middle;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.formInput > input:focus {
+  border-color: #ccc;
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.05);
+  color: #2d2d2d;
+}

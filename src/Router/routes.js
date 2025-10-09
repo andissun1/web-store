@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, useRoutes } from 'react-router';
 import { Main } from '../Pages/Main/Main';
 import { Collection } from '../Pages/Collection/Collection';
 import { Product } from '../Pages/Product/Product';
@@ -11,6 +11,12 @@ import { AdminConsole } from '../Pages/AdminConsole/AdminConsole';
 import { ErorPage } from '../Pages/ErorPage/ErorPage';
 import { Layout } from '../Pages/Layout/Layout';
 
+const authPage = () =>
+  ['auth', 'register', 'resetPassword'].map((path) => ({
+    path,
+    Component: Auth,
+  }));
+
 export const routes = createBrowserRouter([
   {
     path: '/',
@@ -20,6 +26,7 @@ export const routes = createBrowserRouter([
         index: true,
         Component: Main,
       },
+      ...authPage(),
       {
         path: 'collection',
         Component: Collection,
@@ -31,10 +38,6 @@ export const routes = createBrowserRouter([
       {
         path: 'shopCart',
         Component: ShopCart,
-      },
-      {
-        path: 'auth',
-        Component: Auth,
       },
       {
         path: 'favorites',
@@ -53,7 +56,7 @@ export const routes = createBrowserRouter([
         Component: AdminConsole,
       },
       {
-        path: 'AdminConsole',
+        path: '*',
         Component: ErorPage,
       },
     ],
