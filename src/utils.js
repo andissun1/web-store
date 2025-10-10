@@ -3,11 +3,11 @@ const validationRules = {
   isRequired: (value) => {
     return Boolean(value.trim());
   },
-  min: (value) => {
-    return value.length > 2;
+  min: (value, limiter) => {
+    return value.length > limiter;
   },
-  max: (value) => {
-    return value.length < 10;
+  max: (value, limiter) => {
+    return value.length < limiter;
   },
   confirmPassword: (value, _, ref) => {
     return value === ref;

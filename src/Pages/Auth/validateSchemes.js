@@ -1,5 +1,5 @@
 export const initialState = {
-  auth: { login: '', password: '' },
+  auth: { email: '', password: '' },
   register: { fullname: '', phone: '', email: '', password: '', repeatPassword: '' },
   resetPassword: { email: '' },
 };
@@ -7,7 +7,7 @@ export const initialState = {
 export const schemes = {
   // Набор правил для входа
   auth: {
-    login: {
+    email: {
       isRequired: { message: 'Обязательное поле' },
       min: { message: 'Должно быть более 2 символов', value: 2 },
       max: { message: 'Не более 20 символов', value: 20 },
@@ -23,7 +23,7 @@ export const schemes = {
     fullname: {
       isRequired: { message: 'Обязательное поле' },
       min: { message: 'Должно быть более 2 символов', value: 2 },
-      max: { message: 'Не более 20 символов', value: 20 },
+      max: { message: 'Не более 40 символов', value: 40 },
     },
     phone: {
       isRequired: { message: 'Обязательное поле' },

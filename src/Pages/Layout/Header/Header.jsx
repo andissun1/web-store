@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import style from './Header.module.css';
 
 export const Header = (props) => {
@@ -39,7 +40,7 @@ export const Header = (props) => {
           </button>
         </form>
         <div className={style.controlPannel}>
-          <a className="icon-user" href=""></a>
+          <Link to={'/auth'} className="icon-user" href="" />
           <a className="icon-favorites" href=""></a>
           <a className="icon-cart" href="">
             <span>10 860 P</span>

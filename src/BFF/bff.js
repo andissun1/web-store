@@ -1,6 +1,6 @@
 const ROLES = {
-  admin: 'r1',
-  user: 'r2',
+  admin: '-r1-',
+  user: '-r2-',
 };
 
 // --- Работа с сессиями пользователя и настройка доступов ---
@@ -30,48 +30,84 @@ export const server = {
     return fetch('http://localhost:3000/users').then((loadedUsers) => loadedUsers.json());
   },
 
-  async getUserByLogin(loginToFind) {
-    const users = await getUsers();
-    return users.find(({ login }) => login === loginToFind);
+  async getUserByEmail(emailToFind) {
+    const users = await this.getUsers();
+    return users.find(({ email }) => email === emailToFind);
   },
 
-  async addUser(login, password) {
-    await fetch('http://localhost:3000/users', {
+  async addUser(formData) {
+    const newUser = await fetch('http://localhost:3000/users', {
       method: 'POST',
-      headers: { 'Content-Type': 'applicaton/json;charset=utf-8' },
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
       body: JSON.stringify({
-        login,
-        password,
+        ...formData,
         created_at: new Date().toLocaleDateString(),
-        role_id: 'r2',
+        role_id: ROLES.user,
       }),
-    });
+    }).then((response) => response.json());
+
+    delete newUser.password;
+    return newUser;
   },
 
-  async authorize(authLogin, authPassword) {
-    const user = getUserByLogin(authLogin);
+  async authorize(email, password) {
+    const user = await this.getUserByEmail(email);
 
     if (!user) return { error: 'Такой пользователь не найден', response: null };
 
-    if (authPassword !== user.password)
-      return { error: 'Неверный пароль', response: null };
+    if (password !== user.password) return { error: 'Неверный пароль', response: null };
+
+    delete user.password;
 
     return {
       error: null,
-      response: sessions.create(user),
+      response: { ...user, hash: await sessions.create(user) },
     };
   },
 
-  async register(regLogin, regPassword) {
-    const user = getUserByLogin(regLogin);
+  async register(formData) {
+    const user = await this.getUserByEmail(formData.email);
 
     if (user) return { error: 'Такой логин уже занят', response: null };
 
-    const newUser = await this.addUser(regLogin, regPassword);
+    const newUser = await this.addUser(formData);
+    console.log(newUser);
 
     return {
       error: null,
-      response: sessions.create({ ...newUser, session: await sessions.create(newUser) }),
+      response: {
+        ...newUser,
+        hash: await sessions.create(newUser),
+      },
+    };
+  },
+
+  async logout(hash) {
+    await sessions.remove(hash);
+    console.log('Выход из системы');
+
+    return {
+      error: null,
+      response: 'Выход из системы',
+    };
+  },
+
+  async resetPassword(email) {
+    const user = await this.getUserByEmail(email);
+
+    if (!user) return { error: 'Такой пользователь не найден', response: null };
+
+    const newUser = await fetch(`http://localhost:3000/users/${user.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      body: JSON.stringify({
+        password: user.id,
+      }),
+    }).then((response) => response.json());
+
+    return {
+      error: null,
+      response: newUser.password,
     };
   },
 

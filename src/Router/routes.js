@@ -1,4 +1,4 @@
-import { createBrowserRouter, useRoutes } from 'react-router';
+import { createBrowserRouter } from 'react-router';
 import { Main } from '../Pages/Main/Main';
 import { Collection } from '../Pages/Collection/Collection';
 import { Product } from '../Pages/Product/Product';

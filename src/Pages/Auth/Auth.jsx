@@ -4,12 +4,18 @@ import { useEffect, useState } from 'react';
 import { validator } from '../../utils';
 import { FormInput } from '../../Components/FormInput/FormInput';
 import { initialState, schemes } from './validateSchemes';
+import { useDispatch, useSelector } from 'react-redux';
+import { authorize, logout, register, resetPassword } from '../../Store/userReducer';
+
+// Для референса test10@mail.ru 123123
 
 export const Auth = (props) => {
   const address = useLocation().pathname.replaceAll('/', '');
   const [formData, setFormData] = useState(initialState[address]);
   const [error, setError] = useState({});
   const isValid = Object.keys(error).length === 0;
+  const hash = useSelector((store) => store.user.hash);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setFormData(initialState[address]);
@@ -25,21 +31,46 @@ export const Auth = (props) => {
     setFormData({ ...formData, [name]: value });
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     if (!isValid) return;
-    console.log(formData);
+
+    switch (address) {
+      case 'auth':
+        dispatch(authorize(formData.email, formData.password)).then((error) => {
+          if (error) setError({ ...error, server: error });
+        });
+        break;
+
+      case 'register':
+        const formDataForServer = { ...formData };
+        delete formDataForServer.repeatPassword;
+        dispatch(register(formDataForServer)).then((error) => {
+          if (error) setError({ ...error, server: error });
+        });
+        break;
+
+      case 'resetPassword':
+        dispatch(resetPassword(formData.email)).then(({ response, error }) => {
+          if (error) return setError({ ...error, server: error });
+          setError({ ...error, server: `Ваш новый пароль: ${response}` });
+        });
+        break;
+
+      default:
+        break;
+    }
   }
 
   const authForm = (
     <>
       <FormInput
-        name="login"
-        value={formData.login}
+        name="email"
+        value={formData.email}
         label="Телефон или Email"
         onChange={handleChange}
         type="text"
-        error={error?.login}
+        error={error?.email}
       />
 
       <FormInput
@@ -145,6 +176,12 @@ export const Auth = (props) => {
         {address === 'register' ? 'Регистрация' : 'Вход в кабинет покупателя'}
         <form onSubmit={handleSubmit} className={style.form}>
           {form}
+          {error.server && <span>{error.server}</span>}
+          {hash && (
+            <button type="button" onClick={() => dispatch(logout())}>
+              Выйти из аккаунта
+            </button>
+          )}
         </form>
       </h2>
     </div>

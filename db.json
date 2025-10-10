@@ -2,21 +2,66 @@
   "users": [
     {
       "id": "01",
-      "first_name": "Андрей",
-      "last_name": "Кочебасов",
-      "login": "andissun",
+      "fullname": "Андрей Админов",
       "email": "@mail.ru",
-      "password": 1234,
-      "phone": 89020329370,
-      "created_at": 213545346345234434,
-      "role_id": "-erferg345-",
+      "password": "1234",
+      "phone": "123",
+      "created_at": "10.10.2025",
+      "role_id": "-r1-",
       "addresses": {
-        "address_id_0": { "name": "У дома" },
-        "address_id_1": { "name": "На даче" }
+        "address_id_0": {
+          "name": "У дома"
+        },
+        "address_id_1": {
+          "name": "На даче"
+        }
       }
+    },
+    {
+      "id": "02",
+      "fullname": "Андрей Юзеров",
+      "email": "2231@mail.ru",
+      "password": "1234",
+      "phone": "123",
+      "created_at": "10.10.2025",
+      "role_id": "-r2-",
+      "addresses": {
+        "address_id_0": {
+          "name": "У дома"
+        },
+        "address_id_1": {
+          "name": "На даче"
+        }
+      }
+    },
+    {
+      "fullname": "Привет привет",
+      "phone": "+7 911 547 93 40",
+      "email": "test@mail.ru",
+      "password": "123123",
+      "created_at": "10.10.2025",
+      "role_id": "-r2-",
+      "id": "SXQWcDv"
+    },
+    {
+      "fullname": "123",
+      "phone": "123",
+      "email": "123",
+      "password": "VhnOPJM",
+      "created_at": "10.10.2025",
+      "role_id": "-r2-",
+      "id": "VhnOPJM"
+    },
+    {
+      "fullname": "123",
+      "phone": "123",
+      "email": "123123",
+      "password": "123",
+      "created_at": "10.10.2025",
+      "role_id": "-r2-",
+      "id": "ZU9cFLd"
     }
   ],
-
   "products": [
     {
       "id": "product_id",
@@ -44,7 +89,6 @@
       }
     }
   ],
-
   "orders": [
     {
       "id": "order_id",
@@ -55,19 +99,29 @@
       "total_amount": 1000
     }
   ],
-
   "shop_cart": [
     {
       "id": "user_id",
       "product_list": [
-        { "product_id": "-efwewerwr3124234-", "quantity": 5, "amount": 500 },
-        { "product_id": "-efwewerwr3124234-", "quantity": 5, "amount": 500 },
-        { "product_id": "-efwewerwr3124234-", "quantity": 5, "amount": 500 }
+        {
+          "product_id": "-efwewerwr3124234-",
+          "quantity": 5,
+          "amount": 500
+        },
+        {
+          "product_id": "-efwewerwr3124234-",
+          "quantity": 5,
+          "amount": 500
+        },
+        {
+          "product_id": "-efwewerwr3124234-",
+          "quantity": 5,
+          "amount": 500
+        }
       ],
       "total_amount": 1500
     }
   ],
-
   "addresses": [
     {
       "id": "address_0",
@@ -88,23 +142,191 @@
       "postal_code": 111555
     }
   ],
-
   "roles": [
-    { "id": "r1", "name": "admin" },
-    { "id": "r2", "name": "user" }
+    {
+      "id": "r1",
+      "name": "admin"
+    },
+    {
+      "id": "r2",
+      "name": "user"
+    }
   ],
-
   "sessions": [
     {
-      "hash": "0.40400413909629595554662273571011610329151153564453",
-      "id": 1,
+      "hash": "0.43299742942374375154201970872236415743827819824219",
+      "id": 1
+    },
+    {
+      "hash": "0.30544797641803100862745168342371471226215362548828",
+      "user": {},
+      "id": 2
+    },
+    {
+      "hash": "0.44325711538635559350041148718446493148803710937500",
       "user": {
-        "login": "qweqwe",
-        "password": "qweqwe",
-        "registed_at": "2044-06-24 08:12",
-        "role_id": "r3",
-        "id": "OlpY1wv"
-      }
+        "id": "3U-rExJ"
+      },
+      "id": 3
+    },
+    {
+      "hash": "0.39015259715410266494473034981638193130493164062500",
+      "user": {
+        "id": "I43i_-w"
+      },
+      "id": 4
+    },
+    {
+      "hash": "0.26179238241929581043621055869152769446372985839844",
+      "user": {
+        "id": "0KfYdBn"
+      },
+      "id": 5
+    },
+    {
+      "hash": "0.82303922858185407651632203851477243006229400634766",
+      "user": {
+        "id": "xxZ2p4f"
+      },
+      "id": 6
+    },
+    {
+      "hash": "0.50123027670748454553972806024830788373947143554688",
+      "user": {
+        "id": "X4Pi9T7"
+      },
+      "id": 7
+    },
+    {
+      "hash": "0.53627600978009737353602304210653528571128845214844",
+      "user": {
+        "id": "-dn_-4F"
+      },
+      "id": 8
+    },
+    {
+      "hash": "0.65223774422625202529246735139167867600917816162109",
+      "user": {
+        "id": "7usixfN"
+      },
+      "id": 9
+    },
+    {
+      "hash": "0.05194343840838488990385712895658798515796661376953",
+      "user": {
+        "id": "lg3n3AB"
+      },
+      "id": 10
+    },
+    {
+      "hash": "0.70049557271409956804575358546571806073188781738281",
+      "user": {
+        "id": "MIPFCDu"
+      },
+      "id": 11
+    },
+    {
+      "hash": "0.85744292304124303250034699885873124003410339355469",
+      "user": {
+        "id": "Q7n6tNy"
+      },
+      "id": 12
+    },
+    {
+      "hash": "0.32753317842971518825123666829313151538372039794922",
+      "user": {
+        "role_id": "-r2-",
+        "id": "jOV6lBk"
+      },
+      "id": 13
+    },
+    {
+      "hash": "0.19734545633893429972260946669848635792732238769531",
+      "user": {
+        "fullname": "123",
+        "phone": "123",
+        "email": "213",
+        "password": "123",
+        "role_id": "-r2-",
+        "id": "Pq4ZtkD"
+      },
+      "id": 14
+    },
+    {
+      "hash": "0.57589390135296281147958552537602372467517852783203",
+      "user": {
+        "fullname": "123",
+        "phone": "123",
+        "email": "123",
+        "password": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r2-",
+        "id": "aqUmkZO"
+      },
+      "id": 15
+    },
+    {
+      "hash": "0.64073293646006812540605324102216400206089019775391",
+      "user": {
+        "fullname": "123",
+        "phone": "123",
+        "email": "1232",
+        "password": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r2-",
+        "id": "-dSU6qf"
+      },
+      "id": 16
+    },
+    {
+      "hash": "0.13521519228001421808471604890655726194381713867188",
+      "user": {
+        "fullname": "Привет привет",
+        "phone": "+7 911 547 93 40",
+        "email": "test@mail.ru",
+        "password": "123123",
+        "created_at": "10.10.2025",
+        "role_id": "-r2-",
+        "id": "SXQWcDv"
+      },
+      "id": 17
+    },
+    {
+      "hash": "0.32126483248194526165519846472307108342647552490234",
+      "user": {
+        "fullname": "123",
+        "phone": "123",
+        "email": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r2-",
+        "id": "VhnOPJM"
+      },
+      "id": 18
+    },
+    {
+      "hash": "0.62893018428041980172338298871181905269622802734375",
+      "user": {
+        "fullname": "123",
+        "phone": "123",
+        "email": "123",
+        "password": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r2-",
+        "id": "VhnOPJM"
+      },
+      "id": 19
+    },
+    {
+      "hash": "0.42388396091270452714638850011397153139114379882813",
+      "user": {
+        "fullname": "123",
+        "phone": "123",
+        "email": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r2-",
+        "id": "VhnOPJM"
+      },
+      "id": 20
     }
   ]
 }
