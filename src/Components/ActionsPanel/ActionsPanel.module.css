@@ -1,0 +1,40 @@
+.actionsPanel {
+  display: flex;
+  gap: 15px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.actionsPanel button {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.actionsPanel button + button {
+  font-size: 18px;
+}
+
+.addToCart {
+  flex: 4;
+}
+
+.buy {
+  flex: 4;
+  background-color: rgb(247, 247, 247);
+  color: rgb(45, 45, 45);
+}
+
+.buy:hover {
+  background-color: #ededed;
+}
+
+.addToFavorite {
+  flex: 0.5;
+  background-color: rgb(247, 247, 247);
+  color: rgb(45, 45, 45);
+}
+
+.addToFavorite:hover {
+  background-color: #ededed;
+}

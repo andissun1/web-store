@@ -32,7 +32,7 @@ export const routes = createBrowserRouter([
         Component: Collection,
       },
       {
-        path: 'product',
+        path: 'product/:id',
         Component: Product,
       },
       {
