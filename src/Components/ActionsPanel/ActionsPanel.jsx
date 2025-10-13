@@ -8,7 +8,7 @@ export const ActionsPanel = (props) => {
       </button>
       <button className={style.buy}>Купить в 1 клик</button>
       <button className={style.addToFavorite}>
-        <span class="btn-icon icon-favorites-o" />
+        <span className="btn-icon icon-favorites-o" />
       </button>
     </div>
   );

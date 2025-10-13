@@ -134,4 +134,25 @@ export const server = {
       method: 'DELETE',
     });
   },
+
+  async fetchProduct(productID) {
+    let url = 'http://localhost:3000/products';
+    if (productID) url = `http://localhost:3000/products/${productID}`;
+
+    const product = await fetch(url).then((response) => {
+      if (!response.ok) return;
+      return response.json();
+    });
+
+    if (!product)
+      return {
+        error: 'Пост не найден',
+        response: null,
+      };
+
+    return {
+      error: null,
+      response: product,
+    };
+  },
 };

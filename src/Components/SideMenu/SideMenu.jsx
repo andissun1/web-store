@@ -25,7 +25,12 @@ export const SideMenu = (props) => {
     <div className={style.SideMenu}>
       <nav>
         {categories.map((category) => (
-          <NavLink to={category} children={category} className={style.navLink} />
+          <NavLink
+            to={category}
+            children={category}
+            className={style.navLink}
+            key={category}
+          />
         ))}
       </nav>
 
@@ -56,7 +61,7 @@ export const SideMenu = (props) => {
       <div className={style.widget_popular}>
         <h3>Популярное</h3>
         {['Тор', 'Медвежонок', 'Динозавр'].map((product) => (
-          <div className={style.product}>
+          <div className={style.product} key={product}>
             <img
               src="https://imgholder.ru/100x100/8493a8/adb9ca&text=IMAGE+HOLDER&font=kelson"
               alt={product}
