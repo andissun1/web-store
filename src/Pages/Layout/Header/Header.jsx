@@ -1,7 +1,11 @@
 import { Link } from 'react-router';
 import style from './Header.module.css';
+import { useSelector } from 'react-redux';
+import { ROLES } from '../../../BFF/bff';
 
 export const Header = (props) => {
+  const isAdmin = useSelector((store) => store.user.role_id) === ROLES.admin;
+
   return (
     <header>
       <nav className={style.firstLine}>
@@ -41,7 +45,8 @@ export const Header = (props) => {
         </form>
         <div className={style.controlPannel}>
           <Link to={'/auth'} className="icon-user" href="" />
-          <a className="icon-favorites" href=""></a>
+          {isAdmin && <Link to={'/adminConsole'} className="icon-tasks" />}
+          <a className="icon-favorites" href="" />
           <a className="icon-cart" href="">
             <span>10 860 P</span>
           </a>

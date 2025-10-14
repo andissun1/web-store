@@ -9,7 +9,7 @@ const appSlice = createSlice({
   initialState,
   reducers: {
     setError(state, action) {
-      return action.payload;
+      return { errors: action.payload };
     },
   },
 });

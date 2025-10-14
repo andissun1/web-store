@@ -16,10 +16,15 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action) {
+      sessionStorage.setItem('hash', JSON.stringify(action.payload.hash));
       return action.payload;
     },
     removeUser() {
+      sessionStorage.clear();
       return initialState;
+    },
+    setAllUsers(state, action) {
+      state.allUsers = action.payload;
     },
   },
 });
@@ -34,6 +39,14 @@ export const authorize = (email, password) => async (dispatch, getState, extraAr
   dispatch(actions.setUser(response));
   routes.navigate('/');
 };
+
+export const authorizeByHash =
+  (hash) =>
+  async (dispatch, getState, { server }) => {
+    const { response, error } = await server.authorizeByHash(hash);
+    if (error) console.log(error);
+    dispatch(actions.setUser(response));
+  };
 
 export const logout =
   () =>
@@ -55,3 +68,12 @@ export const resetPassword =
   (formData) =>
   (dispatch, getState, { server }) =>
     server.resetPassword(formData);
+
+export const getAllUsers =
+  () =>
+  async (dispatch, getState, { server }) => {
+    const hash = getState().user.hash;
+    const { response, error } = await server.getAllUsers(hash);
+    if (error) return error;
+    dispatch(actions.setAllUsers(response));
+  };

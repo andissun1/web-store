@@ -10,12 +10,19 @@ import { NewOrder } from '../Pages/NewOrder/NewOrder';
 import { AdminConsole } from '../Pages/AdminConsole/AdminConsole';
 import { ErorPage } from '../Pages/ErorPage/ErorPage';
 import { Layout } from '../Pages/Layout/Layout';
+import { getAllProducts, getProduct } from '../Store/productReducer';
+import { getAllUsers } from '../Store/userReducer';
+// Динамический импорт чтобы избежать циклической зависимости со Store
+const store = import('../Store/store').then(({ store }) => store);
 
 const authPage = () =>
   ['auth', 'register', 'resetPassword'].map((path) => ({
     path,
     Component: Auth,
   }));
+
+// Можно будет нарисовать и вынести в компоненты
+const Loader = () => <h2>Загрузка...</h2>;
 
 export const routes = createBrowserRouter([
   {
@@ -34,6 +41,9 @@ export const routes = createBrowserRouter([
       {
         path: 'product/:id',
         Component: Product,
+        loader: async ({ params }) =>
+          store.then(({ dispatch }) => dispatch(getProduct(params.id))),
+        hydrateFallbackElement: <Loader />,
       },
       {
         path: 'shopCart',
@@ -52,8 +62,14 @@ export const routes = createBrowserRouter([
         Component: NewOrder,
       },
       {
-        path: 'AdminConsole',
+        path: 'adminConsole',
         Component: AdminConsole,
+        loader: async () =>
+          store.then(({ dispatch }) => {
+            dispatch(getAllUsers());
+            dispatch(getAllProducts());
+          }),
+        hydrateFallbackElement: <Loader />,
       },
       {
         path: '*',

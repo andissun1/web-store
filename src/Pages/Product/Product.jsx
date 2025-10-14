@@ -1,19 +1,11 @@
-import { useParams } from 'react-router';
 import { ActionsPanel } from '../../Components/ActionsPanel/ActionsPanel';
 import { SideMenu } from '../../Components/SideMenu/SideMenu';
 import style from './product.module.css';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProduct } from '../../Store/productReducer';
 
 export const Product = (props) => {
-  const productID = useParams().id;
   const product = useSelector((store) => store.product);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getProduct(productID));
-  }, []);
 
   if (!product.id) return <h2>Загрузка</h2>;
 

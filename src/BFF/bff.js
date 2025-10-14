@@ -1,4 +1,4 @@
-const ROLES = {
+export const ROLES = {
   admin: '-r1-',
   user: '-r2-',
 };
@@ -52,16 +52,24 @@ export const server = {
 
   async authorize(email, password) {
     const user = await this.getUserByEmail(email);
-
     if (!user) return { error: 'Такой пользователь не найден', response: null };
-
     if (password !== user.password) return { error: 'Неверный пароль', response: null };
-
     delete user.password;
 
     return {
       error: null,
       response: { ...user, hash: await sessions.create(user) },
+    };
+  },
+
+  async authorizeByHash(hash) {
+    const session = await this.getSession(hash);
+    if (!session) return { error: 'Ошибка. Сессия не найдена', response: null };
+    delete session.password;
+
+    return {
+      error: null,
+      response: { ...session.user, hash: session.hash },
     };
   },
 
@@ -153,6 +161,44 @@ export const server = {
     return {
       error: null,
       response: product,
+    };
+  },
+
+  async getAllUsers(hash) {
+    const accessRoles = [ROLES.admin];
+    const access = sessions.access(hash, accessRoles);
+
+    if (!access)
+      return {
+        error: 'Недостаточно прав',
+        response: null,
+      };
+
+    const users = await fetch(`http://localhost:3000/users`).then((res) => res.json());
+
+    return {
+      error: null,
+      response: users,
+    };
+  },
+
+  async getAllProducts(hash) {
+    const accessRoles = [ROLES.admin];
+    const access = sessions.access(hash, accessRoles);
+
+    if (!access)
+      return {
+        error: 'Недостаточно прав',
+        response: null,
+      };
+
+    const products = await fetch(`http://localhost:3000/products`).then((res) =>
+      res.json()
+    );
+
+    return {
+      error: null,
+      response: products,
     };
   },
 };

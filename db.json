@@ -62,15 +62,14 @@
       "id": "ZU9cFLd"
     }
   ],
-
   "products": [
     {
       "id": "product_id",
-      "name": "Donats",
+      "name": "Donuts",
       "description": "Delicious food",
       "price": 100,
       "stock_quantity": 5,
-      "image_URL": "https://avatars.mds.yandex.net/i?id=ae40f5386bf0c3df08e5a33f471e8539c17fcdbe-15273796-images-thumbs&n=13",
+      "image_URL": "https://main-cdn.sbermegamarket.ru/big1/hlr-system/-18/776/468/746/241/049/100023804048b0.jpg",
       "category_id": "-ewr23r23f32f-",
       "comments": {
         "comment_id_0": {
@@ -131,7 +130,6 @@
       }
     }
   ],
-
   "orders": [
     {
       "id": "order_id",
@@ -142,7 +140,6 @@
       "total_amount": 1000
     }
   ],
-
   "shop_cart": [
     {
       "id": "user_id",
@@ -166,7 +163,6 @@
       "total_amount": 1500
     }
   ],
-
   "addresses": [
     {
       "id": "address_0",
@@ -187,7 +183,6 @@
       "postal_code": 111555
     }
   ],
-
   "roles": [
     {
       "id": "r1",
@@ -198,5 +193,46 @@
       "name": "user"
     }
   ],
-  "sessions": []
+  "sessions": [
+    {
+      "hash": "0.58902424590885638089332587696844711899757385253906",
+      "user": {
+        "id": "01",
+        "fullname": "Андрей Админов",
+        "email": "@mail.ru",
+        "phone": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r1-",
+        "addresses": {
+          "address_id_0": {
+            "name": "У дома"
+          },
+          "address_id_1": {
+            "name": "На даче"
+          }
+        }
+      },
+      "id": 1
+    },
+    {
+      "hash": "0.25821329824869421187827356334310024976730346679688",
+      "user": {
+        "id": "01",
+        "fullname": "Андрей Админов",
+        "email": "@mail.ru",
+        "phone": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r1-",
+        "addresses": {
+          "address_id_0": {
+            "name": "У дома"
+          },
+          "address_id_1": {
+            "name": "На даче"
+          }
+        }
+      },
+      "id": 2
+    }
+  ]
 }
