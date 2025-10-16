@@ -27,29 +27,33 @@ export const Product = (props) => {
             <h4>Описание</h4>
             <span>{product.description}.</span>
 
-            <div className={style.specifications}>
-              <h4>Характеристики</h4>
-              {Object.entries(product.specifications).map(([name, value], index) => (
-                <div className={style.spec} key={index}>
-                  <p>{name}</p>
-                  <p>{value}</p>
-                </div>
-              ))}
-            </div>
+            {product.specifications && (
+              <div className={style.specifications}>
+                <h4>Характеристики</h4>
+                {Object.entries(product.specifications).map(([name, value], index) => (
+                  <div className={style.spec} key={index}>
+                    <p>{name}</p>
+                    <p>{value}</p>
+                  </div>
+                ))}
+              </div>
+            )}
 
-            <div className={style.feedbacks}>
-              <h4>Отзывы</h4>
-              {/* Убрать потом ключи по индексу */}
-              {product.comments.map((feedback, index) => (
-                <div className={style.feedback} key={index}>
-                  <img src={feedback.image} />
-                  <p>✯✯✯✯✯</p>
-                  <p className={style.userName}>{feedback.userName}</p>
-                  <h4>{feedback.title}</h4>
-                  <p className={style.feedbackText}>{feedback.value}</p>
-                </div>
-              ))}
-            </div>
+            {product.comments && (
+              <div className={style.feedbacks}>
+                <h4>Отзывы</h4>
+                {/* Убрать потом ключи по индексу */}
+                {product.comments.map((feedback, index) => (
+                  <div className={style.feedback} key={index}>
+                    <img src={feedback.image} />
+                    <p>✯✯✯✯✯</p>
+                    <p className={style.userName}>{feedback.userName}</p>
+                    <h4>{feedback.title}</h4>
+                    <p className={style.feedbackText}>{feedback.value}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

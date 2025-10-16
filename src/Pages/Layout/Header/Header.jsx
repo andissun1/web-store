@@ -27,12 +27,12 @@ export const Header = (props) => {
       </nav>
 
       <nav className={style.secondLine}>
-        <a href="">
+        <Link to={'/'}>
           <img
             src="https://static.insales-cdn.com/files/1/7649/24960481/original/Frame.png"
             alt="logo"
           />
-        </a>
+        </Link>
         <button>
           <span className="icon-bars _show"></span>
           Каталог

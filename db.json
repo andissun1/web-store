@@ -64,32 +64,16 @@
   ],
   "products": [
     {
-      "id": "product_id",
+      "id": "01",
       "name": "Donuts",
       "description": "Delicious food",
       "price": 100,
       "stock_quantity": 5,
       "image_URL": "https://main-cdn.sbermegamarket.ru/big1/hlr-system/-18/776/468/746/241/049/100023804048b0.jpg",
-      "category_id": "-ewr23r23f32f-",
-      "comments": {
-        "comment_id_0": {
-          "stars": 5,
-          "title": "Всё супер!",
-          "description": "Очень вкусный пончик. Взял 10 штук себе и друзьям!",
-          "user_id": "01",
-          "created_at": "10.10.2025"
-        },
-        "comment_id_1": {
-          "stars": 5,
-          "title": "Всё супер!",
-          "description": "Очень вкусный пончик. Взял уже 100 штук себе и друзьям!",
-          "user_id": "01",
-          "created_at": "10.10.2025"
-        }
-      }
+      "category_id": "Самовары"
     },
     {
-      "id": "01",
+      "id": "02",
       "name": "Розовый пончик",
       "description": "Очень классный пончик",
       "price": 100,
@@ -128,6 +112,37 @@
         "Калорийность": "Высокая",
         "Вкус": "Сладкий"
       }
+    },
+    {
+      "id": "PwUuYZF",
+      "name": "Название",
+      "description": "Более подробное описание.",
+      "price": 10,
+      "stock_quantity": "10",
+      "image_URL": "https://img.onet.pl/1/uGxk9lQaHR0cDovL29jZG4uZXUvaW1hZ2VzL3B1bHNjbXMvTURnN01EQV8vYTZjOTk1YzItOWNkYi00M2ZjLTg0ZGQtYmI1YjhhNTNjNWNhLmpwZWeSmgrNAoDNAWgoAAAASxQUkwXNAoDNAWjeAAOhMAehMQShM8M",
+      "category_id": "Выпечка",
+      "comments": null,
+      "specifications": {}
+    },
+    {
+      "id": "Kr69xLQ",
+      "name": "Название",
+      "description": "Более подробное описание.",
+      "price": 10,
+      "stock_quantity": "10",
+      "image_URL": "https://pic.rutubelist.ru/video/2025-01-20/0d/f6/0df61bc5881c7e0224a4b94919c34b48.jpg",
+      "category_id": "Выпечка",
+      "specifications": {}
+    },
+    {
+      "name": "Название",
+      "description": "Более подробное описание.",
+      "price": 10,
+      "stock_quantity": "10",
+      "image_URL": "https://ucare.timepad.ru/912cf965-7121-4d7f-9145-691c53f62554/poster_event_3317087.jpg",
+      "category_id": "Выпечка",
+      "specifications": {},
+      "id": "tK1nFxr"
     }
   ],
   "orders": [
@@ -195,7 +210,7 @@
   ],
   "sessions": [
     {
-      "hash": "0.58902424590885638089332587696844711899757385253906",
+      "hash": "0.99162905536914514037505341548239812254905700683594",
       "user": {
         "id": "01",
         "fullname": "Андрей Админов",
@@ -213,26 +228,6 @@
         }
       },
       "id": 1
-    },
-    {
-      "hash": "0.25821329824869421187827356334310024976730346679688",
-      "user": {
-        "id": "01",
-        "fullname": "Андрей Админов",
-        "email": "@mail.ru",
-        "phone": "123",
-        "created_at": "10.10.2025",
-        "role_id": "-r1-",
-        "addresses": {
-          "address_id_0": {
-            "name": "У дома"
-          },
-          "address_id_1": {
-            "name": "На даче"
-          }
-        }
-      },
-      "id": 2
     }
   ]
 }

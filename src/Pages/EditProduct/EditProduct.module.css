@@ -1,0 +1,147 @@
+@import url('../Product/product.module.css');
+
+.product select {
+  margin-top: 20px;
+  width: fit-content;
+  height: 30px;
+}
+
+.specifications {
+  position: relative;
+}
+
+.specifications > button:first-of-type {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.specifications button:first-of-type > span {
+  padding: 0;
+}
+
+.spec {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-auto-rows: 23px;
+  grid-template-areas: 'text1 removeButton';
+}
+
+.spec button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgb(255, 79, 79);
+  grid-row: span 2;
+  grid-area: removeButton;
+  margin-top: 10px;
+}
+
+.spec button:hover {
+  background-color: red;
+}
+
+.editImg {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.editImg input {
+  height: 20px;
+  border: 1px solid #cccccc;
+}
+
+.editImg button {
+  height: 30px;
+}
+
+.buttonsPanel {
+  display: flex;
+  gap: 10px;
+}
+
+.buttonsPanel button {
+  width: fit-content;
+}
+
+.description span:first-of-type {
+  padding: 0;
+}
+
+.stock_quantity {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.stock_quantity input {
+  border: none;
+  border-bottom: 1px solid #cccccc;
+  font-size: inherit;
+  max-width: 70px;
+}
+
+.stock_quantity input:focus {
+  outline: none;
+}
+/* Модальное окно */
+.modalWindow {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modalContent {
+  background-color: #eee;
+
+  padding: 20px;
+  border-radius: 20px;
+
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: max-content;
+  row-gap: 5px;
+
+  font-size: 18px;
+}
+
+.modalContent label {
+  grid-column: span 3;
+}
+
+.modalContent input {
+  grid-column: span 3;
+  height: 30px;
+  font-size: 18px;
+  padding-left: 5px;
+}
+
+.modalContent button[datatype='save'] {
+  margin-top: 10px;
+  height: 40px;
+}
+
+.modalContent button[datatype='close'] {
+  position: absolute;
+  right: 0px;
+  top: 0;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 0;
+  padding: 0;
+}

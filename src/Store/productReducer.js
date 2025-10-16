@@ -52,3 +52,28 @@ export const getAllProducts =
     if (error) return error;
     dispatch(actions.setAllProducts(response));
   };
+
+export const createProduct =
+  (product) =>
+  async (dispatch, getState, { server, routes }) => {
+    delete product.allProducts;
+    delete product.comments;
+    delete product.id;
+    const hash = getState().user.hash;
+    const { response, error } = await server.createProduct(hash, product);
+    if (error) return error;
+    dispatch(actions.setProduct(response));
+    routes.navigate(`/product/${response.id}`);
+  };
+
+export const deleteProduct =
+  (productID) =>
+  async (dispatch, getState, { server, routes }) => {
+    const hash = getState().user.hash;
+    const { response, error } = await server.deleteProduct(hash, productID);
+    if (error) return error;
+    console.log(response);
+
+    dispatch(actions.removeProduct());
+    routes.navigate(`/adminConsole`);
+  };

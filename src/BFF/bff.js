@@ -201,4 +201,50 @@ export const server = {
       response: products,
     };
   },
+
+  async createProduct(hash, product) {
+    const accessRoles = [ROLES.admin];
+    const access = sessions.access(hash, accessRoles);
+
+    if (!access)
+      return {
+        error: 'Недостаточно прав',
+        response: null,
+      };
+
+    console.log(product);
+
+    const newProduct = await fetch(`http://localhost:3000/products`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...product,
+      }),
+    }).then((res) => res.json());
+
+    return {
+      error: null,
+      response: newProduct,
+    };
+  },
+
+  async deleteProduct(hash, productID) {
+    const accessRoles = [ROLES.admin];
+    const access = sessions.access(hash, accessRoles);
+
+    if (!access)
+      return {
+        error: 'Недостаточно прав',
+        response: null,
+      };
+
+    const response = await fetch(`http://localhost:3000/products/${productID}`, {
+      method: 'DELETE',
+    }).then((res) => res.json());
+
+    return {
+      error: null,
+      response: 'Товар удалён',
+    };
+  },
 };

@@ -8,9 +8,13 @@
 .productCard {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 10px;
+  column-gap: 30px;
   /* border: 1px solid black; */
   padding-top: 40px;
+}
+
+.productCard img:first-of-type {
+  width: 100%;
 }
 
 .productInfo {

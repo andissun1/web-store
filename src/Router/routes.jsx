@@ -12,6 +12,7 @@ import { ErorPage } from '../Pages/ErorPage/ErorPage';
 import { Layout } from '../Pages/Layout/Layout';
 import { getAllProducts, getProduct } from '../Store/productReducer';
 import { getAllUsers } from '../Store/userReducer';
+import { EditProduct } from '../Pages/EditProduct/EditProduct';
 // Динамический импорт чтобы избежать циклической зависимости со Store
 const store = import('../Store/store').then(({ store }) => store);
 
@@ -45,6 +46,14 @@ export const routes = createBrowserRouter([
           store.then(({ dispatch }) => dispatch(getProduct(params.id))),
         hydrateFallbackElement: <Loader />,
       },
+      {
+        path: 'product/:id/edit',
+        Component: EditProduct,
+        loader: async ({ params }) =>
+          store.then(({ dispatch }) => dispatch(getProduct(params.id))),
+        hydrateFallbackElement: <Loader />,
+      },
+      { path: 'product/create', Component: EditProduct },
       {
         path: 'shopCart',
         Component: ShopCart,
