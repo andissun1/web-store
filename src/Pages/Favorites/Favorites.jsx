@@ -1,5 +1,19 @@
+import { useSelector } from 'react-redux';
+import { ProductCard } from '../../Components/ProductCard/ProductCard';
 import style from './Favorites.module.css';
 
-export const Favorites = (props) => {
-  return <div className={style.favorites}>Избранное</div>;
+export const Favorites = () => {
+  const favorites = useSelector((store) => store.app.favoritesCards);
+
+  return (
+    <div className={style.favorites}>
+      <h2>Избранное</h2>
+
+      <div className={style.productList}>
+        {favorites.map((product) => (
+          <ProductCard product={product} key={product.id} />
+        ))}
+      </div>
+    </div>
+  );
 };

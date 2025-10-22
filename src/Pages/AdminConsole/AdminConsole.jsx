@@ -4,8 +4,8 @@ import { Link } from 'react-router';
 import { deleteProduct } from '../../Store/productReducer';
 
 export const AdminConsole = (props) => {
-  const users = useSelector((store) => store.user.allUsers);
-  const products = useSelector((store) => store.product.allProducts);
+  const users = useSelector((store) => store.app.allUsers);
+  const products = useSelector((store) => store.app.allProducts);
   const dispatch = useDispatch();
 
   return (

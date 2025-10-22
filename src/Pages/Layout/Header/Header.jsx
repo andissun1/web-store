@@ -46,10 +46,10 @@ export const Header = (props) => {
         <div className={style.controlPannel}>
           <Link to={'/auth'} className="icon-user" href="" />
           {isAdmin && <Link to={'/adminConsole'} className="icon-tasks" />}
-          <a className="icon-favorites" href="" />
-          <a className="icon-cart" href="">
+          <Link to={'/favorites'} className="icon-favorites" />
+          <Link to={'/shopCart'} className="icon-cart">
             <span>10 860 P</span>
-          </a>
+          </Link>
         </div>
       </nav>
     </header>

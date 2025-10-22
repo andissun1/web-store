@@ -10,8 +10,9 @@ import { NewOrder } from '../Pages/NewOrder/NewOrder';
 import { AdminConsole } from '../Pages/AdminConsole/AdminConsole';
 import { ErorPage } from '../Pages/ErorPage/ErorPage';
 import { Layout } from '../Pages/Layout/Layout';
-import { getAllProducts, getProduct } from '../Store/productReducer';
-import { getAllUsers } from '../Store/userReducer';
+import { getProduct } from '../Store/productReducer';
+import { getAllProducts, getFavorites } from '../Store/appReducer';
+import { getAllUsers } from '../Store/appReducer';
 import { EditProduct } from '../Pages/EditProduct/EditProduct';
 // Динамический импорт чтобы избежать циклической зависимости со Store
 const store = import('../Store/store').then(({ store }) => store);
@@ -38,7 +39,11 @@ export const routes = createBrowserRouter([
       {
         path: 'collection',
         Component: Collection,
+        loader: async ({ params }) =>
+          store.then(({ dispatch }) => dispatch(getAllProducts())),
+        hydrateFallbackElement: <Loader />,
       },
+
       {
         path: 'product/:id',
         Component: Product,
@@ -61,6 +66,8 @@ export const routes = createBrowserRouter([
       {
         path: 'favorites',
         Component: Favorites,
+        loader: async () => store.then(({ dispatch }) => dispatch(getFavorites())),
+        hydrateFallbackElement: <Loader />,
       },
       {
         path: 'search',

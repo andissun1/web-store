@@ -23,9 +23,6 @@ const userSlice = createSlice({
       sessionStorage.clear();
       return initialState;
     },
-    setAllUsers(state, action) {
-      state.allUsers = action.payload;
-    },
   },
 });
 
@@ -68,12 +65,3 @@ export const resetPassword =
   (formData) =>
   (dispatch, getState, { server }) =>
     server.resetPassword(formData);
-
-export const getAllUsers =
-  () =>
-  async (dispatch, getState, { server }) => {
-    const hash = getState().user.hash;
-    const { response, error } = await server.getAllUsers(hash);
-    if (error) return error;
-    dispatch(actions.setAllUsers(response));
-  };

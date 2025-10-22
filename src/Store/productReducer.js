@@ -22,9 +22,6 @@ const productSlice = createSlice({
     removeProduct() {
       return initialState;
     },
-    setAllProducts(state, action) {
-      state.allProducts = action.payload;
-    },
   },
 });
 
@@ -43,15 +40,6 @@ export const getProduct = (productID) => async (dispatch, getState, extraArg) =>
   dispatch(actions.setProduct(response));
   return response;
 };
-
-export const getAllProducts =
-  () =>
-  async (dispatch, getState, { server }) => {
-    const hash = getState().user.hash;
-    const { response, error } = await server.getAllProducts(hash);
-    if (error) return error;
-    dispatch(actions.setAllProducts(response));
-  };
 
 export const createProduct =
   (product) =>

@@ -40,7 +40,7 @@ export const Main = () => {
               скидками.
             </span>
           </div>
-          <Link to={'/product/02'}>
+          <Link to={'/collection'}>
             <button>Все товары</button>
           </Link>
         </div>
@@ -48,7 +48,7 @@ export const Main = () => {
       <div className={style.collections}>
         {collections.map((category) => {
           return (
-            <div className={style.collectionCard}>
+            <div className={style.collectionCard} key={category.img}>
               <img src={category.img} />
               <span>{category.text}</span>
             </div>

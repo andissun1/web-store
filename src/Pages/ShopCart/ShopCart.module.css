@@ -1,3 +1,49 @@
 .shopCart {
-  color: red;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  min-height: 80vh;
+  gap: 30px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f7f7f7;
+  max-width: 400px;
+  border-radius: 12px;
+  padding: 24px;
+  height: fit-content;
+}
+
+.info__title {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.buy {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.share {
+  width: 100%;
+  background-color: white;
+  color: black;
+}
+
+.promocode {
+  font-weight: 500;
+  color: #7188d4;
+  cursor: pointer;
+}
+
+.price {
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.share:hover {
+  background-color: white;
 }

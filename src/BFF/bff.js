@@ -183,14 +183,14 @@ export const server = {
   },
 
   async getAllProducts(hash) {
-    const accessRoles = [ROLES.admin];
-    const access = sessions.access(hash, accessRoles);
+    // const accessRoles = [ROLES.admin];
+    // const access = sessions.access(hash, accessRoles);
 
-    if (!access)
-      return {
-        error: 'Недостаточно прав',
-        response: null,
-      };
+    // if (!access)
+    //   return {
+    //     error: 'Недостаточно прав',
+    //     response: null,
+    //   };
 
     const products = await fetch(`http://localhost:3000/products`).then((res) =>
       res.json()
