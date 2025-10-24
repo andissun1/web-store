@@ -6,6 +6,8 @@ const initialState = {
   allUsers: null,
   favorites: null,
   favoritesCards: null,
+  search: { searchPhrase: null, result: null, error: null },
+  categories: null,
 };
 
 const appSlice = createSlice({
@@ -13,7 +15,7 @@ const appSlice = createSlice({
   initialState,
   reducers: {
     setError(state, action) {
-      return { errors: action.payload };
+      state.errors = action.payload;
     },
     setAllProducts(state, action) {
       state.allProducts = action.payload;
@@ -26,6 +28,18 @@ const appSlice = createSlice({
     },
     setFavoritesCards(state, action) {
       state.favoritesCards = action.payload;
+    },
+    setSearchPhrase(state, action) {
+      state.search.searchPhrase = action.payload;
+    },
+    setResult(state, action) {
+      state.search.result = action.payload;
+    },
+    setSearchError(state, action) {
+      state.search.error = action.payload;
+    },
+    setCategories(state, action) {
+      state.categories = action.payload;
     },
   },
 });
@@ -77,4 +91,22 @@ export const getFavorites =
       favorites.includes(product.id)
     );
     dispatch(actions.setFavoritesCards(favoriteProducts));
+  };
+
+export const getSearchResults =
+  (value) =>
+  async (dispatch, getState, { server }) => {
+    const response = await server.findPhrase(value);
+    if (response.error) return dispatch(actions.setSearchError(response.error));
+    dispatch(actions.setSearchError(null));
+    dispatch(actions.setResult(response.response));
+  };
+
+export const getCategories =
+  () =>
+  async (dispatch, getState, { server }) => {
+    const response = await server.getCategories();
+    if (response.error) return dispatch(actions.setError(response.error));
+    dispatch(actions.setError(null));
+    dispatch(actions.setCategories(response.response));
   };

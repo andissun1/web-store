@@ -37,7 +37,7 @@ export const routes = createBrowserRouter([
       },
       ...authPage(),
       {
-        path: 'collection',
+        path: 'collection/:id',
         Component: Collection,
         loader: async ({ params }) =>
           store.then(({ dispatch }) => dispatch(getAllProducts())),

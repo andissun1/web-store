@@ -51,10 +51,34 @@
 }
 
 .addToCart {
+  position: relative;
   grid-area: button;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   font-size: 20px;
   margin-left: auto;
+}
+
+.addToCart p {
+  font-size: 12px;
+  white-space: nowrap;
+  font-weight: lighter;
+}
+
+.counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgb(142, 160, 221);
+  font-weight: normal;
+
+  position: absolute;
+  font-size: 12px;
+  top: -7px;
+  right: -7px;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
 }

@@ -1,10 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import style from './ActionsPanel.module.css';
 import { addToFavorites, removeFromFavorites } from '../../Store/appReducer';
+import { addToCart, decreaseProductCount } from '../../Store/cartReducer';
 
 export const ActionsPanel = ({ product }) => {
   const favorites = useSelector((store) => store.app.favorites);
   const isFavorite = favorites.includes(product.id);
+  const cart = useSelector((store) => store.cart.products);
+  const isAddedToCart = cart.find((productInCart) => productInCart.id === product.id);
   const dispatch = useDispatch();
 
   const toggleHeart = (event) => {
@@ -15,11 +18,38 @@ export const ActionsPanel = ({ product }) => {
     }
   };
 
+  const handleAddToCart = () => {
+    dispatch(addToCart(product.id));
+  };
+
+  const increaseCount = (params) => {
+    dispatch(addToCart(product.id));
+  };
+
+  const decreaseCount = (params) => {
+    dispatch(decreaseProductCount(product.id));
+  };
+
   return (
     <div className={style.actionsPanel}>
-      <button className={style.addToCart}>
-        <span className="button__icon icon-cart" /> В корзину
-      </button>
+      {isAddedToCart ? (
+        <>
+          <button onClick={decreaseCount} className={style.controller}>
+            <span className="icon icon-minus" />
+          </button>
+          <button className={style.addToCart} onClick={handleAddToCart}>
+            <span className="button__icon icon-cart" />
+            {`В корзине ${isAddedToCart.count} шт`}
+          </button>
+          <button onClick={increaseCount} className={style.controller}>
+            <span className="icon icon-plus" />
+          </button>
+        </>
+      ) : (
+        <button className={style.addToCart} onClick={handleAddToCart}>
+          <span className="button__icon icon-cart" /> В корзину
+        </button>
+      )}
       <button className={style.buy}>Купить в 1 клик</button>
       <button className={style.addToFavorite} onClick={toggleHeart}>
         <span

@@ -1,10 +1,32 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import style from './Header.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ROLES } from '../../../BFF/bff';
+import { getSearchResults } from '../../../Store/appReducer';
+import { useEffect, useMemo } from 'react';
+import { getShopCartProducts } from '../../../Store/cartReducer';
 
 export const Header = (props) => {
   const isAdmin = useSelector((store) => store.user.role_id) === ROLES.admin;
+  const products = useSelector((store) => store.cart.products);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getShopCartProducts());
+  }, [products]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(getSearchResults(event.target.search.value));
+    navigate('/search');
+  };
+
+  const total = useMemo(
+    () => products.reduce((acc, product) => (acc += product.price * product.count), 0),
+    [products, products.length]
+  );
 
   return (
     <header>
@@ -37,9 +59,9 @@ export const Header = (props) => {
           <span className="icon-bars _show"></span>
           Каталог
         </button>
-        <form action="">
-          <input type="text" placeholder="Поиск" />
-          <button>
+        <form action="" onSubmit={handleSubmit}>
+          <input type="text" placeholder="Поиск" name="search" />
+          <button type="submit">
             <span className="icon-search"></span>
           </button>
         </form>
@@ -48,7 +70,7 @@ export const Header = (props) => {
           {isAdmin && <Link to={'/adminConsole'} className="icon-tasks" />}
           <Link to={'/favorites'} className="icon-favorites" />
           <Link to={'/shopCart'} className="icon-cart">
-            <span>10 860 P</span>
+            <span>{total} ₽</span>
           </Link>
         </div>
       </nav>

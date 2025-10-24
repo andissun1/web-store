@@ -1,35 +1,28 @@
 import { NavLink } from 'react-router';
 import style from './SideMenu.module.css';
-
-// NavLink будет динамически создаваться по наличию категорий в массиве
-
-const categories = [
-  'Для девочек',
-  'Для мальчиков',
-  'Для новорожденных',
-  'Канцелярия',
-  'Аксессуары',
-  'Спорт',
-  'Настольные игры',
-  'Коляски',
-  'Развитие',
-  'Конструкторы',
-  'Хиты',
-  'Новинки',
-  'Акции',
-  'Популярное',
-];
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from '../../Store/appReducer';
 
 export const SideMenu = (props) => {
+  const dispatch = useDispatch();
+  const categories = useSelector((store) => store.app.categories);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+
+  if (!categories) return <h2></h2>;
+
   return (
     <div className={style.SideMenu}>
       <nav>
         {categories.map((category) => (
           <NavLink
-            to={category}
-            children={category}
+            to={`/collection/${category.id}`}
+            children={category.name}
             className={style.navLink}
-            key={category}
+            key={category.id}
           />
         ))}
       </nav>

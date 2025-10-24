@@ -17,6 +17,7 @@
 
 .addToCart {
   flex: 4;
+  min-width: fit-content;
 }
 
 .buy {
@@ -32,9 +33,20 @@
 .addToFavorite {
   flex: 0.5;
   background-color: rgb(247, 247, 247);
-  color: rgb(45, 45, 45);
+  color: rgb(120, 139, 200);
 }
 
 .addToFavorite:hover {
   background-color: #ededed;
+}
+
+.controller {
+  background-color: rgb(247, 247, 247);
+  color: black;
+  width: fit-content;
+  margin: 0;
+}
+
+.controller:hover {
+  background-color: rgb(247, 247, 247);
 }

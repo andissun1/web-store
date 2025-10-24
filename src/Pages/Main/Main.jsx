@@ -40,7 +40,7 @@ export const Main = () => {
               скидками.
             </span>
           </div>
-          <Link to={'/collection'}>
+          <Link to={'/collection/1'}>
             <button>Все товары</button>
           </Link>
         </div>

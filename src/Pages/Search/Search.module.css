@@ -1,3 +1,11 @@
 .search {
-  font-weight: bold;
+  margin: auto;
+  width: fit-content;
+  min-height: 80vh;
+}
+
+.productList {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 30px;
 }

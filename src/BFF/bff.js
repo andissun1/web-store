@@ -247,4 +247,38 @@ export const server = {
       response: 'Товар удалён',
     };
   },
+
+  async findPhrase(value) {
+    const response = await fetch(`http://localhost:3000/products?q=${value}`).then(
+      (res) => res.json()
+    );
+
+    if (response.length === 0)
+      return {
+        error: 'Ничего не найдено',
+        response: null,
+      };
+
+    return {
+      error: null,
+      response,
+    };
+  },
+
+  async getCategories() {
+    const response = await fetch(`http://localhost:3000/categories`).then((res) =>
+      res.json()
+    );
+
+    if (response.length === 0)
+      return {
+        error: 'Ошибка при загрузке категорий',
+        response: null,
+      };
+
+    return {
+      error: null,
+      response,
+    };
+  },
 };

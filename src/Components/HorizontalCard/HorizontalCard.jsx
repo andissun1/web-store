@@ -2,12 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from './HorizontalCard.module.css';
 import { addToCart, decreaseProductCount, actions } from '../../Store/cartReducer';
 import { addToFavorites, removeFromFavorites } from '../../Store/appReducer';
-import { useMemo } from 'react';
+import { useNavigate } from 'react-router';
 
 export const HorizontalCard = ({ product }) => {
   const dispatch = useDispatch();
   const favorites = useSelector((store) => store.app.favorites);
   const isFavorite = favorites.includes(product.id);
+  const navigate = useNavigate();
 
   const handleRemoveItem = () => {
     dispatch(actions.removeFromCart(product.id));
@@ -29,13 +30,17 @@ export const HorizontalCard = ({ product }) => {
     dispatch(decreaseProductCount(product.id));
   };
 
+  const goToCard = (params) => {
+    navigate(`/product/${product.id}`);
+  };
+
   if (!product) return;
 
   return (
     <div className={style.productList}>
       <div className={style.horizontalCard}>
         <div className={style.descr}>
-          <img src={product.image_URL} />
+          <img src={product.image_URL} onClick={goToCard} />
           <h2>{product.name}</h2>
           <div className={style.cardActions}>
             <button onClick={toggleHeart}>

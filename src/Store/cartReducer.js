@@ -39,6 +39,7 @@ const cartSlice = createSlice({
 export const { reducer, actions } = cartSlice;
 
 export const addToCart = (id) => async (dispatch, getState) => {
+  console.log(123);
   let products = getState().cart.products;
   if (!products) return dispatch(actions.setCartProduct([{ id, count: 1 }]));
   const indexInCart = products.findIndex((product) => product.id === id);

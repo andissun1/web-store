@@ -7,7 +7,9 @@ import { addToCart } from '../../Store/cartReducer';
 export const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const favorites = useSelector((store) => store.app.favorites);
+  const cart = useSelector((store) => store.cart.products);
   const isFavorite = favorites.includes(product.id);
+  const isAddedToCart = cart.find((productInCart) => productInCart.id === product.id);
 
   const toggleHeart = () => {
     if (isFavorite) {
@@ -41,7 +43,16 @@ export const ProductCard = ({ product }) => {
         <span className={style.name}>{product.name}</span>
         <span className={style.price}>{product.price} ₽</span>
         <button className={style.addToCart} onClick={handleAddToCart}>
-          <span className="add-cart-counter__btn-icon icon-cart" />
+          <span
+            className={
+              isAddedToCart
+                ? 'add-cart-counter__detail-count'
+                : 'add-cart-counter__btn-icon icon-cart'
+            }
+          >
+            {isAddedToCart && <p>+ 1 шт</p>}
+          </span>
+          {isAddedToCart && <span className={style.counter}>{isAddedToCart.count}</span>}
         </button>
       </div>
     </div>
