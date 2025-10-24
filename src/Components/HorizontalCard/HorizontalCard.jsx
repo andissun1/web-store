@@ -1,30 +1,66 @@
+import { useDispatch, useSelector } from 'react-redux';
 import style from './HorizontalCard.module.css';
+import { addToCart, decreaseProductCount, actions } from '../../Store/cartReducer';
+import { addToFavorites, removeFromFavorites } from '../../Store/appReducer';
+import { useMemo } from 'react';
 
-export const HorizontalCard = (props) => {
+export const HorizontalCard = ({ product }) => {
+  const dispatch = useDispatch();
+  const favorites = useSelector((store) => store.app.favorites);
+  const isFavorite = favorites.includes(product.id);
+
+  const handleRemoveItem = () => {
+    dispatch(actions.removeFromCart(product.id));
+  };
+
+  const toggleHeart = () => {
+    if (isFavorite) {
+      dispatch(removeFromFavorites(product.id));
+    } else {
+      dispatch(addToFavorites(product.id));
+    }
+  };
+
+  const increaseCount = (params) => {
+    dispatch(addToCart(product.id));
+  };
+
+  const decreaseCount = (params) => {
+    dispatch(decreaseProductCount(product.id));
+  };
+
+  if (!product) return;
+
   return (
     <div className={style.productList}>
       <div className={style.horizontalCard}>
         <div className={style.descr}>
-          <img src="https://static.insales-cdn.com/images/products/1/2140/618743900/large_card__7_.png" />
-          <h2>Мягкая игрушка</h2>
+          <img src={product.image_URL} />
+          <h2>{product.name}</h2>
           <div className={style.cardActions}>
-            <button>
-              <span className="btn-icon icon-favorites"></span>В избранном
+            <button onClick={toggleHeart}>
+              <span
+                className={
+                  isFavorite ? 'btn-icon icon-favorites-f' : 'btn-icon icon-favorites'
+                }
+              />
+              В избранном
             </button>
-            <button>
-              <span className="icon icon-trash"></span>Удалить
+            <button onClick={handleRemoveItem}>
+              <span className="icon icon-trash" />
+              Удалить
             </button>
           </div>
         </div>
         <div className={style.secondDescription}>
-          <span className={style.price}>3 660 ₽</span>
+          <span className={style.price}>{product.price} ₽</span>
           <div className={style.controller}>
-            <button>
-              <span className="icon icon-minus"></span>
+            <button onClick={decreaseCount}>
+              <span className="icon icon-minus" />
             </button>
-            <input type="text" defaultValue={'5'} />
-            <button>
-              <span className="icon icon-plus"></span>
+            <input type="text" value={product.count} disabled />
+            <button onClick={increaseCount}>
+              <span className="icon icon-plus" />
             </button>
           </div>
         </div>

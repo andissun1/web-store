@@ -19,7 +19,7 @@ export const Product = (props) => {
         <div className={style.productInfo}>
           <h2>{product.name}</h2>
           <p className={style.price}>{product.price} ₽</p>
-          <ActionsPanel />
+          <ActionsPanel product={product} />
 
           <div className={style.description}>
             {/* Ниже требуется правка для указания имени категории */}

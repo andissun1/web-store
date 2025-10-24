@@ -18,12 +18,13 @@
   font-weight: 500;
 }
 
-.descr > img {
+.descr img {
   width: 200px;
   height: 200px;
   display: block;
   float: left;
   grid-row: span 3;
+  object-fit: contain;
 }
 
 .cardActions {
