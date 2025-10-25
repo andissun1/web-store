@@ -281,4 +281,43 @@ export const server = {
       response,
     };
   },
+
+  async getCategory(id) {
+    const response = await fetch(`http://localhost:3000/products?category_id=${id}`).then(
+      (res) => res.json()
+    );
+
+    if (response.length === 0)
+      return {
+        error: 'Ошибка при загрузке категорий',
+        response: null,
+      };
+
+    return {
+      error: null,
+      response,
+    };
+  },
+
+  async sortCollection(id, sortType) {
+    const sortParams = sortType.split('/');
+    console.log(sortParams);
+
+    const response = await fetch(
+      `http://localhost:3000/products?_sort=${sortParams[0]}&_order=${sortParams[1]}&category_id=${id}`
+    ).then((res) => res.json());
+
+    console.log(response);
+
+    if (response.length === 0)
+      return {
+        error: 'Ошибка при сортировке категорий',
+        response: null,
+      };
+
+    return {
+      error: null,
+      response,
+    };
+  },
 };

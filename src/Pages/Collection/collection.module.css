@@ -2,10 +2,29 @@
   margin: auto;
   width: fit-content;
   min-height: 80vh;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
 }
 
 .productList {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 30px;
+}
+
+.filtersPanel {
+  margin: 40px 0;
+}
+
+.selector {
+  width: 200px;
+  height: 35px;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+}
+
+.selector option {
+  border: none;
+  height: 140px;
 }

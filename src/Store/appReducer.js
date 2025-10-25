@@ -110,3 +110,21 @@ export const getCategories =
     dispatch(actions.setError(null));
     dispatch(actions.setCategories(response.response));
   };
+
+export const getCategory =
+  (id) =>
+  async (dispatch, getState, { server }) => {
+    const response = await server.getCategory(id);
+    if (response.error) return dispatch(actions.setError(response.error));
+    dispatch(actions.setError(null));
+    dispatch(actions.setAllProducts(response.response));
+  };
+
+export const sortCollection =
+  (id, sortType) =>
+  async (dispatch, getState, { server }) => {
+    const response = await server.sortCollection(id, sortType);
+    if (response.error) return dispatch(actions.setError(response.error));
+    dispatch(actions.setError(null));
+    dispatch(actions.setAllProducts(response.response));
+  };
