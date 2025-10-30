@@ -35,7 +35,11 @@
   color: rgb(45, 45, 45);
 }
 
-.description span:first-of-type {
+.description h4 {
+  margin: 20px 0;
+}
+
+.short_description {
   display: inline-block;
   padding-top: 20px;
 }
@@ -97,4 +101,26 @@
 .spec p:first-of-type {
   font-size: 14px;
   color: rgb(150, 150, 150);
+}
+
+.openFeedback {
+  background-color: transparent;
+  color: rgb(113, 136, 212);
+  width: fit-content;
+  padding: 0;
+  margin: 0;
+
+  font-size: 18px;
+}
+
+.feedBlock {
+  margin-top: 20px;
+}
+
+.titleFeed {
+  margin: 20px 0;
+}
+
+.openFeedback:hover {
+  background-color: white;
 }

@@ -23,9 +23,15 @@ export const Product = (props) => {
 
           <div className={style.description}>
             {/* Ниже требуется правка для указания имени категории */}
-            <span>{product.category_id}</span>
-            <h4>Описание</h4>
-            <span>{product.description}.</span>
+            {product.short_description && (
+              <span className={style.short_description}>{product.short_description}</span>
+            )}
+            {product.description && (
+              <>
+                <h4>Описание</h4>
+                <span>{product.description}.</span>{' '}
+              </>
+            )}
 
             {product.specifications && (
               <div className={style.specifications}>
@@ -39,7 +45,7 @@ export const Product = (props) => {
               </div>
             )}
 
-            {product.comments && (
+            {product.comments ? (
               <div className={style.feedbacks}>
                 <h4>Отзывы</h4>
                 {/* Убрать потом ключи по индексу */}
@@ -52,6 +58,12 @@ export const Product = (props) => {
                     <p className={style.feedbackText}>{feedback.value}</p>
                   </div>
                 ))}
+              </div>
+            ) : (
+              <div className={style.feedBlock}>
+                <h4 className={style.titleFeed}>Отзывы</h4>
+                <span>Отзывов ещё никто не оставлял</span>
+                <button className={style.openFeedback}>Написать отзыв</button>
               </div>
             )}
           </div>
