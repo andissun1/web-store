@@ -20,7 +20,7 @@ export const ProductCard = ({ product }) => {
   };
 
   const handleAddToCart = () => {
-    dispatch(addToCart(product.id));
+    dispatch(addToCart(product));
   };
 
   if (!product) return;

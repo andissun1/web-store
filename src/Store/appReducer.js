@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   errors: null,
-  allProducts: null,
-  allUsers: null,
-  favorites: null,
+  allProducts: [],
+  allUsers: [],
+  favorites: [],
   favoritesCards: null,
   search: { searchPhrase: null, result: null, error: null },
   categories: null,

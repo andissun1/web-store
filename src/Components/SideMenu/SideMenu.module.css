@@ -1,10 +1,9 @@
 .SideMenu {
-  max-width: 330px;
+  width: 230px;
+  margin-right: 20px;
   display: flex;
   flex-direction: column;
-
   gap: 30px;
-
   grid-row: span 6;
 }
 
@@ -24,45 +23,4 @@
 .SideMenu h3 {
   font-size: 24px;
   margin: 0 0 10px 0;
-}
-
-.social .icons {
-  display: flex;
-  justify-content: flex-start;
-  gap: 20px;
-}
-
-.social img {
-  height: 47px;
-}
-
-.widget_popular {
-  margin-bottom: 50px;
-}
-
-.widget_popular img {
-  height: 60px;
-}
-
-.product {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 30px;
-  align-items: center;
-  column-gap: 10px;
-
-  padding: 12px;
-
-  background-color: rgb(229, 235, 255);
-
-  margin-bottom: 20px;
-  border-radius: 4px;
-}
-
-.product p {
-  margin: 0;
-}
-
-.product img {
-  grid-row: span 2;
 }

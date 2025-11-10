@@ -12,7 +12,7 @@ export const Collection = (props) => {
   const collectionID = useParams().id;
   const dispatch = useDispatch();
 
-  const collectionName = categories?.find((item) => item.id === collectionID).name;
+  const collectionName = categories?.find((item) => item.id === collectionID)?.name;
 
   const handleSort = ({ target }) => {
     dispatch(sortCollection(collectionID, target.value));

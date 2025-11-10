@@ -1,52 +1,35 @@
-/* Самая верхняя полоса */
-.firstLine {
-  background-color: #e5ebff;
+/* Фиолетовая полоса */
+.purpleLine {
+  background-color: var(--lightPurple);
 }
 
 .headerContent {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
 
   height: 43px;
-  margin: auto;
-
   max-width: 1470px;
+  margin: auto;
 }
 
-.firstLine ul {
+.headerContent ul {
   display: flex;
-  gap: 10px;
-  list-style: none;
+  gap: 20px;
   width: 100%;
-
+  list-style: none;
   cursor: pointer;
-
-  padding: 0;
+  padding-left: 0;
 }
 
-.firstLine li {
-  padding-right: 10px;
-  text-align: left;
-}
-
-.firstLine div {
-  min-width: max-content;
-
-  display: flex;
-  align-items: center;
-
+.headerContent p {
+  min-width: fit-content;
   color: #969696;
 }
 
-.firstLine a {
-  min-width: max-content;
-
-  display: flex;
-  align-items: center;
-
-  text-decoration: none;
+.headerContent a {
+  min-width: fit-content;
   color: black;
 }
 
@@ -63,7 +46,7 @@
   margin-bottom: 50px;
 }
 
-.secondLine a > img {
+.logo img {
   height: 90%;
 }
 
@@ -75,17 +58,13 @@
   margin-right: 30px;
 }
 
-.secondLine button > span {
-  font-size: 20px;
-}
-
 /* Стилизация инпута */
-.secondLine form {
-  flex: 7;
+.search {
   display: flex;
+  flex: 7;
 }
 
-.secondLine input {
+.search input {
   width: calc(100% - 50px);
 
   font-family: inherit;
@@ -98,30 +77,26 @@
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
   padding: 7px;
-
   height: 50px;
   box-sizing: border-box;
 }
 
-.secondLine input::placeholder {
+.search input::placeholder {
   color: #dde0e8;
 }
 
-.secondLine input:focus {
+.search input:focus {
   outline: none;
   border-color: rgb(204, 204, 204);
 }
 
-.secondLine form > button {
+.search button {
   width: 50px;
   height: 50px;
 
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-}
-
-.secondLine form > button span {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 /* Панелька с кнопками */
@@ -140,7 +115,7 @@
   color: black;
 }
 
-.controlPannel a > span {
+.controlPannel span {
   font-family: PT Root UI;
   font-size: 18px;
   color: #7188d4;

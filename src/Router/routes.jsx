@@ -17,7 +17,7 @@ import { EditProduct } from '../Pages/EditProduct/EditProduct';
 // Динамический импорт чтобы избежать циклической зависимости со Store
 const store = import('../Store/store').then(({ store }) => store);
 
-const authPage = () =>
+const auth = () =>
   ['auth', 'register', 'resetPassword'].map((path) => ({
     path,
     Component: Auth,
@@ -35,7 +35,7 @@ export const routes = createBrowserRouter([
         index: true,
         Component: Main,
       },
-      ...authPage(),
+      ...auth(),
       {
         path: 'collection/:id',
         Component: Collection,

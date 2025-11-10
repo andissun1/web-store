@@ -1,7 +1,7 @@
 import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = {
-  products: null,
+  products: [],
   promocode: null,
   total: null,
 };
@@ -38,14 +38,13 @@ const cartSlice = createSlice({
 
 export const { reducer, actions } = cartSlice;
 
-export const addToCart = (id) => async (dispatch, getState) => {
-  console.log(123);
-  let products = getState().cart.products;
-  if (!products) return dispatch(actions.setCartProduct([{ id, count: 1 }]));
-  const indexInCart = products.findIndex((product) => product.id === id);
+export const addToCart = (product) => async (dispatch, getState) => {
+  let shopCart = getState().cart.products;
+  if (!shopCart) return dispatch(actions.setCartProduct([{ ...product, count: 1 }]));
+  const indexInCart = shopCart.findIndex((position) => position.id === product.id);
   if (indexInCart > -1) {
     dispatch(actions.increasePosition(indexInCart));
-  } else dispatch(actions.addCartProduct([{ id, count: 1 }]));
+  } else dispatch(actions.addCartProduct([{ ...product, count: 1 }]));
 };
 
 export const decreaseProductCount = (id) => async (dispatch, getState) => {

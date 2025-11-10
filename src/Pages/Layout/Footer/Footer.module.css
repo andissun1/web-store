@@ -95,14 +95,5 @@
 .address {
   font-size: 18px;
   padding-top: 12px;
-}
-
-.socialItems {
-  padding-top: 32px;
-  width: 100%;
-}
-
-.socialItems img {
-  width: 30px;
-  margin-right: 15px;
+  margin-bottom: 20px;
 }

@@ -1,0 +1,24 @@
+/* Постеры про преимущества */
+
+.benefits {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #e5ebff;
+  height: 200px;
+}
+
+.benefits img {
+  margin: auto;
+  height: 75px;
+  width: 75px;
+  object-fit: contain;
+}
+
+.benefitsCard {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  text-align: center;
+  font-size: 17px;
+}

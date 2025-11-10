@@ -1,0 +1,12 @@
+/* Виджет с категориями */
+
+.collections {
+  display: flex;
+  gap: 40px;
+  padding: 40px;
+}
+
+.collectionCard {
+  width: 250px;
+  height: 250px;
+}

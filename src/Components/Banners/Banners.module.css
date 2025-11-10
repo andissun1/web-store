@@ -1,0 +1,6 @@
+/* Два красивых постера */
+
+.banners {
+  display: flex;
+  gap: 50px;
+}

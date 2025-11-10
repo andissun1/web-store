@@ -1,0 +1,32 @@
+.widget_popular {
+  margin-bottom: 50px;
+}
+
+.widget_popular img {
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+}
+
+.product {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 30px;
+  align-items: center;
+  column-gap: 10px;
+
+  padding: 12px;
+
+  background-color: rgb(229, 235, 255);
+
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.product p {
+  margin: 0;
+}
+
+.product img {
+  grid-row: span 2;
+}
