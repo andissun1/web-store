@@ -10,20 +10,12 @@ import { NewOrder } from '../Pages/NewOrder/NewOrder';
 import { AdminConsole } from '../Pages/AdminConsole/AdminConsole';
 import { ErorPage } from '../Pages/ErorPage/ErorPage';
 import { Layout } from '../Pages/Layout/Layout';
-import { getProduct } from '../Store/productReducer';
 import { getAllProducts, getFavorites } from '../Store/appReducer';
 import { getAllUsers } from '../Store/appReducer';
 import { EditProduct } from '../Pages/EditProduct/EditProduct';
 // Динамический импорт чтобы избежать циклической зависимости со Store
 const store = import('../Store/store').then(({ store }) => store);
 
-const auth = () =>
-  ['auth', 'register', 'resetPassword'].map((path) => ({
-    path,
-    Component: Auth,
-  }));
-
-// Можно будет нарисовать и вынести в компоненты
 const Loader = () => <h2>Загрузка...</h2>;
 
 export const routes = createBrowserRouter([
@@ -35,28 +27,22 @@ export const routes = createBrowserRouter([
         index: true,
         Component: Main,
       },
-      ...auth(),
+      {
+        path: '/auth/:type',
+        Component: Auth,
+      },
       {
         path: 'collection/:id',
         Component: Collection,
-        loader: async ({ params }) =>
-          store.then(({ dispatch }) => dispatch(getAllProducts())),
-        hydrateFallbackElement: <Loader />,
       },
 
       {
         path: 'product/:id',
         Component: Product,
-        loader: async ({ params }) =>
-          store.then(({ dispatch }) => dispatch(getProduct(params.id))),
-        hydrateFallbackElement: <Loader />,
       },
       {
         path: 'product/:id/edit',
         Component: EditProduct,
-        loader: async ({ params }) =>
-          store.then(({ dispatch }) => dispatch(getProduct(params.id))),
-        hydrateFallbackElement: <Loader />,
       },
       { path: 'product/create', Component: EditProduct },
       {

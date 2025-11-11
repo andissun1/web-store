@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import style from './ActionsPanel.module.css';
 import { addToFavorites, removeFromFavorites } from '../../Store/appReducer';
 import { addToCart, decreaseProductCount } from '../../Store/cartReducer';
+import style from './ActionsPanel.module.css';
 
 export const ActionsPanel = ({ product }) => {
   const favorites = useSelector((store) => store.app.favorites);
@@ -10,20 +10,18 @@ export const ActionsPanel = ({ product }) => {
   const isAddedToCart = cart.find((productInCart) => productInCart.id === product.id);
   const dispatch = useDispatch();
 
-  const toggleHeart = (event) => {
-    if (isFavorite) {
-      dispatch(removeFromFavorites(product.id));
-    } else {
-      dispatch(addToFavorites(product.id));
-    }
+  const toggleHeart = () => {
+    isFavorite
+      ? dispatch(removeFromFavorites(product.id))
+      : dispatch(addToFavorites(product.id));
   };
 
   const handleAddToCart = () => {
-    dispatch(addToCart(product.id));
+    dispatch(addToCart(product));
   };
 
   const increaseCount = (params) => {
-    dispatch(addToCart(product.id));
+    dispatch(addToCart(product));
   };
 
   const decreaseCount = (params) => {

@@ -4,8 +4,8 @@
   min-height: 50vh;
 }
 
-.title {
-  padding: 1rem;
+.form h2 {
+  padding: 1rem 0;
   margin: 0;
 }
 
@@ -17,18 +17,6 @@
   max-width: 700px;
 
   font-size: 16px;
-  font-weight: normal;
-}
-
-.buttons {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.buttons button {
-  height: 40px;
-  width: fit-content;
   font-weight: normal;
 }
 

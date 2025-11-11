@@ -70,7 +70,7 @@ export const Header = () => {
         </form>
 
         <nav className={style.controlPannel}>
-          <Link to={'/auth'} className="icon-user" />
+          <Link to={'/auth/login'} className="icon-user" />
           {isAdmin && <Link to={'/adminConsole'} className="icon-tasks" />}
           <Link to={'/favorites'} className="icon-favorites" />
           <Link to={'/shopCart'} className="icon-cart">

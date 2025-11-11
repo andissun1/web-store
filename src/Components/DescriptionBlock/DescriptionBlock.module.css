@@ -1,0 +1,35 @@
+.description {
+  font-size: 18px;
+  color: rgb(45, 45, 45);
+}
+
+.description h4 {
+  margin: 20px 0;
+}
+
+.short_description {
+  display: inline-block;
+  padding-top: 20px;
+}
+
+.specifications {
+  display: grid;
+  row-gap: 20px;
+  background-color: rgb(247, 247, 247);
+  padding: 20px 32px;
+  margin-top: 20px;
+}
+
+.specifications h4 {
+  grid-column: span 2;
+  margin: 0;
+}
+
+.spec p {
+  margin: 0;
+}
+
+.spec p:first-of-type {
+  font-size: 14px;
+  color: rgb(150, 150, 150);
+}

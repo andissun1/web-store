@@ -865,7 +865,28 @@
       "name": "user"
     }
   ],
-  "sessions": [],
+  "sessions": [
+    {
+      "hash": "0.23541060319730233718615863836021162569522857666016",
+      "user": {
+        "id": "01",
+        "fullname": "Андрей Админов",
+        "email": "@mail.ru",
+        "phone": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r1-",
+        "addresses": {
+          "address_id_0": {
+            "name": "У дома"
+          },
+          "address_id_1": {
+            "name": "На даче"
+          }
+        }
+      },
+      "id": 1
+    }
+  ],
   "categories": [
     {
       "id": "c01",

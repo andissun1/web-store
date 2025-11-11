@@ -1,12 +1,12 @@
 export const initialState = {
-  auth: { email: '', password: '' },
+  login: { email: '', password: '' },
   register: { fullname: '', phone: '', email: '', password: '', repeatPassword: '' },
   resetPassword: { email: '' },
 };
 
 export const schemes = {
   // Набор правил для входа
-  auth: {
+  login: {
     email: {
       isRequired: { message: 'Обязательное поле' },
       min: { message: 'Должно быть более 2 символов', value: 2 },

@@ -1,28 +1,18 @@
-.product {
+.productLayout {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-rows: 10px 1fr;
-  gap: 20px;
+  grid-template-columns: auto 1fr;
 }
 
 .productCard {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 30px;
-  /* border: 1px solid black; */
   padding-top: 40px;
 }
 
-.productCard img:first-of-type {
+.productCard > img {
   width: 100%;
-}
-
-.productInfo {
-  padding-top: 60px;
-}
-
-.productInfo h2 {
-  margin: 0;
+  grid-row: span 10;
 }
 
 .price {
@@ -30,97 +20,6 @@
   margin: 10px 0;
 }
 
-.description {
-  font-size: 18px;
-  color: rgb(45, 45, 45);
-}
-
-.description h4 {
-  margin: 20px 0;
-}
-
-.short_description {
-  display: inline-block;
-  padding-top: 20px;
-}
-
-.feedback {
-  display: grid;
-  grid-template-columns: 1fr 4fr 4fr;
-  grid-template-rows: 10px 10px 10px 1fr;
-  align-items: center;
-
-  gap: 15px;
-
-  padding: 15px;
-
-  background-color: rgb(229, 235, 255);
-
-  margin-bottom: 20px;
-  border-radius: 4px;
-}
-
-.feedback p,
-.feedback h4 {
-  margin: 0;
-}
-
-.feedback img {
-  grid-row: span 3;
-  margin: auto;
-  height: 60px;
-}
-
-.userName {
-  grid-row: span 3;
-  text-align: end;
-  min-height: 70px;
-}
-
-.feedbackText {
-  grid-column: span 3;
-}
-
-.specifications {
-  display: grid;
-  row-gap: 20px;
-  background-color: rgb(247, 247, 247);
-  padding: 20px 32px;
-  margin: 20px 0;
-}
-
-.specifications h4 {
-  grid-column: span 2;
-  margin: 0;
-}
-
-.spec p {
-  margin: 0;
-}
-
-.spec p:first-of-type {
-  font-size: 14px;
-  color: rgb(150, 150, 150);
-}
-
-.openFeedback {
-  background-color: transparent;
-  color: rgb(113, 136, 212);
-  width: fit-content;
-  padding: 0;
-  margin: 0;
-
-  font-size: 18px;
-}
-
-.feedBlock {
-  margin-top: 20px;
-}
-
-.titleFeed {
-  margin: 20px 0;
-}
-
-.openFeedback:hover {
-  background-color: white;
+.productCard h4 {
+  font-size: 20px;
 }

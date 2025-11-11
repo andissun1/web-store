@@ -1,4 +1,35 @@
-@import url('../Product/product.module.css');
+.productLayout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.productCard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
+  padding-top: 40px;
+}
+
+.productCard > img {
+  width: 100%;
+  max-width: 200px;
+  grid-row: span 10;
+}
+
+.price {
+  font-size: 32px;
+  margin: 10px 0;
+}
+
+.productCard h4 {
+  font-size: 20px;
+}
+
+/* Свои стили */
+.product {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 
 .product select {
   margin-top: 20px;

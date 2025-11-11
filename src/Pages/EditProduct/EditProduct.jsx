@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { SideMenu } from '../../Components/SideMenu/SideMenu';
-import style from './EditProduct.module.css';
 import { ActionsPanel } from '../../Components/ActionsPanel/ActionsPanel';
-import { useRef, useState } from 'react';
-import { matchPath, useMatch } from 'react-router';
-import { createProduct } from '../../Store/productReducer';
+import { useEffect, useRef, useState } from 'react';
+import { matchPath, useMatch, useParams } from 'react-router';
+import { createProduct, getProduct } from '../../Store/productReducer';
+import style from './EditProduct.module.css';
 
 const categories = ['Выпечка', 'Самовары', 'Техника', 'Без категории'];
 
@@ -20,6 +20,7 @@ const initialState = {
 
 export const EditProduct = (props) => {
   const isCreate = useMatch('product/create');
+  const productID = useParams().id;
   const productFromStore = useSelector((store) => store.product);
   const [product, setProduct] = useState(isCreate ? initialState : productFromStore);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -33,6 +34,10 @@ export const EditProduct = (props) => {
   const specificationsValue = useRef(null);
   const stock_quantity = useRef(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProduct(productID));
+  }, []);
 
   const updatePhoto = () => {
     setProduct({ ...product, image_URL: image_URL.current.value });
@@ -112,7 +117,7 @@ export const EditProduct = (props) => {
           >
             {product.price} ₽
           </p>
-          <ActionsPanel />
+          <ActionsPanel product={product} />
 
           <div className={style.description}>
             <select defaultValue={product.category_id} ref={category_id}>

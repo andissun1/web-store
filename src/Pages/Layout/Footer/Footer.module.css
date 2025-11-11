@@ -1,4 +1,4 @@
-.footerLayout {
+.purpleLine {
   background-color: rgb(229, 235, 255);
   padding: 39px 0;
 }
@@ -62,8 +62,9 @@
   flex: 2;
 }
 
-.contactsWrapper > div:first-of-type {
+.contactsWrapper h4 {
   height: 27px;
+  margin: 0;
   margin-bottom: 16px;
 
   font-size: 18px;

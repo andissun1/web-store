@@ -1,0 +1,56 @@
+.feedback {
+  display: grid;
+  grid-template-columns: 1fr 4fr 4fr;
+  grid-template-rows: 10px 10px 10px 1fr;
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 15px;
+
+  background-color: rgb(229, 235, 255);
+
+  margin-bottom: 20px;
+  border-radius: 4px;
+
+  font-size: 18px;
+}
+
+.feedback p,
+.feedback h4 {
+  margin: 0;
+}
+
+.feedback img {
+  grid-row: span 3;
+  margin: auto;
+  height: 60px;
+}
+
+.userName {
+  grid-row: span 3;
+  text-align: end;
+  min-height: 70px;
+}
+
+.feedbackText {
+  grid-column: span 3;
+}
+
+.openFeedback {
+  background-color: transparent;
+  color: rgb(113, 136, 212);
+  width: fit-content;
+  padding: 0;
+  margin: 0;
+
+  font-size: 18px;
+}
+
+.feedBlock {
+  margin-top: 20px;
+}
+
+.openFeedback:hover {
+  background-color: white;
+}
