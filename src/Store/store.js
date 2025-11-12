@@ -7,6 +7,7 @@ import { server } from '../BFF/bff';
 import { routes } from '../Router/routes';
 import { actions as cartActions } from './cartReducer';
 import { actions as appActions } from './appReducer';
+import { reducer as modalReducer } from './modalReducer';
 
 export const store = configureStore({
   reducer: {
@@ -14,10 +15,16 @@ export const store = configureStore({
     product: productReducer,
     app: appReducer,
     cart: cartReducer,
+    modal: modalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: { extraArgument: { server, routes } },
+      serializableCheck: {
+        ignoredActions: 'modal/setModalParams',
+        ignoredActionPaths: ['modal'],
+        ignoredPaths: ['modal'],
+      },
     }),
 });
 

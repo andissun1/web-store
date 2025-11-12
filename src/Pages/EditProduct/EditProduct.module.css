@@ -5,15 +5,9 @@
 
 .productCard {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto 1fr;
   column-gap: 30px;
   padding-top: 40px;
-}
-
-.productCard > img {
-  width: 100%;
-  max-width: 200px;
-  grid-row: span 10;
 }
 
 .price {
@@ -26,16 +20,6 @@
 }
 
 /* Свои стили */
-.product {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.product select {
-  margin-top: 20px;
-  width: fit-content;
-  height: 30px;
-}
 
 .specifications {
   position: relative;
@@ -74,30 +58,6 @@
 
 .spec button:hover {
   background-color: red;
-}
-
-.editImg {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.editImg input {
-  height: 20px;
-  border: 1px solid #cccccc;
-}
-
-.editImg button {
-  height: 30px;
-}
-
-.buttonsPanel {
-  display: flex;
-  gap: 10px;
-}
-
-.buttonsPanel button {
-  width: fit-content;
 }
 
 .description span:first-of-type {

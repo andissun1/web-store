@@ -2,9 +2,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SideMenu } from '../../Components/SideMenu/SideMenu';
 import { ActionsPanel } from '../../Components/ActionsPanel/ActionsPanel';
 import { useEffect, useRef, useState } from 'react';
-import { matchPath, useMatch, useParams } from 'react-router';
-import { createProduct, getProduct } from '../../Store/productReducer';
+import { useMatch, useParams } from 'react-router';
+import { createProduct, deleteProduct, getProduct } from '../../Store/productReducer';
+import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
+import { ImageEditor } from '../../Components/ImageEditor/ImageEditor';
+import { Selector } from '../../Components/Selector/Selector';
+import { Button } from '../../Components/Button/Button';
 import style from './EditProduct.module.css';
+import { getConfirmation } from '../../Store/modalReducer';
 
 const categories = ['Выпечка', 'Самовары', 'Техника', 'Без категории'];
 
@@ -23,15 +28,12 @@ export const EditProduct = (props) => {
   const productID = useParams().id;
   const productFromStore = useSelector((store) => store.product);
   const [product, setProduct] = useState(isCreate ? initialState : productFromStore);
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const name = useRef(null);
   const price = useRef(null);
   const image_URL = useRef(null);
   const category_id = useRef(null);
   const description = useRef(null);
   const allSpecifications = useRef(null);
-  const specificationsKey = useRef(null);
-  const specificationsValue = useRef(null);
   const stock_quantity = useRef(null);
   const dispatch = useDispatch();
 
@@ -39,21 +41,13 @@ export const EditProduct = (props) => {
     dispatch(getProduct(productID));
   }, []);
 
-  const updatePhoto = () => {
-    setProduct({ ...product, image_URL: image_URL.current.value });
-  };
-
-  const addSpecification = () => {
-    const key = specificationsKey.current.value;
-    const value = specificationsKey.current.value;
+  const addSpecification = (key, value) => {
     if (!key || !value) return console.log('Есть пустые поля!');
 
     setProduct({
       ...product,
       specifications: { ...product.specifications, [key]: value },
     });
-
-    setIsOpenModal(false);
   };
 
   const saveChanges = (event) => {
@@ -79,112 +73,100 @@ export const EditProduct = (props) => {
       specifications,
     };
 
-    console.log(newProductInfo);
-
     if (isCreate) {
       dispatch(createProduct(newProductInfo));
+    } else {
+      // Написать функционал по редактированию товара
+      // dispatch(editProduct(productID, newProductInfo));
     }
   };
 
+  const updatePhoto = () => {
+    setProduct({ ...product, image_URL: image_URL.current.value });
+  };
+
+  const addNewSpec = async () => {
+    const { key, value } = await dispatch(getConfirmation({ type: 'getValues' }));
+    addSpecification(key, value);
+  };
+
+  const deleteCard = async () => {
+    const confirm = await dispatch(
+      getConfirmation({
+        title: 'Вы уверены что хотите удалить товар?',
+      })
+    );
+
+    if (confirm) dispatch(deleteProduct(productID));
+    if (!confirm) console.log('Отмена');
+  };
+
   return (
-    <div className={style.product}>
+    <div className={style.productLayout}>
       <SideMenu />
-      <nav className={style.path}>Главная / Продукт</nav>
+      <Breadcrumbs />
       <div className={style.productCard}>
-        <div className={style.editImg}>
-          <img src={product.image_URL} />
-          <label htmlFor="newImg">Ссылка на фотографию:</label>
-          <input
-            type="text"
-            id="newImg"
-            defaultValue={product.image_URL}
-            ref={image_URL}
-          />
-          <div className={style.buttonsPanel}>
-            <button onClick={updatePhoto}>Обновить фото</button>
-            <button onClick={saveChanges}>Сохранить карточку</button>
-          </div>
-        </div>
-        <div className={style.productInfo}>
-          <h2 contentEditable={true} suppressContentEditableWarning ref={name}>
-            {product.name}
-          </h2>
-          <p
-            className={style.price}
-            contentEditable={true}
-            suppressContentEditableWarning
-            ref={price}
-          >
-            {product.price} ₽
-          </p>
-          <ActionsPanel product={product} />
+        <ImageEditor
+          ref_image_URL={image_URL}
+          image_URL={product.image_URL}
+          saveChanges={saveChanges}
+          updatePhoto={updatePhoto}
+          deleteCard={deleteCard}
+          isCreate={isCreate}
+        />
+        <h2 contentEditable={true} suppressContentEditableWarning ref={name}>
+          {product.name}
+        </h2>
+        <p
+          className={style.price}
+          contentEditable={true}
+          suppressContentEditableWarning
+          ref={price}
+        >
+          {product.price} ₽
+        </p>
+        <ActionsPanel product={product} />
 
-          <div className={style.description}>
-            <select defaultValue={product.category_id} ref={category_id}>
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
+        <div className={style.description}>
+          <Selector product={product} categories={categories} category_id={category_id} />
 
-            <h4>Описание</h4>
-            <span contentEditable={true} suppressContentEditableWarning ref={description}>
-              {product.description}.
-            </span>
+          <h4>Описание</h4>
+          <span contentEditable={true} suppressContentEditableWarning ref={description}>
+            {product.description}.
+          </span>
 
-            <div className={style.specifications} ref={allSpecifications}>
-              <button onClick={() => setIsOpenModal(true)}>
-                <span className="icon-plus" />
-              </button>
+          <div className={style.specifications} ref={allSpecifications}>
+            <Button onClick={addNewSpec} icon="icon-plus" />
 
-              {isOpenModal && (
-                <div className={style.modalWindow}>
-                  <div className={style.modalContent}>
-                    <label htmlFor="key">Название категории:</label>
-                    <input id="key" type="text" ref={specificationsKey} />
-                    <label htmlFor="value">Значение:</label>
-                    <input id="value" type="text" ref={specificationsValue} />
-                    <button datatype="save" onClick={addSpecification}>
-                      Сохранить
-                    </button>
-                    <button datatype="close" onClick={() => setIsOpenModal(false)}>
-                      <span className="icon-times"></span>
-                    </button>
+            <h4>Характеристики</h4>
+            {product.specifications && (
+              <>
+                {Object.entries(product.specifications).map(([name, value], index) => (
+                  <div
+                    className={style.spec}
+                    key={index}
+                    contentEditable={true}
+                    suppressContentEditableWarning
+                  >
+                    <p>{name}</p>
+                    <p>{value}</p>
+                    <button
+                      className="icon-trash"
+                      onClick={(event) => event.target.parentNode.remove()}
+                    />
                   </div>
-                </div>
-              )}
+                ))}
+              </>
+            )}
+          </div>
 
-              <h4>Характеристики</h4>
-              {product.specifications && (
-                <>
-                  {Object.entries(product.specifications).map(([name, value], index) => (
-                    <div
-                      className={style.spec}
-                      key={index}
-                      contentEditable={true}
-                      suppressContentEditableWarning
-                    >
-                      <p>{name}</p>
-                      <p>{value}</p>
-                      <button
-                        className="icon-trash"
-                        onClick={(event) => event.target.parentNode.remove()}
-                      />
-                    </div>
-                  ))}
-                </>
-              )}
-            </div>
-
-            <div className={style.stock_quantity}>
-              <h4>В наличии:</h4>
-              <input
-                type="number"
-                defaultValue={product.stock_quantity}
-                ref={stock_quantity}
-              />
-            </div>
+          <div className={style.stock_quantity}>
+            <h4>В наличии:</h4>
+            <input
+              type="number"
+              defaultValue={product.stock_quantity}
+              ref={stock_quantity}
+            />
           </div>
         </div>
       </div>
