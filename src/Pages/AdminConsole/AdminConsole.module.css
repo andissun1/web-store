@@ -6,6 +6,11 @@
   margin-bottom: 50px;
 }
 
+.adminConsole h2 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
 .orders,
 .users,
 .products {
@@ -16,10 +21,13 @@
 
 .products {
   grid-column: span 2;
+  position: relative;
 }
 
 .addProduct {
-  float: right;
+  position: absolute;
+  top: 20px;
+  right: 20px;
   border-radius: 50%;
   background-color: var(--lightGray);
 

@@ -3,7 +3,7 @@ import style from './EditorPannel.module.css';
 import { getConfirmation } from '../../Store/modalReducer';
 import { deleteProduct } from '../../Store/productReducer';
 
-export const EditorPannel = ({ handlers, isCreate }) => {
+export const EditorPannel = ({ handlers, isCreate, productID }) => {
   const dispatch = useDispatch();
   const { saveChanges } = handlers;
 

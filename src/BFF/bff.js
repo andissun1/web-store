@@ -320,4 +320,25 @@ export const server = {
       response,
     };
   },
+
+  async getFavorites(arrayWithIDs) {
+    const response = await fetch(`http://localhost:3000/products`).then((res) =>
+      res.json()
+    );
+
+    const favoriteProducts = response.filter((product) =>
+      arrayWithIDs.includes(product.id)
+    );
+
+    if (response.length === 0)
+      return {
+        error: 'Ошибка при загрузке категорий',
+        response: null,
+      };
+
+    return {
+      error: null,
+      response: favoriteProducts,
+    };
+  },
 };

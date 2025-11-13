@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { actions as appActions } from './appReducer';
 
 const initialState = {
   id: null,
@@ -32,36 +33,48 @@ export const { reducer, actions } = userSlice;
 export const authorize = (email, password) => async (dispatch, getState, extraArg) => {
   const { server, routes } = extraArg;
   const { response, error } = await server.authorize(email, password);
-  if (error) return error;
-  dispatch(actions.setUser(response));
-  routes.navigate('/');
+  if (error) {
+    dispatch(appActions.setError(error));
+    routes.navigate('/error');
+  } else {
+    dispatch(actions.setUser(response));
+    routes.navigate('/');
+  }
 };
 
 export const authorizeByHash =
   (hash) =>
   async (dispatch, getState, { server }) => {
     const { response, error } = await server.authorizeByHash(hash);
-    if (error) console.log(error);
-    dispatch(actions.setUser(response));
+    if (error) {
+      dispatch(appActions.setError(error));
+      routes.navigate('/error');
+    } else dispatch(actions.setUser(response));
   };
 
 export const logout =
   () =>
   async (dispatch, getState, { server }) => {
     const { error } = await server.logout(getState().user.hash);
-    if (error) return error;
-    dispatch(actions.removeUser());
+    if (error) {
+      dispatch(appActions.setError(error));
+      routes.navigate('/error');
+    } else dispatch(actions.removeUser());
   };
 
 export const register = (formData) => async (dispatch, getState, extraArg) => {
   const { server, routes } = extraArg;
   const { response, error } = await server.register(formData);
-  if (error) return error;
-  dispatch(actions.setUser(response));
-  routes.navigate('/');
+  if (error) {
+    dispatch(appActions.setError(error));
+    routes.navigate('/error');
+  } else {
+    dispatch(actions.setUser(response));
+    routes.navigate('/');
+  }
 };
 
 export const resetPassword =
-  (formData) =>
-  (dispatch, getState, { server }) =>
-    server.resetPassword(formData);
+  (email) =>
+  (_, __, { server }) =>
+    server.resetPassword(email);

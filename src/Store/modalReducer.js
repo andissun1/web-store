@@ -7,7 +7,6 @@ const modalReducer = createSlice({
   initialState,
   reducers: {
     setModalParams(state, action) {
-      console.log(action.payload);
       return action.payload;
     },
     closeModal() {
@@ -18,8 +17,8 @@ const modalReducer = createSlice({
 
 export const { reducer, actions } = modalReducer;
 
-// Асинхронные действия
-export const getConfirmation = (params) => async (dispatch, getState) => {
+// Функция для получения подтвержения действия пользователя или ввода данных
+export const getConfirmation = (params) => async (dispatch) => {
   return new Promise((resolve) => {
     dispatch(
       actions.setModalParams({

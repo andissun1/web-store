@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProductCard } from '../../Components/ProductCard/ProductCard';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
-import { getCategory, sortCollection } from '../../Store/appReducer';
+import { getCategory, sortCollection } from '../../Store/categoriesReducer';
 import { SideMenu } from '../../Components/SideMenu/SideMenu';
 import { categories } from '../../constants/categories';
 import style from './collection.module.css';
@@ -10,7 +10,7 @@ import style from './collection.module.css';
 export const Collection = (props) => {
   const dispatch = useDispatch();
   const collectionID = useParams().id;
-  const products = useSelector((store) => store.app.allProducts);
+  const products = useSelector((store) => store.products);
   const collectionName = categories?.find((item) => item.id === collectionID)?.name;
 
   const handleSort = ({ target }) => {

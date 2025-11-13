@@ -48,8 +48,12 @@
   background-color: white;
 }
 
-.cardActions button:first-of-type {
+.cardActions .addToFavorites {
   color: rgb(113, 136, 212);
+}
+
+.cardActions .addToFavorites:hover span {
+  color: red;
 }
 
 .cardActions button span {

@@ -10,7 +10,7 @@ import { NewOrder } from '../Pages/NewOrder/NewOrder';
 import { AdminConsole } from '../Pages/AdminConsole/AdminConsole';
 import { ErorPage } from '../Pages/ErorPage/ErorPage';
 import { Layout } from '../Pages/Layout/Layout';
-import { getFavorites } from '../Store/appReducer';
+import { getFavorites } from '../Store/favoritesReducer';
 import { EditProduct } from '../Pages/EditProduct/EditProduct';
 import { Loader } from '../Components/Loader/Loader';
 // Динамический импорт чтобы избежать циклической зависимости со Store

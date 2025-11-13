@@ -3,7 +3,7 @@ import { ProductCard } from '../../Components/ProductCard/ProductCard';
 import style from './Favorites.module.css';
 
 export const Favorites = () => {
-  const favorites = useSelector((store) => store.app.favoritesCards);
+  const favorites = useSelector((store) => store.favorites.favoritesCards);
 
   return (
     <div className={style.favorites}>

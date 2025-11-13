@@ -1,2 +1,4 @@
-/* .Loader {
-} */
+.Loader {
+  min-height: 80vh;
+  text-align: center;
+}

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, getCategory } from '../../Store/appReducer';
+import { getCategories, getCategory } from '../../Store/categoriesReducer';
 import { SocialCircles } from '../SocialCircles/SocialCircles';
 import { PopularProductsWidget } from '../PopularProductsWidget/PopularProductsWidget';
 import style from './SideMenu.module.css';
@@ -10,8 +10,8 @@ const POPULAR = 'c14';
 
 export const SideMenu = () => {
   const dispatch = useDispatch();
-  const categories = useSelector((store) => store.app.categories);
-  const products = useSelector((store) => store.app.allProducts).slice(0, 3);
+  const categories = useSelector((store) => store.categories);
+  const products = useSelector((store) => store.products).slice(0, 3);
 
   useEffect(() => {
     dispatch(getCategories());

@@ -1,16 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as appActions } from './appReducer';
 
-const initialState = {
-  id: null,
-  name: null,
-  description: null,
-  price: null,
-  stock_quantity: null,
-  image_URL: null,
-  category_id: null,
-  comments: null,
-};
+const initialState = null;
 
 const productSlice = createSlice({
   name: 'product',
@@ -34,34 +25,37 @@ export const getProduct = (productID) => async (dispatch, getState, extraArg) =>
   if (error) {
     dispatch(appActions.setError(error));
     routes.navigate('/error');
-    return;
-  }
+  } else dispatch(actions.setProduct(response));
 
-  dispatch(actions.setProduct(response));
   return response;
 };
 
 export const createProduct =
-  (product) =>
+  (productInfo) =>
   async (dispatch, getState, { server, routes }) => {
-    delete product.allProducts;
-    delete product.comments;
-    delete product.id;
+    console.log(productInfo);
+
     const hash = getState().user.hash;
-    const { response, error } = await server.createProduct(hash, product);
-    if (error) return error;
-    dispatch(actions.setProduct(response));
-    routes.navigate(`/product/${response.id}`);
+    const { response, error } = await server.createProduct(hash, productInfo);
+    if (error) {
+      dispatch(appActions.setError(error));
+      routes.navigate('/error');
+    } else {
+      dispatch(actions.setProduct(response));
+      routes.navigate(`/product/${response.id}`);
+    }
   };
 
 export const deleteProduct =
   (productID) =>
   async (dispatch, getState, { server, routes }) => {
     const hash = getState().user.hash;
-    const { response, error } = await server.deleteProduct(hash, productID);
-    if (error) return error;
-    console.log(response);
-
-    dispatch(actions.removeProduct());
-    routes.navigate(`/adminConsole`);
+    const { error } = await server.deleteProduct(hash, productID);
+    if (error) {
+      dispatch(appActions.setError(error));
+      routes.navigate('/error');
+    } else {
+      dispatch(actions.removeProduct());
+      routes.navigate(`/adminConsole`);
+    }
   };

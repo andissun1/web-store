@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import style from './ProductCard.module.css';
-import { addToFavorites, removeFromFavorites } from '../../Store/appReducer';
+import { addToFavorites, removeFromFavorites } from '../../Store/favoritesReducer';
 import { Link } from 'react-router';
 import { addToCart } from '../../Store/cartReducer';
 
 export const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
-  const favorites = useSelector((store) => store.app.favorites);
+  const favorites = useSelector((store) => store.favorites.favorites);
   const cart = useSelector((store) => store.cart.products);
   const isFavorite = favorites.includes(product.id);
   const isAddedToCart = cart.find((productInCart) => productInCart.id === product.id);

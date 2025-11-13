@@ -1,6 +1,6 @@
 import { createSlice, current } from '@reduxjs/toolkit';
 
-const initialState = {
+const initialState = JSON.parse(localStorage.getItem('cart')) || {
   products: [],
   promocode: null,
   total: null,
@@ -20,8 +20,6 @@ const cartSlice = createSlice({
       state.products = [...state.products, ...action.payload];
     },
     removeFromCart(state, action) {
-      console.log(123);
-
       const index = current(state).products.findIndex(
         (product) => product.id === action.payload
       );
@@ -40,7 +38,6 @@ export const { reducer, actions } = cartSlice;
 
 export const addToCart = (product) => async (dispatch, getState) => {
   let shopCart = getState().cart.products;
-  if (!shopCart) return dispatch(actions.setCartProduct([{ ...product, count: 1 }]));
   const indexInCart = shopCart.findIndex((position) => position.id === product.id);
   if (indexInCart > -1) {
     dispatch(actions.increasePosition(indexInCart));
@@ -49,30 +46,23 @@ export const addToCart = (product) => async (dispatch, getState) => {
 
 export const decreaseProductCount = (id) => async (dispatch, getState) => {
   let products = getState().cart.products;
-  if (!products) return dispatch(actions.setCartProduct([{ id, count: 1 }]));
-  const indexInCart = products.findIndex((product) => product.id === id);
+  const indexInCart = products.findIndex((position) => position.id === id);
   if (products[indexInCart].count === 1) return dispatch(actions.removeFromCart(id));
   if (indexInCart > -1) dispatch(actions.decreasePosition(indexInCart));
 };
 
-export const getShopCartProducts =
-  () =>
-  async (dispatch, getState, { server }) => {
-    const allProducts = await server.getAllProducts().then((res) => res.response);
-    const cart = getState().cart.products;
-    const shopCart = cart.map((cartProduct) => {
-      const catalog = allProducts.find((product) => product.id === cartProduct.id);
-      if (!catalog) return;
-
-      return {
-        id: catalog.id,
-        name: catalog.name,
-        image_URL: catalog.image_URL,
-        price: catalog.price,
-        stock_quantity: catalog.stock_quantity,
-        count: cartProduct.count,
-      };
-    });
-
-    dispatch(actions.setCartProduct(shopCart));
-  };
+// Функция для очистки {} с продуктами от ненужных полей
+export const getShopCartProducts = () => async (dispatch, getState) => {
+  const productsInCart = getState().cart.products;
+  const shopCart = productsInCart.map((product) => {
+    return {
+      id: product.id,
+      name: product.name,
+      image_URL: product.image_URL,
+      price: product.price,
+      stock_quantity: product.stock_quantity,
+      count: product.count,
+    };
+  });
+  dispatch(actions.setCartProduct(shopCart));
+};

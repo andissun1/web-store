@@ -3,15 +3,16 @@ import style from './AdminConsole.module.css';
 import { Link } from 'react-router';
 import { deleteProduct } from '../../Store/productReducer';
 import { useEffect } from 'react';
-import { getAllProducts, getAllUsers } from '../../Store/appReducer';
+import { getAllUsers } from '../../Store/usersReducer';
+import { getAllProducts } from '../../Store/productsReducer';
 import { Loader } from '../../Components/Loader/Loader';
 import { FormInput } from '../../Components/FormInput/FormInput';
 import { Button } from '../../Components/Button/Button';
 import { getConfirmation } from '../../Store/modalReducer';
 
 export const AdminConsole = () => {
-  const users = useSelector((store) => store.app.allUsers);
-  const products = useSelector((store) => store.app.allProducts);
+  const users = useSelector((store) => store.users);
+  const products = useSelector((store) => store.products);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,17 +27,24 @@ export const AdminConsole = () => {
       })
     );
 
-    if (confirm) dispatch(deleteProduct(productID));
+    if (confirm) dispatch(deleteProduct(id));
   };
 
   if (!users || !products) return <Loader />;
 
   return (
     <div className={style.adminConsole}>
-      <div className={style.orders}>Заказы</div>
-      <div className={style.users}>Пользователи</div>
+      <div className={style.orders}>
+        <h2>Заказы</h2>
+      </div>
+      <div className={style.users}>
+        <h2>Пользователи</h2>
+        {users.map((user) => (
+          <div key={user.email}>{user.fullname}</div>
+        ))}
+      </div>
       <div className={style.products}>
-        Все товары
+        <h2>Товары</h2>
         <Link to={'/product/create'} className={style.addProduct}>
           <span className="icon-plus" />
         </Link>
@@ -58,6 +66,7 @@ export const AdminConsole = () => {
                   id="stock"
                   type="number"
                   value={product.stock_quantity}
+                  onChange={() => {}}
                 />
                 <button className={style.save}>Сохранить</button>
               </div>

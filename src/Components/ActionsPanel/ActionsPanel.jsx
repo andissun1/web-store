@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addToFavorites, removeFromFavorites } from '../../Store/appReducer';
+import { addToFavorites, removeFromFavorites } from '../../Store/favoritesReducer';
 import { addToCart, decreaseProductCount } from '../../Store/cartReducer';
 import style from './ActionsPanel.module.css';
 
 export const ActionsPanel = ({ product }) => {
-  const favorites = useSelector((store) => store.app.favorites);
+  const favorites = useSelector((store) => store.favorites.favorites);
   const isFavorite = favorites.includes(product.id);
   const cart = useSelector((store) => store.cart.products);
   const isAddedToCart = cart.find((productInCart) => productInCart.id === product.id);

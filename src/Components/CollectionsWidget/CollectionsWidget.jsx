@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import style from './CollectionsWidget.module.css';
 import { useEffect } from 'react';
-import { getCategories } from '../../Store/appReducer';
+import { getCategories } from '../../Store/categoriesReducer';
 
 export const CollectionsWidget = (props) => {
   const dispatch = useDispatch();
-  const categories = useSelector((store) => store.app.categories);
+  const categories = useSelector((store) => store.categories);
 
   useEffect(() => {
     dispatch(getCategories());

@@ -3,14 +3,18 @@ import { SideMenu } from '../../Components/SideMenu/SideMenu';
 import { ActionsPanel } from '../../Components/ActionsPanel/ActionsPanel';
 import { useEffect, useRef, useState } from 'react';
 import { useMatch, useParams } from 'react-router';
-import { createProduct, getProduct } from '../../Store/productReducer';
+import {
+  actions as productActions,
+  createProduct,
+  getProduct,
+} from '../../Store/productReducer';
 import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
 import { EditorPannel } from '../../Components/EditorPannel/EditorPannel';
 import { getConfirmation } from '../../Store/modalReducer';
 import { FormInput } from '../../Components/FormInput/FormInput';
 import { Selector } from '../../Components/Selector/Selector';
 import { Button } from '../../Components/Button/Button';
-import { getCategories } from '../../Store/appReducer';
+import { getCategories } from '../../Store/categoriesReducer';
 import { Loader } from '../../Components/Loader/Loader';
 import style from './EditProduct.module.css';
 
@@ -25,22 +29,21 @@ const initialState = {
   comments: null,
 };
 
-// const categories = ['Выпечка', 'Самовары', 'Техника', 'Без категории'];
-
 export const EditProduct = (props) => {
   const productID = useParams().id;
   const isCreate = useMatch('product/create');
-  const productFromStore = useSelector((store) => store.product);
-  const categories = useSelector((store) => store.app.categories);
-  const [productInfo, setProductInfo] = useState(
-    isCreate ? initialState : productFromStore
-  );
+  const categories = useSelector((store) => store.categories);
   const allSpecifications = useRef(null);
   const dispatch = useDispatch();
+  const [productInfo, setProductInfo] = useState(null);
 
   useEffect(() => {
-    dispatch(getProduct(productID));
+    dispatch(getProduct(productID)).then((productFromStore) =>
+      isCreate ? setProductInfo(initialState) : setProductInfo(productFromStore)
+    );
     dispatch(getCategories());
+
+    return () => dispatch(productActions.removeProduct());
   }, []);
 
   const saveChanges = (event) => {
@@ -60,7 +63,7 @@ export const EditProduct = (props) => {
     };
 
     console.log(newProductInfo);
-    // isCreate ? dispatch(createProduct(newProductInfo)) : '';
+    isCreate ? dispatch(createProduct(newProductInfo)) : '';
     // Написать функционал по редактированию товара
     // dispatch(editProduct(productID, newProductInfo));
   };
@@ -110,7 +113,11 @@ export const EditProduct = (props) => {
             label="Ссылка на фотографию"
             id="newImg"
           />
-          <EditorPannel handlers={{ saveChanges }} isCreate={isCreate} />
+          <EditorPannel
+            handlers={{ saveChanges }}
+            isCreate={isCreate}
+            productID={productInfo.id}
+          />
         </div>
 
         <FormInput

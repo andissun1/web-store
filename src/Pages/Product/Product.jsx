@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { ActionsPanel } from '../../Components/ActionsPanel/ActionsPanel';
 import { SideMenu } from '../../Components/SideMenu/SideMenu';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProduct } from '../../Store/productReducer';
+import { actions as productActions, getProduct } from '../../Store/productReducer';
 import { Link, useLocation, useParams } from 'react-router';
 import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
 import { Comments } from '../../Components/Comments/Comments';
@@ -17,10 +17,10 @@ export const Product = () => {
   const dispatch = useDispatch();
   const productID = useParams().id;
 
-  console.log(address);
-
   useEffect(() => {
     dispatch(getProduct(productID));
+
+    return () => dispatch(productActions.removeProduct());
   }, [productID]);
 
   if (!product) return <h2>Загрузка</h2>;
