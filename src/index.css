@@ -3,6 +3,8 @@
 
 :root {
   --lightPurple: #e5ebff;
+  --purple: #7188d4;
+  --lightGray: rgb(247, 247, 247);
 }
 
 body {

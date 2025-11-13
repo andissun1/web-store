@@ -800,6 +800,39 @@
       "category_id": "c10",
       "specifications": null,
       "id": "46"
+    },
+    {
+      "name": "Название",
+      "short_description": "Краткое описание",
+      "description": "Подробное описание",
+      "price": "",
+      "stock_quantity": 10,
+      "image_URL": "https://cs8.pikabu.ru/post_img/2016/09/28/7/og_og_147506151225418488.jpg",
+      "category_id": null,
+      "specifications": {},
+      "id": "qsC_RVG"
+    },
+    {
+      "name": "Название",
+      "short_description": "Краткое описание",
+      "description": "Подробное описание",
+      "price": 10,
+      "stock_quantity": 10,
+      "image_URL": null,
+      "category_id": null,
+      "specifications": {},
+      "id": "Y1JFAgm"
+    },
+    {
+      "name": "Название",
+      "short_description": "Краткое описание",
+      "description": "Подробное описание",
+      "price": 10,
+      "stock_quantity": 10,
+      "image_URL": null,
+      "category_id": null,
+      "specifications": {},
+      "id": "TRf5aEj"
     }
   ],
   "orders": [
@@ -905,6 +938,66 @@
         }
       },
       "id": 2
+    },
+    {
+      "hash": "0.31935176594494962820647288026520982384681701660156",
+      "user": {
+        "id": "01",
+        "fullname": "Андрей Админов",
+        "email": "@mail.ru",
+        "phone": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r1-",
+        "addresses": {
+          "address_id_0": {
+            "name": "У дома"
+          },
+          "address_id_1": {
+            "name": "На даче"
+          }
+        }
+      },
+      "id": 3
+    },
+    {
+      "hash": "0.79002426276875414856704082922078669071197509765625",
+      "user": {
+        "id": "01",
+        "fullname": "Андрей Админов",
+        "email": "@mail.ru",
+        "phone": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r1-",
+        "addresses": {
+          "address_id_0": {
+            "name": "У дома"
+          },
+          "address_id_1": {
+            "name": "На даче"
+          }
+        }
+      },
+      "id": 4
+    },
+    {
+      "hash": "0.07332336812585626972804675460793077945709228515625",
+      "user": {
+        "id": "01",
+        "fullname": "Андрей Админов",
+        "email": "@mail.ru",
+        "phone": "123",
+        "created_at": "10.10.2025",
+        "role_id": "-r1-",
+        "addresses": {
+          "address_id_0": {
+            "name": "У дома"
+          },
+          "address_id_1": {
+            "name": "На даче"
+          }
+        }
+      },
+      "id": 5
     }
   ],
   "categories": [

@@ -8,7 +8,6 @@ export const Favorites = () => {
   return (
     <div className={style.favorites}>
       <h2>Избранное</h2>
-
       <div className={style.productList}>
         {favorites.map((product) => (
           <ProductCard product={product} key={product.id} />

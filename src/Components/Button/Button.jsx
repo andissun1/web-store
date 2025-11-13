@@ -1,9 +1,9 @@
 import style from './Button.module.css';
 
-export const Button = ({ icon, children, ...props }) => {
+export const Button = ({ icon, children, type = 'button', ...props }) => {
   return (
-    <button type="submit">
-      {icon && <span className={icon} {...props} />}
+    <button type={type} {...props}>
+      {icon && <span className={icon} />}
       {children}
     </button>
   );

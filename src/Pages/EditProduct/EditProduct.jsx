@@ -3,173 +3,184 @@ import { SideMenu } from '../../Components/SideMenu/SideMenu';
 import { ActionsPanel } from '../../Components/ActionsPanel/ActionsPanel';
 import { useEffect, useRef, useState } from 'react';
 import { useMatch, useParams } from 'react-router';
-import { createProduct, deleteProduct, getProduct } from '../../Store/productReducer';
+import { createProduct, getProduct } from '../../Store/productReducer';
 import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
-import { ImageEditor } from '../../Components/ImageEditor/ImageEditor';
+import { EditorPannel } from '../../Components/EditorPannel/EditorPannel';
+import { getConfirmation } from '../../Store/modalReducer';
+import { FormInput } from '../../Components/FormInput/FormInput';
 import { Selector } from '../../Components/Selector/Selector';
 import { Button } from '../../Components/Button/Button';
+import { getCategories } from '../../Store/appReducer';
+import { Loader } from '../../Components/Loader/Loader';
 import style from './EditProduct.module.css';
-import { getConfirmation } from '../../Store/modalReducer';
-
-const categories = ['Выпечка', 'Самовары', 'Техника', 'Без категории'];
 
 const initialState = {
-  name: 'Название',
-  description: 'Более подробное описание',
-  price: 10,
-  stock_quantity: 10,
+  name: '',
+  short_description: '',
+  description: '',
+  price: null,
+  stock_quantity: null,
   image_URL: null,
   category_id: null,
   comments: null,
 };
 
+// const categories = ['Выпечка', 'Самовары', 'Техника', 'Без категории'];
+
 export const EditProduct = (props) => {
-  const isCreate = useMatch('product/create');
   const productID = useParams().id;
+  const isCreate = useMatch('product/create');
   const productFromStore = useSelector((store) => store.product);
-  const [product, setProduct] = useState(isCreate ? initialState : productFromStore);
-  const name = useRef(null);
-  const price = useRef(null);
-  const image_URL = useRef(null);
-  const category_id = useRef(null);
-  const description = useRef(null);
+  const categories = useSelector((store) => store.app.categories);
+  const [productInfo, setProductInfo] = useState(
+    isCreate ? initialState : productFromStore
+  );
   const allSpecifications = useRef(null);
-  const stock_quantity = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProduct(productID));
+    dispatch(getCategories());
   }, []);
-
-  const addSpecification = (key, value) => {
-    if (!key || !value) return console.log('Есть пустые поля!');
-
-    setProduct({
-      ...product,
-      specifications: { ...product.specifications, [key]: value },
-    });
-  };
 
   const saveChanges = (event) => {
     const specifications = {};
     const nodeListOfSpecs = [...allSpecifications.current.children];
     nodeListOfSpecs.forEach((element) => {
       if (element.constructor.name === 'HTMLDivElement') {
-        const newKey = element.childNodes[0].textContent;
-        const newValue = element.childNodes[1].textContent;
+        const newKey = element.childNodes[0].value;
+        const newValue = element.childNodes[1].value;
         specifications[newKey] = newValue;
       }
-      return;
     });
 
     const newProductInfo = {
-      ...productFromStore,
-      name: name.current.textContent,
-      price: Number(price.current.textContent.match(/\d+/)[0]),
-      image_URL: image_URL.current.value,
-      category_id: category_id.current.value,
-      description: description.current.textContent,
-      stock_quantity: stock_quantity.current.value,
+      ...productInfo,
       specifications,
     };
 
-    if (isCreate) {
-      dispatch(createProduct(newProductInfo));
-    } else {
-      // Написать функционал по редактированию товара
-      // dispatch(editProduct(productID, newProductInfo));
-    }
+    console.log(newProductInfo);
+    // isCreate ? dispatch(createProduct(newProductInfo)) : '';
+    // Написать функционал по редактированию товара
+    // dispatch(editProduct(productID, newProductInfo));
   };
 
-  const updatePhoto = () => {
-    setProduct({ ...product, image_URL: image_URL.current.value });
-  };
-
-  const addNewSpec = async () => {
+  const addSpecification = async () => {
     const { key, value } = await dispatch(getConfirmation({ type: 'getValues' }));
-    addSpecification(key, value);
+    if (!key || !value) return console.log('Есть пустые поля!');
+    setProductInfo({
+      ...productInfo,
+      specifications: { ...productInfo.specifications, [key]: value },
+    });
   };
 
-  const deleteCard = async () => {
-    const confirm = await dispatch(
-      getConfirmation({
-        title: 'Вы уверены что хотите удалить товар?',
-      })
-    );
+  const removeSpecification = (key) => {
+    const newSpecs = { ...productInfo.specifications };
+    delete newSpecs[key];
 
-    if (confirm) dispatch(deleteProduct(productID));
-    if (!confirm) console.log('Отмена');
+    setProductInfo({
+      ...productInfo,
+      specifications: { ...newSpecs },
+    });
   };
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setProductInfo({ ...productInfo, [name]: value });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+  }
+
+  if (!categories || !productInfo) return <Loader />;
 
   return (
     <div className={style.productLayout}>
       <SideMenu />
       <Breadcrumbs />
-      <div className={style.productCard}>
-        <ImageEditor
-          ref_image_URL={image_URL}
-          image_URL={product.image_URL}
-          saveChanges={saveChanges}
-          updatePhoto={updatePhoto}
-          deleteCard={deleteCard}
-          isCreate={isCreate}
-        />
-        <h2 contentEditable={true} suppressContentEditableWarning ref={name}>
-          {product.name}
-        </h2>
-        <p
-          className={style.price}
-          contentEditable={true}
-          suppressContentEditableWarning
-          ref={price}
-        >
-          {product.price} ₽
-        </p>
-        <ActionsPanel product={product} />
-
-        <div className={style.description}>
-          <Selector product={product} categories={categories} category_id={category_id} />
-
-          <h4>Описание</h4>
-          <span contentEditable={true} suppressContentEditableWarning ref={description}>
-            {product.description}.
-          </span>
-
-          <div className={style.specifications} ref={allSpecifications}>
-            <Button onClick={addNewSpec} icon="icon-plus" />
-
-            <h4>Характеристики</h4>
-            {product.specifications && (
-              <>
-                {Object.entries(product.specifications).map(([name, value], index) => (
-                  <div
-                    className={style.spec}
-                    key={index}
-                    contentEditable={true}
-                    suppressContentEditableWarning
-                  >
-                    <p>{name}</p>
-                    <p>{value}</p>
-                    <button
-                      className="icon-trash"
-                      onClick={(event) => event.target.parentNode.remove()}
-                    />
-                  </div>
-                ))}
-              </>
-            )}
-          </div>
-
-          <div className={style.stock_quantity}>
-            <h4>В наличии:</h4>
-            <input
-              type="number"
-              defaultValue={product.stock_quantity}
-              ref={stock_quantity}
-            />
-          </div>
+      <form className={style.productCard} onSubmit={handleSubmit}>
+        <div className={style.leftColumn}>
+          <img src={productInfo.image_URL} />
+          <FormInput
+            name="image_URL"
+            type="text"
+            value={productInfo.image_URL}
+            onChange={handleChange}
+            label="Ссылка на фотографию"
+            id="newImg"
+          />
+          <EditorPannel handlers={{ saveChanges }} isCreate={isCreate} />
         </div>
-      </div>
+
+        <FormInput
+          name="name"
+          type="text"
+          value={productInfo.name}
+          onChange={handleChange}
+          placeholder="Название товара"
+        />
+
+        <FormInput
+          name="price"
+          type="number"
+          value={productInfo.price}
+          onChange={handleChange}
+          children={<p className={style.currency}> ₽ </p>}
+          placeholder="100"
+        />
+
+        <ActionsPanel product={productInfo} />
+        <Selector
+          name="category_id"
+          categories={categories}
+          defaultValue={productInfo.category_id}
+          onChange={handleChange}
+        />
+
+        <FormInput
+          name="short_description"
+          type="text"
+          value={productInfo.short_description}
+          onChange={handleChange}
+          placeholder="Небольшой текст (необязательно)"
+        />
+
+        <h4>Описание</h4>
+        <FormInput
+          name="description"
+          type="text"
+          value={productInfo.description}
+          onChange={handleChange}
+          placeholder="Более подробное описание"
+        />
+
+        <h4>В наличии:</h4>
+        <FormInput
+          name="stock_quantity"
+          type="number"
+          value={productInfo.stock_quantity}
+          onChange={handleChange}
+          placeholder="Количество товара на складе"
+        />
+
+        <div className={style.specifications} ref={allSpecifications}>
+          <Button onClick={addSpecification} icon="icon-plus" type="button" />
+
+          <h4>Характеристики</h4>
+          {productInfo.specifications && (
+            <>
+              {Object.entries(productInfo.specifications).map(([name, value]) => (
+                <div className={style.parameter} key={name}>
+                  <input defaultValue={name} type="text" />
+                  <input defaultValue={value} type="text" />
+                  <Button icon="icon-trash" onClick={() => removeSpecification(name)} />
+                </div>
+              ))}
+            </>
+          )}
+        </div>
+      </form>
     </div>
   );
 };

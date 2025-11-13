@@ -10,13 +10,11 @@ import { NewOrder } from '../Pages/NewOrder/NewOrder';
 import { AdminConsole } from '../Pages/AdminConsole/AdminConsole';
 import { ErorPage } from '../Pages/ErorPage/ErorPage';
 import { Layout } from '../Pages/Layout/Layout';
-import { getAllProducts, getFavorites } from '../Store/appReducer';
-import { getAllUsers } from '../Store/appReducer';
+import { getFavorites } from '../Store/appReducer';
 import { EditProduct } from '../Pages/EditProduct/EditProduct';
+import { Loader } from '../Components/Loader/Loader';
 // Динамический импорт чтобы избежать циклической зависимости со Store
 const store = import('../Store/store').then(({ store }) => store);
-
-const Loader = () => <h2>Загрузка...</h2>;
 
 export const routes = createBrowserRouter([
   {
@@ -52,6 +50,7 @@ export const routes = createBrowserRouter([
       {
         path: 'favorites',
         Component: Favorites,
+        // Небольшой пример работы с router для доп.практики
         loader: async () => store.then(({ dispatch }) => dispatch(getFavorites())),
         hydrateFallbackElement: <Loader />,
       },
@@ -66,12 +65,6 @@ export const routes = createBrowserRouter([
       {
         path: 'adminConsole',
         Component: AdminConsole,
-        loader: async () =>
-          store.then(({ dispatch }) => {
-            dispatch(getAllUsers());
-            dispatch(getAllProducts());
-          }),
-        hydrateFallbackElement: <Loader />,
       },
       {
         path: '*',
