@@ -4,7 +4,10 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import { productRouter } from './route/product.js';
-import { authRouter } from './route/user.js';
+import { authRouter } from './route/auth.js';
+import { userRouter } from './route/user.js';
+import { roleRouter } from './route/role.js';
+import { commentsRouter } from './route/comments.js';
 
 dotenv.config();
 const app = express();
@@ -14,10 +17,17 @@ app.use(
     credentials: true,
   })
 );
+// app.use(express.static(join(__dirname, '../client/dist')));
 app.use(express.json());
 app.use(cookieParser());
-app.use('/api/v1/product', productRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/role', roleRouter);
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/comments', commentsRouter);
+app.use('/api/v1/product', productRouter);
+// app.get('регулярное выражение', (req, res) => {
+//   res.sendFile(join('dist', 'index.html'));
+// });
 
 const start = async () => {
   try {

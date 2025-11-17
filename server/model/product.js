@@ -28,13 +28,13 @@ const productSchema = new mongoose.Schema(
       ref: 'Categories',
       // required: true,
     },
-    specifications: {
-      type: Object,
-    },
-    comments: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comments',
-    },
+    specifications: {},
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comments',
+      },
+    ],
   },
   {
     timestamps: true,

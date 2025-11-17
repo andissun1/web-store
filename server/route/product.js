@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import { Product } from '../model/product.js';
-import { isAuth } from '../middleweare/isAuth.js';
-
-// Вместо isAuth необходимо сделать проверку на роль админа
+import { hasRole } from '../middleweare/hasRole.js';
 
 export const productRouter = Router();
 
@@ -28,7 +26,7 @@ productRouter.get('/:id', async (req, res) => {
 });
 
 // create
-productRouter.post('/', isAuth, async (req, res) => {
+productRouter.post('/', hasRole(['admin']), async (req, res) => {
   try {
     const product = await Product.create(req.body);
     res.status(201).json(product);
@@ -38,7 +36,7 @@ productRouter.post('/', isAuth, async (req, res) => {
 });
 
 // update
-productRouter.patch('/:id', isAuth, async (req, res) => {
+productRouter.patch('/:id', hasRole(['admin']), async (req, res) => {
   try {
     const { id } = req.params;
     const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
@@ -51,7 +49,7 @@ productRouter.patch('/:id', isAuth, async (req, res) => {
 });
 
 // delete
-productRouter.delete('/:id', isAuth, async (req, res) => {
+productRouter.delete('/:id', hasRole(['admin']), async (req, res) => {
   try {
     const { id } = req.params;
     await Product.findByIdAndDelete(id);
