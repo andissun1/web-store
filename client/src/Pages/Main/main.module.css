@@ -1,0 +1,14 @@
+.main {
+  display: grid;
+  row-gap: 60px;
+  column-gap: 40px;
+  grid-template-columns: 1fr 4fr;
+}
+
+.main img {
+  width: 100%;
+}
+
+.video {
+  width: 100%;
+}

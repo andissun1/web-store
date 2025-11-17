@@ -1,0 +1,23 @@
+.breadCrumbs {
+  margin: 20px 0;
+}
+
+.crumb {
+  display: inline-block;
+  margin-right: 10px;
+  color: var(--gray);
+}
+
+.crumb a {
+  color: var(--main-80);
+}
+
+.crumb::after {
+  content: '/';
+  margin-left: 10px;
+  color: var(--main-80);
+}
+
+.breadCrumbs a:last-of-type::after {
+  display: none;
+}
