@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import validator from 'validator';
 
 const userSchema = new mongoose.Schema(
   {
@@ -9,6 +10,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      validate: {
+        validator: validator.isEmail,
+        message: 'Введите корректную почту',
+      },
     },
     password: {
       type: String,
@@ -16,10 +21,10 @@ const userSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-    },
-    created_at: {
-      type: Date,
-      default: Date.now(),
+      validate: {
+        validator: validator.isMobilePhone,
+        message: 'Введите корректый номер телефона',
+      },
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,

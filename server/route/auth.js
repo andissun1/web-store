@@ -6,18 +6,17 @@ import { Role } from '../model/role.js';
 
 export const authRouter = Router();
 
-// register
+// add user
 authRouter.post('/register', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
     const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Почта уже занята' });
-    }
+    if (existingUser) return res.status(400).json({ message: 'Почта уже занята' });
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    if (!req.body.role) {
+    if (!role) {
       const roleID = await Role.findOne({ name: 'user' });
-      req.body.role = roleID._id;
+      req.body.role = roleID.id;
     }
 
     const user = await User.create({
@@ -25,7 +24,7 @@ authRouter.post('/register', async (req, res) => {
       password: hashedPassword,
     });
 
-    const token = await jwt.sign({ userID: user._id }, process.env.JWT_SECRET);
+    const token = await jwt.sign({ userID: user.id }, process.env.JWT_SECRET);
     res.cookie('token', token, { httpOnly: true });
 
     const { password: _, ...userData } = user.toObject();

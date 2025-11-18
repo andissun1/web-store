@@ -8,6 +8,7 @@ import { authRouter } from './route/auth.js';
 import { userRouter } from './route/user.js';
 import { roleRouter } from './route/role.js';
 import { commentsRouter } from './route/comments.js';
+import { categoryRouter } from './route/category.js';
 
 dotenv.config();
 const app = express();
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/role', roleRouter);
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/category', categoryRouter);
 app.use('/api/v1/comments', commentsRouter);
 app.use('/api/v1/product', productRouter);
 // app.get('регулярное выражение', (req, res) => {

@@ -16,14 +16,13 @@ commentsRouter.get('/', async (req, res) => {
   }
 });
 
-// add comment to product
+// create
 commentsRouter.post('/:productID', isAuth, async (req, res) => {
   try {
-    const commentInfo = req.body;
-    commentInfo.author = req.user;
-    const productID = req.params.productID;
+    req.body.author = req.user;
+    const { productID } = req.params;
+    const comment = await Comment.create(req.body);
 
-    const comment = await Comment.create(commentInfo);
     // Добавляем новый комменатрий к товару
     await Product.findByIdAndUpdate(productID, {
       $push: { comments: comment._id },
@@ -34,7 +33,7 @@ commentsRouter.post('/:productID', isAuth, async (req, res) => {
   }
 });
 
-// update comment
+// update
 commentsRouter.patch('/:id', isAuth, async (req, res) => {
   try {
     const commentInfo = req.body;
@@ -56,39 +55,35 @@ commentsRouter.patch('/:id', isAuth, async (req, res) => {
   }
 });
 
-// delete comment
-commentsRouter.delete(
-  '/:id/product/:productID',
-  hasRole(['admin', 'user']),
-  async (req, res) => {
-    try {
-      const commentID = req.params.id;
-      const productID = req.params.productID;
+// delete
+commentsRouter.delete('/:id/:productID', hasRole(['admin', 'user']), async (req, res) => {
+  try {
+    const commentID = req.params.id;
+    const productID = req.params.productID;
 
-      const comment = await Comment.findById(commentID);
-      if (!comment) throw new Error('Комментарий не найден');
+    const comment = await Comment.findById(commentID);
+    if (!comment) throw new Error('Комментарий не найден');
 
-      if (comment.author.toString() === req.user.id) {
-        await Comment.deleteOne({ _id: commentID });
-        console.log(productID);
-
-        const product = await Product.findById(productID);
-
-        product.comments = product.comments.remove(commentID);
-        product.save();
-
-        res.status(200).json({ message: 'Комментарий удалён' });
-        return;
-      }
-
-      const userRole = await req.user.populate('role');
-
-      if (userRole.role.name === 'admin') {
-        await Comment.deleteOne({ _id: commentID });
-        res.status(200).json({ message: 'Комментарий удалён администратором' });
-      }
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+    if (comment.author.toString() === req.user.id) {
+      await Comment.deleteOne({ _id: commentID });
+      // Удаляю из массива зависимостей в продукте
+      const product = await Product.findById(productID);
+      product.comments.remove(commentID);
+      product.save();
+      return res.status(200).json({ message: 'Комментарий удалён' });
     }
+
+    const userRole = await req.user.populate('role');
+
+    if (userRole.role.name === 'admin') {
+      await Comment.deleteOne({ _id: commentID });
+      const product = await Product.findById(productID);
+      product.comments = product.comments.remove(commentID);
+      product.save();
+
+      res.status(200).json({ message: 'Комментарий удалён администратором' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-);
+});

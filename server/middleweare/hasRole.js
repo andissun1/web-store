@@ -2,7 +2,7 @@ import { Role } from '../model/role.js';
 import { User } from '../model/user.js';
 import jwt from 'jsonwebtoken';
 
-export const hasRole = (rolesNameArray) => {
+export const hasRole = (rolesArray) => {
   return async (req, res, next) => {
     try {
       const token = req.cookies.token;
@@ -12,18 +12,16 @@ export const hasRole = (rolesNameArray) => {
       const payload = await jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(payload.userID);
 
-      const rolesID = await Promise.all(
-        rolesNameArray.map(async (name) => {
+      const accessedRoles = await Promise.all(
+        rolesArray.map(async (name) => {
           const role = await Role.findOne({ name });
           if (!role) throw new Error('Ошибка при получении ролей');
           return role._id.toString();
         })
       );
 
-      if (!rolesID.includes(req.user.role.toString())) {
-        res.send({ error: 'В доступе отказано' });
-        return;
-      }
+      if (!accessedRoles.includes(req.user.role.toString()))
+        return res.send({ error: 'В доступе отказано' });
 
       next();
     } catch (error) {
