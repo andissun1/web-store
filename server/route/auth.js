@@ -50,7 +50,9 @@ authRouter.post('/login', async (req, res) => {
     res.cookie('token', token, { httpOnly: true });
     const { password: _, ...userData } = existingUser.toObject();
     res.status(200).json({ userData });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // logout
@@ -74,5 +76,30 @@ authRouter.get('/me', async (req, res) => {
     const user = await User.findById(payload.userID);
     const { password: _, ...userData } = user.toObject();
     res.status(200).json({ user: userData, message: 'Вы авторизованы' });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// reset user password
+authRouter.post('/resetPassword', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      return res.status(400).json({ message: 'Почта не найдена' });
+    }
+
+    const newPassword = String(Math.floor(Math.random() * 10000));
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      { password: hashedPassword },
+      { new: true }
+    );
+
+    res.status(200).json({ newPassword: newPassword });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });

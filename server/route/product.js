@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { Product } from '../model/product.js';
 import { hasRole } from '../middleweare/hasRole.js';
+import mongoose from 'mongoose';
 
 export const productRouter = Router();
 

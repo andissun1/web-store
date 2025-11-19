@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import style from './ErorPage.module.css';
 
-export const ErorPage = (props) => {
+export const ErorPage = () => {
   const appErrors = useSelector((store) => store.app.errors);
   const errors = appErrors || 'Страница не найдена';
 

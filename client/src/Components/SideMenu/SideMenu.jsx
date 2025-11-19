@@ -1,21 +1,21 @@
 import { NavLink } from 'react-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories, getCategory } from '../../Store/categoriesReducer';
 import { SocialCircles } from '../SocialCircles/SocialCircles';
 import { PopularProductsWidget } from '../PopularProductsWidget/PopularProductsWidget';
 import style from './SideMenu.module.css';
 
-const POPULAR = 'c14';
-
 export const SideMenu = () => {
   const dispatch = useDispatch();
   const categories = useSelector((store) => store.categories);
-  const products = useSelector((store) => store.products).slice(0, 3);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    dispatch(getCategories());
-    dispatch(getCategory(POPULAR));
+    dispatch(getCategories()).then((collections) => {
+      const popular = collections.find(({ name }) => name === 'Популярное');
+      dispatch(getCategory(popular._id)).then(setProducts);
+    });
   }, []);
 
   if (!categories) return <h2>Загрузка...</h2>;
@@ -25,10 +25,10 @@ export const SideMenu = () => {
       <nav>
         {categories.map((category) => (
           <NavLink
-            to={`/collection/${category.id}`}
+            to={`/collection/${category._id}`}
             children={category.name}
             className={style.navLink}
-            key={category.id}
+            key={category._id}
           />
         ))}
       </nav>

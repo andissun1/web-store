@@ -43,3 +43,21 @@ export function validator(allValues, scheme) {
 export const getCollectionName = (collectionID) => {
   return categories.find((category) => category.id === collectionID).name;
 };
+
+// Упрощение запросов на сервер
+export const request = async (URL, method = 'GET', payload) => {
+  const response = await fetch(URL, {
+    method,
+    headers: { 'Content-Type': 'application/json;charset=utf-8' },
+    body: payload ? JSON.stringify(payload) : undefined,
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw new Error(message);
+  }
+
+  const data = response.json();
+  return data;
+};

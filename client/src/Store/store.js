@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authorizeByHash, reducer as userReducer } from './userReducer';
+import { me, reducer as userReducer } from './userReducer';
 import { reducer as productReducer } from './productReducer';
 import { reducer as appReducer } from './appReducer';
 import { reducer as cartReducer } from './cartReducer';
@@ -35,11 +35,8 @@ export const store = configureStore({
     }),
 });
 
-// При старте приложения отправляем запрос на авторизацию
-if (sessionStorage.getItem('hash') && !store.user) {
-  const hash = JSON.parse(sessionStorage.getItem('hash'));
-  store.dispatch(authorizeByHash(hash));
-}
+// При обновлении приложения отправляем запрос на авторизацию
+store.dispatch(me);
 
 // Синхронизируем локальное состояние и Redux
 store.subscribe(() => {

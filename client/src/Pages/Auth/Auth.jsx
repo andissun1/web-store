@@ -9,14 +9,12 @@ import { ResetPasswordForm } from '../../Components/ResetPasswordForm/ResetPassw
 import { AuthForm } from '../../Components/AuthForm/AuthForm';
 import style from './Auth.module.css';
 
-// Для тестирования: test10@mail.ru 123123
-
 export const Auth = () => {
   const address = useParams().type;
   const [formData, setFormData] = useState(initialState[address]);
   const [error, setError] = useState({});
   const isValid = Object.keys(error).length === 0;
-  const hash = useSelector((store) => store.user.hash);
+  const user = useSelector((store) => store.user._id);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,33 +39,28 @@ export const Auth = () => {
     event.preventDefault();
     if (!isValid) return;
 
-    try {
-      switch (address) {
-        case 'login': {
-          const error = await dispatch(authorize(formData.email, formData.password));
-          if (error) throw new Error(error);
-          break;
-        }
-
-        case 'register': {
-          const { resetPassword, ...formDataForServer } = formData;
-          const error = await dispatch(register(formDataForServer));
-          if (error) throw new Error(error);
-          break;
-        }
-
-        case 'resetPassword': {
-          const { response, error } = await dispatch(resetPassword(formData.email));
-          if (error) throw new Error(error);
-          throw new Error(`Ваш новый пароль: ${response}`);
-          break;
-        }
-
-        default:
-          break;
+    switch (address) {
+      case 'login': {
+        const serverError = await dispatch(authorize(formData.email, formData.password));
+        if (serverError) setError({ ...error, server: serverError });
+        break;
       }
-    } catch (error) {
-      setError({ ...error, server: error.message });
+
+      case 'register': {
+        const { resetPassword, ...formDataForServer } = formData;
+        const serverError = await dispatch(register(formDataForServer));
+        setError({ ...error, server: serverError });
+        break;
+      }
+
+      case 'resetPassword': {
+        const { newPassword } = await dispatch(resetPassword(formData.email));
+        setError({ ...error, server: `Ваш новый пароль: ${newPassword}` });
+        break;
+      }
+
+      default:
+        break;
     }
   }
 
@@ -88,7 +81,7 @@ export const Auth = () => {
       <form onSubmit={handleSubmit} className={style.form}>
         {inputs}
         {error.server && <span>{error.server}</span>}
-        {hash && (
+        {user && (
           <button type="button" onClick={handleLogout}>
             Выйти из аккаунта
           </button>
