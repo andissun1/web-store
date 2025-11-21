@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from './CollectionsWidget.module.css';
 import { useEffect } from 'react';
 import { getCategories } from '../../Store/categoriesReducer';
+import { Link } from 'react-router';
 
 export const CollectionsWidget = (props) => {
   const dispatch = useDispatch();
@@ -20,8 +21,10 @@ export const CollectionsWidget = (props) => {
 
         return (
           <div className={style.collectionCard} key={category.img}>
-            <img src={category.img} />
-            <span>{category.name}</span>
+            <Link to={`/collection/${category._id}`}>
+              <img src={category.img} />
+              <span>{category.name}</span>
+            </Link>
           </div>
         );
       })}

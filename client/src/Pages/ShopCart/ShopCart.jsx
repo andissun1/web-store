@@ -28,7 +28,7 @@ export const ShopCart = (props) => {
       <div className={style.shopCart}>
         <div className={style.cardList}>
           {products.map((product) => (
-            <HorizontalCard product={product} key={product.id} />
+            <HorizontalCard product={product} key={product._id} />
           ))}
         </div>
         <div className={style.info}>

@@ -7,6 +7,7 @@ import {
   actions as productActions,
   createProduct,
   getProduct,
+  editProduct,
 } from '../../Store/productReducer';
 import { EditorPannel } from '../../Components/EditorPannel/EditorPannel';
 import { getConfirmation } from '../../Store/modalReducer';
@@ -24,7 +25,7 @@ const initialState = {
   price: null,
   stock_quantity: null,
   image_URL: null,
-  category_id: null,
+  category: null,
   comments: null,
 };
 
@@ -37,9 +38,14 @@ export const EditProduct = (props) => {
   const [productInfo, setProductInfo] = useState(null);
 
   useEffect(() => {
-    dispatch(getProduct(productID)).then((productFromStore) =>
-      isCreate ? setProductInfo(initialState) : setProductInfo(productFromStore)
-    );
+    if (isCreate) {
+      setProductInfo(initialState);
+    } else {
+      dispatch(getProduct(productID)).then((productFromStore) =>
+        setProductInfo(productFromStore)
+      );
+    }
+
     dispatch(getCategories());
 
     return () => dispatch(productActions.removeProduct());
@@ -62,9 +68,9 @@ export const EditProduct = (props) => {
     };
 
     console.log(newProductInfo);
-    isCreate ? dispatch(createProduct(newProductInfo)) : '';
-    // Написать функционал по редактированию товара
-    // dispatch(editProduct(productID, newProductInfo));
+    isCreate
+      ? dispatch(createProduct(newProductInfo))
+      : dispatch(editProduct(productID, newProductInfo));
   };
 
   const addSpecification = async () => {
@@ -114,7 +120,7 @@ export const EditProduct = (props) => {
           <EditorPannel
             handlers={{ saveChanges }}
             isCreate={isCreate}
-            productID={productInfo.id}
+            productID={productInfo._id}
           />
         </div>
 
@@ -137,9 +143,9 @@ export const EditProduct = (props) => {
 
         <ActionsPanel product={productInfo} />
         <Selector
-          name="category_id"
+          name="category"
           categories={categories}
-          defaultValue={productInfo.category_id}
+          defaultValue={productInfo.category}
           onChange={handleChange}
         />
 

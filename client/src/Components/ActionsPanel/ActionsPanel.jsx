@@ -5,15 +5,15 @@ import style from './ActionsPanel.module.css';
 
 export const ActionsPanel = ({ product }) => {
   const favorites = useSelector((store) => store.favorites.favorites);
-  const isFavorite = favorites.includes(product.id);
+  const isFavorite = favorites.includes(product._id);
   const cart = useSelector((store) => store.cart.products);
-  const isAddedToCart = cart.find((productInCart) => productInCart.id === product.id);
+  const isAddedToCart = cart.find((productInCart) => productInCart._id === product._id);
   const dispatch = useDispatch();
 
   const toggleHeart = () => {
     isFavorite
-      ? dispatch(removeFromFavorites(product.id))
-      : dispatch(addToFavorites(product.id));
+      ? dispatch(removeFromFavorites(product._id))
+      : dispatch(addToFavorites(product._id));
   };
 
   const handleAddToCart = () => {
@@ -25,7 +25,7 @@ export const ActionsPanel = ({ product }) => {
   };
 
   const decreaseCount = (params) => {
-    dispatch(decreaseProductCount(product.id));
+    dispatch(decreaseProductCount(product._id));
   };
 
   return (

@@ -9,14 +9,14 @@ export const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const favorites = useSelector((store) => store.favorites.favorites);
   const cart = useSelector((store) => store.cart.products);
-  const isFavorite = favorites.includes(product.id);
-  const isAddedToCart = cart.find((productInCart) => productInCart.id === product.id);
+  const isFavorite = favorites.includes(product._id);
+  const isAddedToCart = cart.find((productInCart) => productInCart._id === product._id);
 
   const toggleHeart = () => {
     if (isFavorite) {
-      dispatch(removeFromFavorites(product.id));
+      dispatch(removeFromFavorites(product._id));
     } else {
-      dispatch(addToFavorites(product.id));
+      dispatch(addToFavorites(product._id));
     }
   };
 
@@ -29,7 +29,7 @@ export const ProductCard = ({ product }) => {
   return (
     <div className={style.productCard}>
       <div className={style.top}>
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/product/${product._id}`}>
           <img src={product.image_URL} />
         </Link>
         <Button

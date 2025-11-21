@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { request } from '../utils';
 
 const initialState = [];
 
@@ -18,11 +19,11 @@ const productsSlice = createSlice({
 
 export const { reducer, actions } = productsSlice;
 
-export const getAllProducts =
-  () =>
-  async (dispatch, getState, { server }) => {
-    const hash = getState().user.hash;
-    const { response, error } = await server.getAllProducts(hash);
-    if (error) return error;
-    dispatch(actions.setAllProducts(response));
-  };
+export const getAllProducts = () => async (dispatch, getState) => {
+  try {
+    const products = await request(`http://localhost:3005/api/v1/product`);
+    dispatch(actions.setAllProducts(products));
+  } catch (error) {
+    console.log(error.message);
+  }
+};

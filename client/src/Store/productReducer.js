@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as appActions } from './appReducer';
+import { request } from '../utils';
 
 const initialState = null;
 
@@ -19,43 +20,64 @@ const productSlice = createSlice({
 export const { reducer, actions } = productSlice;
 
 // Асинхронные операции
-export const getProduct = (productID) => async (dispatch, getState, extraArg) => {
-  const { server, routes } = extraArg;
-  const { response, error } = await server.fetchProduct(productID);
-  if (error) {
-    dispatch(appActions.setError(error));
-    routes.navigate('/error');
-  } else dispatch(actions.setProduct(response));
-
-  return response;
-};
+export const getProduct =
+  (productID) =>
+  async (dispatch, getState, { routes }) => {
+    try {
+      const product = await request(`http://localhost:3005/api/v1/product/${productID}`);
+      dispatch(actions.setProduct(product));
+      return product;
+    } catch (error) {
+      dispatch(appActions.setError(error.message));
+      routes.navigate('/error');
+    }
+  };
 
 export const createProduct =
   (productInfo) =>
-  async (dispatch, getState, { server, routes }) => {
-    console.log(productInfo);
-
-    const hash = getState().user.hash;
-    const { response, error } = await server.createProduct(hash, productInfo);
-    if (error) {
-      dispatch(appActions.setError(error));
+  async (dispatch, getState, { routes }) => {
+    try {
+      console.log(productInfo);
+      const newProduct = await request(
+        `http://localhost:3005/api/v1/product`,
+        'POST',
+        productInfo
+      );
+      dispatch(actions.setProduct(newProduct));
+      routes.navigate(`/product/${newProduct._id}`);
+    } catch (error) {
+      dispatch(appActions.setError(error.message));
       routes.navigate('/error');
-    } else {
-      dispatch(actions.setProduct(response));
-      routes.navigate(`/product/${response.id}`);
+    }
+  };
+
+export const editProduct =
+  (productID, productInfo) =>
+  async (dispatch, getState, { routes }) => {
+    try {
+      console.log(productInfo);
+      const newProduct = await request(
+        `http://localhost:3005/api/v1/product/${productID}`,
+        'PATCH',
+        productInfo
+      );
+      dispatch(actions.setProduct(newProduct));
+      routes.navigate(`/product/${newProduct._id}`);
+    } catch (error) {
+      dispatch(appActions.setError(error.message));
+      routes.navigate('/error');
     }
   };
 
 export const deleteProduct =
   (productID) =>
-  async (dispatch, getState, { server, routes }) => {
-    const hash = getState().user.hash;
-    const { error } = await server.deleteProduct(hash, productID);
-    if (error) {
-      dispatch(appActions.setError(error));
-      routes.navigate('/error');
-    } else {
+  async (dispatch, getState, { routes }) => {
+    try {
+      await request(`http://localhost:3005/api/v1/product/${productID}`, 'DELETE');
       dispatch(actions.removeProduct());
       routes.navigate(`/adminConsole`);
+    } catch (error) {
+      dispatch(appActions.setError(error.message));
+      routes.navigate('/error');
     }
   };

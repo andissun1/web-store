@@ -51,7 +51,9 @@ export const Footer = () => (
           <SocialCircles size="30px" />
         </div>
       </div>
-      <div className={style.rights}>Образец создан andissun</div>
+      <div className={style.rights}>
+        Сайт создан в учебных целях на основе дизайна insales
+      </div>
     </div>
   </footer>
 );

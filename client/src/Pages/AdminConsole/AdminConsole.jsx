@@ -56,13 +56,13 @@ export const AdminConsole = () => {
         <div className={style.productList}>
           {products.map((product) => {
             return (
-              <div className={style.productItem} key={product.id}>
+              <div className={style.productItem} key={product._id}>
                 <Button
                   icon="icon-trash"
                   id="deleteButton"
-                  onClick={() => handleDelete(product.id)}
+                  onClick={() => handleDelete(product._id)}
                 />
-                <Link to={`/product/${product.id}/edit`}>
+                <Link to={`/product/${product._id}/edit`}>
                   <img src={product.image_URL} />
                 </Link>
                 <h4>{product.name}</h4>

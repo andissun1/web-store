@@ -1,5 +1,3 @@
-import { categories } from './constants/categories';
-
 // Валидация форм
 const validationRules = {
   isRequired: (value) => {
@@ -40,8 +38,11 @@ export function validator(allValues, scheme) {
 }
 
 // Получение имени коллекции по id
-export const getCollectionName = (collectionID) => {
-  return categories.find((category) => category.id === collectionID).name;
+export const getCollectionName = async (collectionID) => {
+  const allCaregories = await request(`http://localhost:3005/api/v1/category`);
+  console.log(allCaregories);
+
+  return allCaregories.find((category) => category._id === collectionID).name;
 };
 
 // Упрощение запросов на сервер

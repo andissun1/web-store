@@ -22,7 +22,6 @@ categoryRouter.get('/:id', async (req, res) => {
     const products = await Product.find({
       category: id,
     });
-    console.log(products);
 
     res.status(200).json(products);
   } catch (error) {

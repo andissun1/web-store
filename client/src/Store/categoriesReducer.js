@@ -21,14 +21,14 @@ const categoriesSlice = createSlice({
 
 export const { reducer, actions } = categoriesSlice;
 
-export const getAllProducts =
-  () =>
-  async (dispatch, getState, { server }) => {
-    const hash = getState().user.hash;
-    const { response, error } = await server.getAllProducts(hash);
-    if (error) return console.log(error);
-    dispatch(actions.setAllProducts(response));
-  };
+export const getAllProducts = () => async (dispatch, getState) => {
+  try {
+    const products = request(`http://localhost:3005/api/v1/product`);
+    dispatch(actions.setAllProducts(products));
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 export const getCategory =
   (id) =>
@@ -36,6 +36,7 @@ export const getCategory =
     try {
       const response = await request(`http://localhost:3005/api/v1/category/${id}`);
       dispatch(appActions.removeError());
+
       dispatch(productsActions.setAllProducts(response));
       return response;
     } catch (error) {
@@ -58,11 +59,10 @@ export const getCategories =
     }
   };
 
-export const sortCollection =
-  (id, sortType) =>
-  async (dispatch, getState, { server }) => {
-    const response = await server.sortCollection(id, sortType);
-    if (response.error) return dispatch(appActions.setError(response.error));
-    dispatch(appActions.removeError());
-    dispatch(productsActions.setAllProducts(response.response));
-  };
+export const sortCollection = (id, sortType) => async (dispatch, getState) => {
+  // Сделать сортировку
+  // const response = await server.sortCollection(id, sortType);
+  // if (response.error) return dispatch(appActions.setError(response.error));
+  // dispatch(appActions.removeError());
+  // dispatch(productsActions.setAllProducts(response.response));
+};

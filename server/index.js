@@ -9,6 +9,7 @@ import { userRouter } from './route/user.js';
 import { roleRouter } from './route/role.js';
 import { commentsRouter } from './route/comments.js';
 import { categoryRouter } from './route/category.js';
+import { loadInitialDBData } from './loadData/loadData.js';
 
 dotenv.config();
 const app = express();
@@ -37,6 +38,7 @@ const start = async () => {
     app.listen(process.env.PORT, () =>
       console.log(`Сервер запущен на ${process.env.PORT} порту`)
     );
+    loadInitialDBData();
   } catch (error) {
     console.log(error.message);
   }

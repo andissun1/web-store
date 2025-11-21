@@ -7,9 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from './Store/store';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={routes} />
-    </Provider>
-  </StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={routes} />
+  </Provider>
 );

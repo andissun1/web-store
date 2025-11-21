@@ -26,7 +26,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: { extraArgument: { server, routes } },
-      // Отключение сериализация для действия вызова модалки. Есть необходимость функции хранить в контексте.
+      // Отключение сериализация для вызова модалки. Есть необходимость функции хранить в контексте.
       serializableCheck: {
         ignoredActions: 'modal/setModalParams',
         ignoredActionPaths: ['modal'],

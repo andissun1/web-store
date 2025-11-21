@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Product } from '../model/product.js';
 import { hasRole } from '../middleweare/hasRole.js';
-import mongoose from 'mongoose';
+import { Category } from '../model/category.js';
 
 export const productRouter = Router();
 
@@ -29,6 +29,10 @@ productRouter.get('/:id', async (req, res) => {
 // create
 productRouter.post('/', hasRole(['admin']), async (req, res) => {
   try {
+    if (req.body.category.length < 24) {
+      const categoryObject = await Category.findOne({ name: req.body.category });
+      req.body.category = categoryObject._id;
+    }
     const product = await Product.create(req.body);
     res.status(201).json(product);
   } catch (error) {

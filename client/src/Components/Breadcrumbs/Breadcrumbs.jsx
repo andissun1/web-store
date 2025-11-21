@@ -3,9 +3,8 @@ import style from './BreadCrumbs.module.css';
 import { getCollectionName } from '../../utils';
 
 export const Breadcrumbs = ({ collectionID, pageName }) => {
+  return;
   const { pathname } = useLocation();
-
-  console.log(123);
 
   let currentLink = '';
 

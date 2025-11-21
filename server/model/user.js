@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema(
       ref: 'Role',
       required: true,
     },
+    // Для упрощения понимания фронту что за роль
+    roleName: {
+      type: String,
+      required: true,
+    },
     addresses: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Address',

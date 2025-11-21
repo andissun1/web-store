@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { request } from '../utils';
+import { actions as appActions } from './appReducer';
 
 const initialState = {
   favorites: localStorage.getItem('favorites')
@@ -23,12 +25,21 @@ const favoritesSlice = createSlice({
 export const { reducer, actions } = favoritesSlice;
 
 export const getFavorites =
-  (id) =>
-  async (dispatch, getState, { server }) => {
-    const favorites = getState().favorites.favorites;
-    if (!favorites) return;
-    const favoritesCards = await server.getFavorites(getState().favorites.favorites);
-    dispatch(actions.setFavoritesCards(favoritesCards.response));
+  () =>
+  async (dispatch, getState, { routes }) => {
+    try {
+      const favoritesIDs = getState().favorites.favorites;
+      if (favoritesIDs.length === 0) return;
+
+      const favoritesCards = await Promise.all(
+        favoritesIDs.map((id) => request(`http://localhost:3005/api/v1/product/${id}`))
+      );
+
+      dispatch(actions.setFavoritesCards(favoritesCards));
+    } catch (error) {
+      dispatch(appActions.setError(error.message));
+      routes.navigate('/error');
+    }
   };
 
 export const addToFavorites = (id) => async (dispatch, getState) => {

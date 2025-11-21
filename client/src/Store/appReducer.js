@@ -29,11 +29,10 @@ const appSlice = createSlice({
 
 export const { reducer, actions } = appSlice;
 
-export const getSearchResults =
-  (value) =>
-  async (dispatch, getState, { server }) => {
-    const response = await server.findPhrase(value);
-    if (response.error) return dispatch(actions.setSearchError(response.error));
-    dispatch(actions.setSearchError(null));
-    dispatch(actions.setResult(response.response));
-  };
+export const getSearchResults = (value) => async (dispatch, getState) => {
+  // const response = await server.findPhrase(value);
+  // Реализовать поиск на бэке
+  // if (response.error) return dispatch(actions.setSearchError(response.error));
+  // dispatch(actions.setSearchError(null));
+  // dispatch(actions.setResult(response.response));
+};

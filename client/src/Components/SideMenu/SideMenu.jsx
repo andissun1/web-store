@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, getCategory } from '../../Store/categoriesReducer';
+import { getCategories } from '../../Store/categoriesReducer';
 import { SocialCircles } from '../SocialCircles/SocialCircles';
 import { PopularProductsWidget } from '../PopularProductsWidget/PopularProductsWidget';
 import style from './SideMenu.module.css';
@@ -12,10 +12,12 @@ export const SideMenu = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    dispatch(getCategories()).then((collections) => {
-      const popular = collections.find(({ name }) => name === 'Популярное');
-      dispatch(getCategory(popular._id)).then(setProducts);
-    });
+    dispatch(getCategories());
+    // .then((collections) => {
+    // const popular = collections.find(({ name }) => name === 'Популярное');
+    // Это плохо, нужно переделать
+    // if (path.pathname === '/') dispatch(getCategory(popular._id)).then(setProducts);
+    // });
   }, []);
 
   if (!categories) return <h2>Загрузка...</h2>;

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { request } from '../utils';
 
 const initialState = [];
 
@@ -20,9 +21,11 @@ export const { reducer, actions } = usersReducer;
 
 export const getAllUsers =
   () =>
-  async (dispatch, getState, { server }) => {
-    const hash = getState().user.hash;
-    const { response, error } = await server.getAllUsers(hash);
-    if (error) return console.log(error);
-    dispatch(actions.setAllUsers(response));
+  async (dispatch, getState, { routes }) => {
+    try {
+      const users = await request(`http://localhost:3005/api/v1/user`);
+      dispatch(actions.setAllUsers(users));
+    } catch (error) {
+      console.log(error.message);
+    }
   };

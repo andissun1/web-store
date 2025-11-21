@@ -15,8 +15,9 @@ authRouter.post('/register', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     if (!role) {
-      const roleID = await Role.findOne({ name: 'user' });
-      req.body.role = roleID.id;
+      const userRole = await Role.findOne({ name: 'user' });
+      req.body.role = userRole._id;
+      req.body.roleName = userRole.name;
     }
 
     const user = await User.create({
@@ -27,7 +28,7 @@ authRouter.post('/register', async (req, res) => {
     const token = await jwt.sign({ userID: user.id }, process.env.JWT_SECRET);
     res.cookie('token', token, { httpOnly: true });
 
-    const { password: _, ...userData } = user.toObject();
+    const { password: _, role: __, ...userData } = user.toObject();
     res.status(200).json(userData);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -39,16 +40,15 @@ authRouter.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email });
-    if (!existingUser) {
-      return res.status(400).json({ message: 'Почта не найдена' });
-    }
+    if (!existingUser) return res.status(400).json({ message: 'Почта не найдена' });
+
     const isMatch = await bcrypt.compare(password, existingUser.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Авторизация не пройдена' });
-    }
+    if (!isMatch) return res.status(400).json({ message: 'Авторизация не пройдена' });
+
     const token = await jwt.sign({ userID: existingUser._id }, process.env.JWT_SECRET);
     res.cookie('token', token, { httpOnly: true });
-    const { password: _, ...userData } = existingUser.toObject();
+    const { password: _, role: __, ...userData } = existingUser.toObject();
+
     res.status(200).json({ userData });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -74,7 +74,7 @@ authRouter.get('/me', async (req, res) => {
     }
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(payload.userID);
-    const { password: _, ...userData } = user.toObject();
+    const { password: _, role: __, ...userData } = user.toObject();
     res.status(200).json({ user: userData, message: 'Вы авторизованы' });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -98,7 +98,7 @@ authRouter.post('/resetPassword', async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({ newPassword: newPassword });
+    res.status(200).json({ newPassword: updatedUser.password });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

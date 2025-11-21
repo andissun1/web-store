@@ -7,18 +7,18 @@ import { useNavigate } from 'react-router';
 export const HorizontalCard = ({ product }) => {
   const dispatch = useDispatch();
   const favorites = useSelector((store) => store.favorites.favorites);
-  const isFavorite = favorites.includes(product.id);
+  const isFavorite = favorites.includes(product._id);
   const navigate = useNavigate();
 
-  const handleRemoveItem = () => dispatch(actions.removeFromCart(product.id));
+  const handleRemoveItem = () => dispatch(actions.removeFromCart(product._id));
   const increaseCount = () => dispatch(addToCart(product));
-  const decreaseCount = () => dispatch(decreaseProductCount(product.id));
-  const goToProduct = () => navigate(`/product/${product.id}`);
+  const decreaseCount = () => dispatch(decreaseProductCount(product._id));
+  const goToProduct = () => navigate(`/product/${product._id}`);
 
   const toggleHeart = () => {
     isFavorite
-      ? dispatch(removeFromFavorites(product.id))
-      : dispatch(addToFavorites(product.id));
+      ? dispatch(removeFromFavorites(product._id))
+      : dispatch(addToFavorites(product._id));
   };
 
   if (!product) return;

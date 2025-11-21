@@ -23,7 +23,7 @@ const pages = [
 ];
 
 export const Header = () => {
-  const isAdmin = useSelector((store) => store.user.role_id) === ROLES.admin;
+  const isAdmin = useSelector((store) => store.user.roleName) === 'admin';
   const products = useSelector((store) => store.cart.products);
   const navigate = useNavigate();
   const dispatch = useDispatch();

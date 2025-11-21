@@ -13,7 +13,7 @@ import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
 export const Product = () => {
   const address = useLocation().pathname;
   const product = useSelector((store) => store.product);
-  const isAdmin = useSelector((store) => store.user.role_id) === ROLES.admin;
+  const isAdmin = useSelector((store) => store.user.roleName) === 'admin';
   const dispatch = useDispatch();
   const productID = useParams().id;
 
@@ -28,7 +28,7 @@ export const Product = () => {
   return (
     <div className={style.productLayout}>
       <SideMenu />
-      <Breadcrumbs collectionID={product.category_id} pageName={product.name} />
+      <Breadcrumbs collectionID={product.category} pageName={product.name} />
       <div className={style.productCard}>
         <img src={product.image_URL} />
         <h2>{product.name}</h2>

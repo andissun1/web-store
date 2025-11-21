@@ -4,9 +4,14 @@
   display: flex;
   gap: 40px;
   padding: 40px;
+
+  text-align: center;
+  color: var(--textDark);
+
+  overflow-x: auto;
 }
 
 .collectionCard {
-  width: 250px;
+  min-width: 250px;
   height: 250px;
 }
