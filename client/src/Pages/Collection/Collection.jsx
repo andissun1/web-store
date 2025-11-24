@@ -19,8 +19,6 @@ export const Collection = (props) => {
   };
 
   useEffect(() => {
-    console.log(collectionID);
-
     dispatch(getCategory(collectionID));
   }, [collectionID]);
 
@@ -34,8 +32,8 @@ export const Collection = (props) => {
         <span>Товаров: {products.length}</span>
         <div className={style.filtersPanel}>
           <select name="sort" id="sort" className={style.selector} onChange={handleSort}>
-            <option value="price/desc">по убыванию цены</option>
-            <option value="price/asc">по возрастанию цены</option>
+            <option value="price=desc">по убыванию цены</option>
+            <option value="price=asc">по возрастанию цены</option>
           </select>
         </div>
         <div className={style.productList}>

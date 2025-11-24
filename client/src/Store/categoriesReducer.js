@@ -59,10 +59,17 @@ export const getCategories =
     }
   };
 
-export const sortCollection = (id, sortType) => async (dispatch, getState) => {
-  // Сделать сортировку
-  // const response = await server.sortCollection(id, sortType);
-  // if (response.error) return dispatch(appActions.setError(response.error));
-  // dispatch(appActions.removeError());
-  // dispatch(productsActions.setAllProducts(response.response));
-};
+export const sortCollection =
+  (collectionID, sortType) =>
+  async (dispatch, getState, { routes }) => {
+    try {
+      const sortedProducts = await request(
+        `http://localhost:3005/api/v1/category/${collectionID}?${sortType}`
+      );
+      dispatch(appActions.removeError());
+      dispatch(productsActions.setAllProducts(sortedProducts));
+    } catch (error) {
+      dispatch(appActions.setError(error.message));
+      routes.navigate('/error');
+    }
+  };

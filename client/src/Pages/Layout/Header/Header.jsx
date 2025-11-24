@@ -1,11 +1,13 @@
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { ROLES } from '../../../BFF/bff';
-import { getSearchResults } from '../../../Store/appReducer';
+import { actions, getSearchResults } from '../../../Store/appReducer';
 import { useEffect } from 'react';
 import { getShopCartProducts } from '../../../Store/cartReducer';
 import { Button } from '../../../Components/Button/Button';
 import style from './Header.module.css';
+import { useRef } from 'react';
+
+const LIMIT_PRODUCTS_ON_PAGE = 12;
 
 const pages = [
   {
@@ -24,7 +26,9 @@ const pages = [
 
 export const Header = () => {
   const isAdmin = useSelector((store) => store.user.roleName) === 'admin';
-  const products = useSelector((store) => store.cart.products);
+  const shopCart = useSelector((store) => store.cart.products);
+  const searchInput = useRef(null);
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,14 +36,21 @@ export const Header = () => {
     dispatch(getShopCartProducts());
   }, []);
 
+  useEffect(() => {
+    if (location.pathname !== '/search') {
+      dispatch(actions.setSearchPhrase(''));
+      searchInput.current.value = '';
+    }
+  }, [location]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const searchPhrase = event.target.search.value;
-    dispatch(getSearchResults(searchPhrase));
+    dispatch(getSearchResults(event.target.search.value, LIMIT_PRODUCTS_ON_PAGE, 1));
+    dispatch(actions.setSearchPhrase(event.target.search.value));
     navigate('/search');
   };
 
-  const total = products.reduce(
+  const total = shopCart.reduce(
     (acc, product) => (acc += product.price * product.count),
     0
   );
@@ -65,7 +76,7 @@ export const Header = () => {
         <Button icon="icon-bars _show">Каталог</Button>
 
         <form onSubmit={handleSubmit} className={style.search}>
-          <input type="text" placeholder="Поиск" name="search" />
+          <input type="text" placeholder="Поиск" name="search" ref={searchInput} />
           <Button icon="icon-search" type="submit" />
         </form>
 

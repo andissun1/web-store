@@ -10,6 +10,7 @@ import { roleRouter } from './route/role.js';
 import { commentsRouter } from './route/comments.js';
 import { categoryRouter } from './route/category.js';
 import { loadInitialDBData } from './loadData/loadData.js';
+import { filtersRouter } from './route/filters.js';
 
 dotenv.config();
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api/v1/user', userRouter);
 app.use('/api/v1/category', categoryRouter);
 app.use('/api/v1/comments', commentsRouter);
 app.use('/api/v1/product', productRouter);
+app.use('/api/v1/filters', filtersRouter);
 // app.get('регулярное выражение', (req, res) => {
 //   res.sendFile(join('dist', 'index.html'));
 // });

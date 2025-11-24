@@ -19,9 +19,23 @@ categoryRouter.get('/', async (req, res) => {
 categoryRouter.get('/:id', async (req, res) => {
   try {
     const id = new mongoose.Types.ObjectId(req.params.id);
-    const products = await Product.find({
+    let products = await Product.find({
       category: id,
     });
+
+    // ТРЕБУЕТ ПРАВОК
+    if (req.query.price) {
+      if (req.query.price === 'asc') {
+        products = await Product.find({
+          category: id,
+        }).sort({ price: 1 });
+      } else {
+        products = await Product.find({
+          category: id,
+        }).sort({ price: -1 });
+      }
+    }
+    // _______________
 
     res.status(200).json(products);
   } catch (error) {

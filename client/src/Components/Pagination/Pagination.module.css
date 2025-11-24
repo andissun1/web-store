@@ -1,0 +1,15 @@
+.Pagination {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-block: 70px;
+}
+
+.Pagination button {
+  width: fit-content;
+}
+
+.Pagination button:disabled {
+  background-color: var(--lightPurple);
+  cursor: default;
+}

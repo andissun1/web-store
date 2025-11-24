@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { request } from '../utils';
 
 const initialState = {
   errors: null,
@@ -29,10 +30,14 @@ const appSlice = createSlice({
 
 export const { reducer, actions } = appSlice;
 
-export const getSearchResults = (value) => async (dispatch, getState) => {
-  // const response = await server.findPhrase(value);
-  // Реализовать поиск на бэке
-  // if (response.error) return dispatch(actions.setSearchError(response.error));
-  // dispatch(actions.setSearchError(null));
-  // dispatch(actions.setResult(response.response));
+export const getSearchResults = (value, limit, page) => async (dispatch, getState) => {
+  try {
+    const resultsOfSearch = await request(
+      `http://localhost:3005/api/v1/filters/search?name=${value}&limit=${limit}&page=${page}`
+    );
+    dispatch(actions.setSearchError(null));
+    dispatch(actions.setResult(resultsOfSearch));
+  } catch (error) {
+    dispatch(actions.setSearchError(error.message));
+  }
 };

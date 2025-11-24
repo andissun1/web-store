@@ -7,7 +7,6 @@ import { Link, useLocation, useParams } from 'react-router';
 import { Comments } from '../../Components/Comments/Comments';
 import { DescriptionBlock } from '../../Components/DescriptionBlock/DescriptionBlock';
 import style from './product.module.css';
-import { ROLES } from '../../BFF/bff';
 import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
 
 export const Product = () => {

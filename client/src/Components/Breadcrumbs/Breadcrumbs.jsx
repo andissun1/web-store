@@ -1,12 +1,16 @@
 import { Link, useLocation } from 'react-router';
 import style from './BreadCrumbs.module.css';
-import { getCollectionName } from '../../utils';
+import { useSelector } from 'react-redux';
+import { Loader } from '../Loader/Loader';
 
 export const Breadcrumbs = ({ collectionID, pageName }) => {
-  return;
   const { pathname } = useLocation();
+  let collections = useSelector((store) => store.categories);
 
   let currentLink = '';
+
+  if (!collections) return <Loader />;
+  collections = collections.find(({ _id }) => _id === collectionID);
 
   const crumbs = pathname
     .split('/')
@@ -18,7 +22,7 @@ export const Breadcrumbs = ({ collectionID, pageName }) => {
       if (crumb === 'product') {
         return (
           <Link to={`/collection/${collectionID}`} className={style.crumb} key={crumb}>
-            {getCollectionName(collectionID)}
+            {collections.name}
           </Link>
         );
       }

@@ -5,6 +5,7 @@ import { getCategories } from '../../Store/categoriesReducer';
 import { SocialCircles } from '../SocialCircles/SocialCircles';
 import { PopularProductsWidget } from '../PopularProductsWidget/PopularProductsWidget';
 import style from './SideMenu.module.css';
+import { Loader } from '../Loader/Loader';
 
 export const SideMenu = () => {
   const dispatch = useDispatch();
@@ -12,15 +13,13 @@ export const SideMenu = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    dispatch(getCategories());
     // .then((collections) => {
     // const popular = collections.find(({ name }) => name === 'Популярное');
-    // Это плохо, нужно переделать
     // if (path.pathname === '/') dispatch(getCategory(popular._id)).then(setProducts);
     // });
   }, []);
 
-  if (!categories) return <h2>Загрузка...</h2>;
+  if (!categories) return <Loader />;
 
   return (
     <div className={style.SideMenu}>

@@ -37,14 +37,6 @@ export function validator(allValues, scheme) {
   return errors;
 }
 
-// Получение имени коллекции по id
-export const getCollectionName = async (collectionID) => {
-  const allCaregories = await request(`http://localhost:3005/api/v1/category`);
-  console.log(allCaregories);
-
-  return allCaregories.find((category) => category._id === collectionID).name;
-};
-
 // Упрощение запросов на сервер
 export const request = async (URL, method = 'GET', payload) => {
   const response = await fetch(URL, {

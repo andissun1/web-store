@@ -4,12 +4,11 @@ import { reducer as productReducer } from './productReducer';
 import { reducer as appReducer } from './appReducer';
 import { reducer as cartReducer } from './cartReducer';
 import { reducer as favoritesReducer } from './favoritesReducer';
-import { server } from '../BFF/bff';
 import { routes } from '../Router/routes';
 import { reducer as modalReducer } from './modalReducer';
 import { reducer as usersReducer } from './usersReducer';
 import { reducer as productsReducer } from './productsReducer';
-import { reducer as categoriesReducer } from './categoriesReducer';
+import { reducer as categoriesReducer, getCategories } from './categoriesReducer';
 
 export const store = configureStore({
   reducer: {
@@ -25,7 +24,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      thunk: { extraArgument: { server, routes } },
+      thunk: { extraArgument: { routes } },
       // Отключение сериализация для вызова модалки. Есть необходимость функции хранить в контексте.
       serializableCheck: {
         ignoredActions: 'modal/setModalParams',
@@ -37,6 +36,9 @@ export const store = configureStore({
 
 // При обновлении приложения отправляем запрос на авторизацию
 store.dispatch(me);
+
+// Получаем все категории товаров
+store.dispatch(getCategories());
 
 // Синхронизируем локальное состояние и Redux
 store.subscribe(() => {

@@ -3,6 +3,7 @@ import { ProductCard } from '../../Components/ProductCard/ProductCard';
 import { Loader } from '../../Components/Loader/Loader';
 import style from './Search.module.css';
 import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
+import { Pagination } from '../../Components/Pagination/Pagination';
 
 // Функция дебаунс, которая может пригодиться
 /* const debounce = (fun, delay) => {
@@ -22,7 +23,8 @@ export const Search = () => {
   // const handlesearch = ({ target }) => debouncedSearch(target.value);
 
   if (error) return <h2>{error}</h2>;
-  if (typeof result === 'object' && !result) return <h2>Введите запрос</h2>; // Проверяю на null
+  if (!result) return <h2>Введите запрос</h2>; // Проверяю на null
+  if (result.products.length === 0) return <h2>Ничего не найдено</h2>; // Проверяю на null
   if (!result) return <Loader />;
 
   return (
@@ -30,10 +32,11 @@ export const Search = () => {
       <Breadcrumbs pageName="Поиск" />
       <h2>Результаты поиска</h2>
       <div className={style.productList}>
-        {result.map((product) => (
-          <ProductCard product={product} key={product.id} />
+        {result.products.map((product) => (
+          <ProductCard product={product} key={product._id} />
         ))}
       </div>
+      <Pagination />
     </div>
   );
 };
