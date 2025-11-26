@@ -1,24 +1,11 @@
 import { NavLink } from 'react-router';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCategories } from '../../Store/categoriesReducer';
+import { useSelector } from 'react-redux';
 import { SocialCircles } from '../SocialCircles/SocialCircles';
-import { PopularProductsWidget } from '../PopularProductsWidget/PopularProductsWidget';
 import style from './SideMenu.module.css';
 import { Loader } from '../Loader/Loader';
 
 export const SideMenu = () => {
-  const dispatch = useDispatch();
   const categories = useSelector((store) => store.categories);
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    // .then((collections) => {
-    // const popular = collections.find(({ name }) => name === 'Популярное');
-    // if (path.pathname === '/') dispatch(getCategory(popular._id)).then(setProducts);
-    // });
-  }, []);
-
   if (!categories) return <Loader />;
 
   return (
@@ -34,7 +21,6 @@ export const SideMenu = () => {
         ))}
       </nav>
       <SocialCircles title="Подписывайтесь" />
-      <PopularProductsWidget products={products} />
     </div>
   );
 };

@@ -94,6 +94,7 @@ export const me = async (dispatch) => {
     const { user } = await request(`http://localhost:3005/api/v1/auth/me`);
     dispatch(actions.setUser(user));
   } catch (error) {
-    console.log(error.message);
+    // Приходит регулярно сообщение о статусе авторизации
+    // console.log(error.message);
   }
 };

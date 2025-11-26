@@ -15,7 +15,7 @@ export const PromoWidget = (props) => {
             скидками.
           </span>
         </div>
-        <Link to={'/product'}>
+        <Link to={'collection/all'}>
           <button>Все товары</button>
         </Link>
       </div>

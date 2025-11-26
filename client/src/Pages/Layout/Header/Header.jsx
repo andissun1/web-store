@@ -4,10 +4,10 @@ import { actions, getSearchResults } from '../../../Store/appReducer';
 import { useEffect } from 'react';
 import { getShopCartProducts } from '../../../Store/cartReducer';
 import { Button } from '../../../Components/Button/Button';
+import { LIMIT } from '../../../Components/Pagination/Pagination';
 import style from './Header.module.css';
 import { useRef } from 'react';
-
-const LIMIT_PRODUCTS_ON_PAGE = 12;
+import { getConfirmation } from '../../../Store/modalReducer';
 
 const pages = [
   {
@@ -45,9 +45,13 @@ export const Header = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(getSearchResults(event.target.search.value, LIMIT_PRODUCTS_ON_PAGE, 1));
-    dispatch(actions.setSearchPhrase(event.target.search.value));
+    const { value } = event.target.search;
+    dispatch(getSearchResults(value, LIMIT, 1));
     navigate('/search');
+  };
+
+  const showCategories = () => {
+    dispatch(getConfirmation({ type: 'getCategory' }));
   };
 
   const total = shopCart.reduce(
@@ -73,7 +77,9 @@ export const Header = () => {
         <Link to={'/'} className={style.logo}>
           <img src="https://static.insales-cdn.com/files/1/7649/24960481/original/Frame.png" />
         </Link>
-        <Button icon="icon-bars _show">Каталог</Button>
+        <Button icon="icon-bars _show" onClick={showCategories}>
+          Каталог
+        </Button>
 
         <form onSubmit={handleSubmit} className={style.search}>
           <input type="text" placeholder="Поиск" name="search" ref={searchInput} />

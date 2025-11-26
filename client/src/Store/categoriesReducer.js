@@ -31,14 +31,30 @@ export const getAllProducts = () => async (dispatch, getState) => {
 };
 
 export const getCategory =
-  (id) =>
+  (id, limit, page) =>
   async (dispatch, getState, { routes }) => {
     try {
-      const response = await request(`http://localhost:3005/api/v1/category/${id}`);
-      dispatch(appActions.removeError());
+      let { products, lastPage, count } = await request(
+        `http://localhost:3005/api/v1/category/${id}${
+          limit ? `&limit=${limit}&page=${page}` : ''
+        }`
+      );
 
-      dispatch(productsActions.setAllProducts(response));
-      return response;
+      dispatch(appActions.removeError());
+      dispatch(productsActions.setAllProducts(products));
+
+      // Если не найдена категория, то все продукты выводятся
+      if (products.length === 0) {
+        products = await request(`http://localhost:3005/api/v1/product`);
+        dispatch(productsActions.setAllProducts(products));
+        return products;
+      }
+
+      return {
+        lastPage,
+        count,
+        products,
+      };
     } catch (error) {
       dispatch(appActions.setError(error.message));
       routes.navigate('/error');
@@ -53,21 +69,6 @@ export const getCategories =
       dispatch(appActions.removeError());
       dispatch(actions.setCategories(response));
       return response;
-    } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
-    }
-  };
-
-export const sortCollection =
-  (collectionID, sortType) =>
-  async (dispatch, getState, { routes }) => {
-    try {
-      const sortedProducts = await request(
-        `http://localhost:3005/api/v1/category/${collectionID}?${sortType}`
-      );
-      dispatch(appActions.removeError());
-      dispatch(productsActions.setAllProducts(sortedProducts));
     } catch (error) {
       dispatch(appActions.setError(error.message));
       routes.navigate('/error');

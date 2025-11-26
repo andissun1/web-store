@@ -1,11 +1,9 @@
 import { useSelector } from 'react-redux';
 import { ProductCard } from '../../Components/ProductCard/ProductCard';
-import { Loader } from '../../Components/Loader/Loader';
 import style from './Search.module.css';
 import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
 import { Pagination } from '../../Components/Pagination/Pagination';
 
-// Функция дебаунс, которая может пригодиться
 /* const debounce = (fun, delay) => {
   let timer;
 
@@ -23,9 +21,8 @@ export const Search = () => {
   // const handlesearch = ({ target }) => debouncedSearch(target.value);
 
   if (error) return <h2>{error}</h2>;
-  if (!result) return <h2>Введите запрос</h2>; // Проверяю на null
-  if (result.products.length === 0) return <h2>Ничего не найдено</h2>; // Проверяю на null
-  if (!result) return <Loader />;
+  if (!result) return <h2>Введите запрос</h2>;
+  if (result.products.length === 0) return <h2>Ничего не найдено</h2>;
 
   return (
     <div className={style.search}>

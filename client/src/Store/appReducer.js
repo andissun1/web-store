@@ -30,12 +30,14 @@ const appSlice = createSlice({
 
 export const { reducer, actions } = appSlice;
 
-export const getSearchResults = (value, limit, page) => async (dispatch, getState) => {
+export const getSearchResults = (value, limit, page) => async (dispatch) => {
   try {
     const resultsOfSearch = await request(
       `http://localhost:3005/api/v1/filters/search?name=${value}&limit=${limit}&page=${page}`
     );
+
     dispatch(actions.setSearchError(null));
+    dispatch(actions.setSearchPhrase(value));
     dispatch(actions.setResult(resultsOfSearch));
   } catch (error) {
     dispatch(actions.setSearchError(error.message));

@@ -1,4 +1,21 @@
 .Loader {
-  min-height: 100vh;
   text-align: center;
+  grid-row: span 6;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 5px var(--lightPurple) solid;
+  border-left-color: transparent;
+
+  margin: 20px auto;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

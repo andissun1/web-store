@@ -1,13 +1,12 @@
 .collection {
-  margin: auto;
-  width: fit-content;
   display: grid;
   grid-template-columns: 1fr 4fr;
+  justify-items: flex-start;
 }
 
 .productList {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 30px;
 }
 

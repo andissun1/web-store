@@ -8,6 +8,7 @@ import { Comments } from '../../Components/Comments/Comments';
 import { DescriptionBlock } from '../../Components/DescriptionBlock/DescriptionBlock';
 import style from './product.module.css';
 import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
+import { Loader } from '../../Components/Loader/Loader';
 
 export const Product = () => {
   const address = useLocation().pathname;
@@ -22,7 +23,7 @@ export const Product = () => {
     return () => dispatch(productActions.removeProduct());
   }, [productID]);
 
-  if (!product) return <h2>Загрузка</h2>;
+  if (!product) return <Loader />;
 
   return (
     <div className={style.productLayout}>

@@ -5,6 +5,6 @@
 
 .productList {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, 210px);
   gap: 30px;
 }

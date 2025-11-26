@@ -8,8 +8,6 @@ filtersRouter.get('/search', async (req, res) => {
   try {
     const { page, limit, name } = req.query;
 
-    console.log(req.query);
-
     const [products, count] = await Promise.all([
       Product.find({ name: { $regex: name, $options: 'i' } })
         .limit(limit)

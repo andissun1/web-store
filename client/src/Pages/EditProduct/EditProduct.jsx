@@ -74,7 +74,7 @@ export const EditProduct = (props) => {
   };
 
   const addSpecification = async () => {
-    const { key, value } = await dispatch(getConfirmation({ type: 'getValues' }));
+    const { key, value } = await dispatch(getConfirmation({ type: 'AddSpecification' }));
     if (!key || !value) return console.log('Есть пустые поля!');
     setProductInfo({
       ...productInfo,

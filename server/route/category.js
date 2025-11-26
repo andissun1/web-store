@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { Category } from '../model/category.js';
 import { Product } from '../model/product.js';
-import mongoose from 'mongoose';
 
 export const categoryRouter = Router();
 
@@ -18,26 +17,33 @@ categoryRouter.get('/', async (req, res) => {
 // get one
 categoryRouter.get('/:id', async (req, res) => {
   try {
-    const id = new mongoose.Types.ObjectId(req.params.id);
-    let products = await Product.find({
-      category: id,
-    });
+    const { id } = req.params;
 
-    // ТРЕБУЕТ ПРАВОК
-    if (req.query.price) {
-      if (req.query.price === 'asc') {
-        products = await Product.find({
-          category: id,
-        }).sort({ price: 1 });
-      } else {
-        products = await Product.find({
-          category: id,
-        }).sort({ price: -1 });
-      }
-    }
-    // _______________
+    const key = Object.keys(req.query)[0]; // Определяю ключ для сортировки
+    const direction = req.query[key] === 'asc' ? 1 : -1;
+    const limit = req.query.limit || 12;
+    const page = req.query.page || 1;
 
-    res.status(200).json(products);
+    const products = await Product.find(
+      id === 'all'
+        ? undefined
+        : {
+            category: id,
+          }
+    )
+      .sort({ [key]: direction })
+      .limit(limit)
+      .skip((page - 1) * limit);
+
+    const count = await Product.countDocuments(
+      id === 'all'
+        ? undefined
+        : {
+            category: id,
+          }
+    );
+
+    res.status(200).json({ products, lastPage: Math.ceil(count / limit), count });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
