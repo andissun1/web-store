@@ -43,13 +43,6 @@ export const getCategory =
       dispatch(appActions.removeError());
       dispatch(productsActions.setAllProducts(products));
 
-      // Если не найдена категория, то все продукты выводятся
-      if (products.length === 0) {
-        products = await request(`http://localhost:3005/api/v1/product`);
-        dispatch(productsActions.setAllProducts(products));
-        return products;
-      }
-
       return {
         lastPage,
         count,

@@ -81,3 +81,51 @@ export const deleteProduct =
       routes.navigate('/error');
     }
   };
+
+// Комментарии
+
+export const addComment =
+  (productID, commentInfo) =>
+  async (dispatch, getState, { routes }) => {
+    try {
+      const newComment = await request(
+        `http://localhost:3005/api/v1/comments/${productID}`,
+        'POST',
+        commentInfo
+      );
+      return newComment;
+    } catch (error) {
+      dispatch(appActions.setError(error.message));
+      routes.navigate('/error');
+    }
+  };
+
+export const removeComment =
+  (commentID, productID) =>
+  async (dispatch, getState, { routes }) => {
+    try {
+      await request(
+        `http://localhost:3005/api/v1/comments/${commentID}/${productID}`,
+        'DELETE'
+      );
+    } catch (error) {
+      dispatch(appActions.setError(error.message));
+      routes.navigate('/error');
+    }
+  };
+
+export const updateComment =
+  (commentID, commentInfo) =>
+  async (dispatch, getState, { routes }) => {
+    try {
+      const newComment = await request(
+        `http://localhost:3005/api/v1/comments/${commentID}`,
+        'PATCH',
+        commentInfo
+      );
+      return newComment;
+    } catch (error) {
+      dispatch(appActions.setError(error.message));
+      routes.navigate('/error');
+    }
+  };

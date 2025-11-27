@@ -13,6 +13,7 @@ import { Layout } from '../Pages/Layout/Layout';
 import { getFavorites } from '../Store/favoritesReducer';
 import { EditProduct } from '../Pages/EditProduct/EditProduct';
 import { Loader } from '../Components/Loader/Loader';
+import { PrivateRoute } from '../Components/PrivateRoute/PrivateRoute';
 // Динамический импорт чтобы избежать циклической зависимости со Store
 const store = import('../Store/store').then(({ store }) => store);
 
@@ -40,9 +41,9 @@ export const routes = createBrowserRouter([
       },
       {
         path: 'product/:id/edit',
-        Component: EditProduct,
+        element: <PrivateRoute children={<EditProduct />} />,
       },
-      { path: 'product/create', Component: EditProduct },
+      { path: 'product/create', element: <PrivateRoute children={<EditProduct />} /> },
       {
         path: 'shopCart',
         Component: ShopCart,
@@ -64,7 +65,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: 'adminConsole',
-        Component: AdminConsole,
+        element: <PrivateRoute children={<AdminConsole />} />,
       },
       {
         path: '*',

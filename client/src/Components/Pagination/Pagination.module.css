@@ -13,3 +13,7 @@
   background-color: var(--lightPurple);
   cursor: default;
 }
+
+.info {
+  cursor: default;
+}

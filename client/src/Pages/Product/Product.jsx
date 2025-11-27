@@ -35,7 +35,7 @@ export const Product = () => {
         <p className={style.price}>{product.price} ₽</p>
         <ActionsPanel product={product} />
         <DescriptionBlock product={product} />
-        <Comments comments={product.comments} />
+        <Comments comments={product.comments} productID={product._id} />
       </div>
       {isAdmin && (
         <Link to={address + '/edit'} className={style.editLink}>

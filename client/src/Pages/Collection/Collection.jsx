@@ -23,7 +23,7 @@ export const Collection = (props) => {
     dispatch(getCategory(`${collectionID}?${sort}`)).then(setPaginationInfo);
   }, [collectionID, sort]);
 
-  if (products.length === 0 || !paginationInfo || !categories) return <Loader />;
+  if (!products || !paginationInfo || !categories) return <Loader />;
 
   const categoryName = categories?.find((item) => item._id === collectionID)?.name;
 
@@ -43,6 +43,8 @@ export const Collection = (props) => {
           >
             <option value="price=desc">по убыванию цены</option>
             <option value="price=asc">по возрастанию цены</option>
+            <option value="createdAt=asc">Сначала новые</option>
+            <option value="name=asc">по названию</option>
           </select>
         </div>
         <div className={style.productList}>
@@ -50,7 +52,7 @@ export const Collection = (props) => {
             <ProductCard product={product} key={product._id} />
           ))}
         </div>
-        {paginationInfo.lastPage !== 1 && (
+        {paginationInfo.lastPage > 1 && (
           <Pagination info={{ ...paginationInfo, collectionID }} sort={sort} />
         )}
       </div>

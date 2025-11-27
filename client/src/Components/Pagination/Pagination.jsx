@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { getSearchResults } from '../../Store/appReducer';
 import { getCategory } from '../../Store/categoriesReducer';
 
-export const LIMIT = 12;
+export const LIMIT = 10;
 
 export const Pagination = ({ info, sort }) => {
   const searchParams = useSelector((store) => store.app.search);
@@ -37,7 +37,7 @@ export const Pagination = ({ info, sort }) => {
       <button disabled={currentPage === 1} onClick={prevPage}>
         Назад
       </button>
-      <button>
+      <button className={style.info}>
         Страница {currentPage} из {lastPage}
       </button>
       <button onClick={nextPage} disabled={currentPage === lastPage}>

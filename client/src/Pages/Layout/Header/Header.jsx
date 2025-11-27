@@ -25,7 +25,7 @@ const pages = [
 ];
 
 export const Header = () => {
-  const isAdmin = useSelector((store) => store.user.roleName) === 'admin';
+  const isAdmin = useSelector((store) => store.user?.roleName) === 'admin';
   const shopCart = useSelector((store) => store.cart.products);
   const searchInput = useRef(null);
   const location = useLocation();

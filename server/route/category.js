@@ -21,7 +21,7 @@ categoryRouter.get('/:id', async (req, res) => {
 
     const key = Object.keys(req.query)[0]; // Определяю ключ для сортировки
     const direction = req.query[key] === 'asc' ? 1 : -1;
-    const limit = req.query.limit || 12;
+    const limit = req.query.limit || 10;
     const page = req.query.page || 1;
 
     const products = await Product.find(

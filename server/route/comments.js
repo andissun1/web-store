@@ -21,7 +21,7 @@ commentsRouter.post('/:productID', isAuth, async (req, res) => {
   try {
     req.body.author = req.user;
     const { productID } = req.params;
-    const comment = await Comment.create(req.body);
+    const comment = await (await Comment.create(req.body)).populate('author', 'fullname');
 
     // Добавляем новый комменатрий к товару
     await Product.findByIdAndUpdate(productID, {
@@ -47,7 +47,7 @@ commentsRouter.patch('/:id', isAuth, async (req, res) => {
 
     const updatedComment = await Comment.findByIdAndUpdate(commentID, commentInfo, {
       new: true,
-    });
+    }).populate('author', 'fullname');
 
     res.status(200).json(updatedComment);
   } catch (error) {
