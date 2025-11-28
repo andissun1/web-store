@@ -1,3 +1,4 @@
+import { Button } from '../../Button/Button';
 import style from './AddSpecification.module.css';
 import { useState } from 'react';
 
@@ -42,9 +43,7 @@ export const AddSpecification = ({ modalParams }) => {
           <button className={style.defaultButton} onClick={confirm}>
             Сохранить
           </button>
-          <button datatype="close" onClick={() => closeModal()}>
-            <span className="icon-times" />
-          </button>
+          <Button icon="icon-times" datatype="close" onClick={() => closeModal()} />
         </div>
       </div>
     </div>

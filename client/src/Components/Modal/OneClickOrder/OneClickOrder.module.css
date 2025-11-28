@@ -1,0 +1,61 @@
+.modalWindow {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.3);
+
+  z-index: 2;
+}
+
+.content {
+  position: relative;
+  background-color: white;
+  width: 450px;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.content input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+}
+
+.content form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.confirm {
+  margin: auto;
+  width: 100%;
+}
+
+.confirm:disabled {
+  background-color: var(--lightPurple);
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  width: 40px;
+  height: 40px;
+  color: black;
+  font-size: 30px;
+
+  background-color: transparent;
+}
+
+.close:hover {
+  background-color: var(--lightGray);
+}

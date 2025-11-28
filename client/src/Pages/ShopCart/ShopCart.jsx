@@ -3,6 +3,7 @@ import { HorizontalCard } from '../../Components/HorizontalCard/HorizontalCard';
 import style from './ShopCart.module.css';
 import { useEffect, useMemo } from 'react';
 import { getShopCartProducts } from '../../Store/cartReducer';
+import { getConfirmation } from '../../Store/modalReducer';
 
 export const ShopCart = (props) => {
   const products = useSelector((store) => store.cart.products);
@@ -22,6 +23,10 @@ export const ShopCart = (props) => {
     [products]
   );
 
+  const openModal = () => {
+    dispatch(getConfirmation({ type: 'OneClickOrder' }));
+  };
+
   return (
     <>
       <h2>Корзина</h2>
@@ -37,7 +42,9 @@ export const ShopCart = (props) => {
           <span className={style.promocode}>Введите промокод</span>
           <span className={style.price}>{total} ₽</span>
           <div className={style.actions}>
-            <button className={style.buy}>Оформить заказ</button>
+            <button onClick={openModal} className={style.buy}>
+              Оформить заказ
+            </button>
             <button className={style.share}>Поделиться</button>
           </div>
         </div>

@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorites, removeFromFavorites } from '../../Store/favoritesReducer';
 import { addToCart, decreaseProductCount } from '../../Store/cartReducer';
 import style from './ActionsPanel.module.css';
+import { Button } from '../Button/Button';
+import { getConfirmation } from '../../Store/modalReducer';
 
 export const ActionsPanel = ({ product }) => {
   const favorites = useSelector((store) => store.favorites.favorites);
@@ -20,42 +22,55 @@ export const ActionsPanel = ({ product }) => {
     dispatch(addToCart(product));
   };
 
-  const increaseCount = (params) => {
+  const increaseCount = () => {
     dispatch(addToCart(product));
   };
 
-  const decreaseCount = (params) => {
+  const decreaseCount = () => {
     dispatch(decreaseProductCount(product._id));
+  };
+
+  const openModal = () => {
+    dispatch(getConfirmation({ type: 'OneClickOrder' }));
   };
 
   return (
     <div className={style.actionsPanel}>
       {isAddedToCart ? (
         <>
-          <button onClick={decreaseCount} className={style.controller}>
-            <span className="icon icon-minus" />
-          </button>
-          <button className={style.addToCart} onClick={handleAddToCart}>
-            <span className="button__icon icon-cart" />
-            {`В корзине ${isAddedToCart.count} шт`}
-          </button>
-          <button onClick={increaseCount} className={style.controller}>
-            <span className="icon icon-plus" />
-          </button>
+          <Button
+            icon="icon icon-minus"
+            onClick={decreaseCount}
+            className={style.controller}
+          />
+          <Button
+            icon="button__icon icon-cart"
+            className={style.addToCart}
+            onClick={handleAddToCart}
+            children={`В корзине ${isAddedToCart.count} шт`}
+          />
+          <Button
+            icon="icon icon-plus"
+            onClick={increaseCount}
+            className={style.controller}
+          />
         </>
       ) : (
-        <button className={style.addToCart} onClick={handleAddToCart}>
-          <span className="button__icon icon-cart" /> В корзину
-        </button>
-      )}
-      <button className={style.buy}>Купить в 1 клик</button>
-      <button className={style.addToFavorite} onClick={toggleHeart}>
-        <span
-          className={
-            isFavorite ? 'btn-icon icon-favorites-f' : 'btn-icon icon-favorites-o'
-          }
+        <Button
+          icon="button__icon icon-cart"
+          className={style.addToCart}
+          onClick={handleAddToCart}
+          children="В корзину"
         />
+      )}
+      <button className={style.buy} onClick={openModal}>
+        Купить в 1 клик
       </button>
+      <Button
+        icon={isFavorite ? 'btn-icon icon-favorites-f' : 'btn-icon icon-favorites-o'}
+        className={style.addToFavorite}
+        onClick={toggleHeart}
+      />
     </div>
   );
 };

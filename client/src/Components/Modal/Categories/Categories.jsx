@@ -8,12 +8,8 @@ export const Categories = ({ modalParams }) => {
 
   if (!categories) return <Loader />;
 
-  const closeWindow = () => {
-    modalParams.onClose();
-  };
-
   return (
-    <div className={style.modalWindow} onClick={closeWindow}>
+    <div className={style.modalWindow} onClick={() => modalParams.onClose()}>
       <div className={style.modalContent}>
         {categories.map((category) => {
           if (!category.img) return null;

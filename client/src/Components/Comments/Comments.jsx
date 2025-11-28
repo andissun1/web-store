@@ -3,14 +3,15 @@ import { Button } from '../Button/Button';
 import style from './Comments.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment, removeComment, updateComment } from '../../Store/productReducer';
+import { Loader } from '../Loader/Loader';
 
 export const Comments = ({ productID, comments: commentsFromServer }) => {
-  const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
-  const [isOpenInput, setIsOpenInput] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [text, setText] = useState('');
   const [comments, setComments] = useState(commentsFromServer);
+  const [isOpenInput, setIsOpenInput] = useState(false);
+  const [commentID, setСommentID] = useState(null);
+  const [text, setText] = useState(''); // Данные из инпутов для отправки на сервер (пока только текст)
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
 
   const sendComment = async () => {
     const newComment = await dispatch(addComment(productID, { text }));
@@ -26,18 +27,20 @@ export const Comments = ({ productID, comments: commentsFromServer }) => {
 
   const openInput = async (commentID, text) => {
     setIsOpenInput(true);
-    setIsEdit(commentID);
+    setСommentID(commentID);
     setText(text);
   };
 
   const handleEdit = async () => {
-    const newComment = await dispatch(updateComment(isEdit, { text }));
+    const newComment = await dispatch(updateComment(commentID, { text }));
     const newCommentsArray = comments.map((comment) =>
       comment._id === newComment._id ? newComment : comment
     );
     setComments(newCommentsArray);
     setIsOpenInput(false);
   };
+
+  if (!user) return <Loader />;
 
   return (
     <div className={style.feedbacks}>
@@ -55,7 +58,7 @@ export const Comments = ({ productID, comments: commentsFromServer }) => {
             icon="icon-paper-plane"
             children={'Отправить'}
             className={style.saveComment}
-            onClick={isEdit ? handleEdit : sendComment}
+            onClick={commentID ? handleEdit : sendComment}
           />
         </>
       )}
@@ -77,16 +80,22 @@ export const Comments = ({ productID, comments: commentsFromServer }) => {
                 Дата отзыва: {new Date(feedback.createdAt).toLocaleDateString()}
               </p>
               <p className={style.feedbackText}>{feedback.text}</p>
-              <Button
-                onClick={() => handleRemove(feedback._id)}
-                className={style.removeButton}
-                icon="icon-trash"
-              />
-              <Button
-                onClick={() => openInput(feedback._id, feedback.text)}
-                className={style.editButton}
-                icon="icon-pencil"
-              />
+
+              {(user._id === feedback.author._id || user.roleName === 'admin') && (
+                <Button
+                  onClick={() => handleRemove(feedback._id)}
+                  className={style.removeButton}
+                  icon="icon-trash"
+                />
+              )}
+
+              {user._id === feedback.author._id && (
+                <Button
+                  onClick={() => openInput(feedback._id, feedback.text)}
+                  className={style.editButton}
+                  icon="icon-pencil"
+                />
+              )}
             </div>
           ))
         : 'Отзывов пока никто не оставлял. Готовы быть первыми?'}

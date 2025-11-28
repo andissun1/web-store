@@ -82,8 +82,7 @@ export const deleteProduct =
     }
   };
 
-// Комментарии
-
+// Комментарии (решил попробовать в локальном состоянии компонента хранить данные о комметраниях)
 export const addComment =
   (productID, commentInfo) =>
   async (dispatch, getState, { routes }) => {

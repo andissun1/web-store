@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { createPortal } from 'react-dom';
-import style from './Modal.module.css';
 import { Confirmation } from './Confirmation/Confirmation';
 import { AddSpecification } from './AddSpecification/AddSpecification';
 import { Categories } from './Categories/Categories';
+import { OneClickOrder } from './OneClickOrder/OneClickOrder';
 
 export const Modal = () => {
   // Все данные для отображения получаем {} и рисуем HTML
@@ -20,6 +20,10 @@ export const Modal = () => {
 
     case 'getCategory':
       modalLayoyt = <Categories modalParams={modalParams} />;
+      break;
+
+    case 'OneClickOrder':
+      modalLayoyt = <OneClickOrder modalParams={modalParams} />;
       break;
 
     default:
