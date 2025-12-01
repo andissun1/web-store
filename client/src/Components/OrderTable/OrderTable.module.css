@@ -1,0 +1,30 @@
+.OrderTable {
+  border: 1px solid #ccc;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.header {
+  color: var(--gray);
+  text-align: left;
+  font-weight: 300;
+}
+
+.OrderTable tr {
+  border-bottom: 1px solid #ccc;
+}
+
+.OrderTable tr:nth-child(even) {
+  background-color: var(--lightGray);
+}
+
+.OrderTable td,
+.OrderTable th {
+  font-weight: normal;
+  padding: 15px;
+}
+
+.OrderTable td:last-child,
+.OrderTable th:last-child {
+  text-align: end;
+}

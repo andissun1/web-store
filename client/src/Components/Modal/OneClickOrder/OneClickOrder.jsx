@@ -3,14 +3,16 @@ import { FormInput } from '../../FormInput/FormInput';
 import style from './OneClickOrder.module.css';
 import { Button } from '../../Button/Button';
 import { validator } from '../../../utils';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Loader } from '../../Loader/Loader';
+import { createOrder } from '../../../Store/orderReducer';
+import { DELIVERY_COST } from '../../../Pages/NewOrder/NewOrder';
 
 const schema = {
   fullname: {
     isRequired: { message: 'Обязательное поле' },
     min: { message: 'Должно быть более 10 символов', value: 10 },
-    max: { message: 'Не более 40 символов', value: 40 },
+    max: { message: 'Не более 80 символов', value: 80 },
   },
   phone: {
     isRequired: { message: 'Обязательное поле' },
@@ -24,8 +26,11 @@ const schema = {
 };
 
 export const OneClickOrder = ({ modalParams }) => {
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  if (!user) return <Loader />;
+  const product = useSelector((store) => store.product);
+  const cart = useSelector((store) => store.cart);
+  if (!user || !product || !cart) return <Loader />;
 
   const [formData, setFormData] = useState({
     fullname: user.fullname || '',
@@ -49,7 +54,21 @@ export const OneClickOrder = ({ modalParams }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!isValid) return;
-    console.log(formData);
+
+    const thisProductInCart = cart.products.find(
+      (cartProduct) => cartProduct._id === product._id
+    );
+    modalParams.onClose();
+
+    dispatch(
+      createOrder({
+        recipient: { name: formData.fullname, phone: formData.phone },
+        address: formData.address,
+        products: thisProductInCart,
+        deliveryCost: DELIVERY_COST,
+        total: thisProductInCart.price * thisProductInCart.count + DELIVERY_COST,
+      })
+    );
   };
 
   return (

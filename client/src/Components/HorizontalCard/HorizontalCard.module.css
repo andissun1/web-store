@@ -10,7 +10,7 @@
 
 .descr {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 220px 1fr;
 }
 
 .descr h2 {
@@ -21,8 +21,6 @@
 .descr img {
   width: 200px;
   height: 200px;
-  display: block;
-  float: left;
   grid-row: span 3;
   object-fit: contain;
   cursor: pointer;

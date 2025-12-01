@@ -4,6 +4,7 @@ import style from './Comments.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment, removeComment, updateComment } from '../../Store/productReducer';
 import { Loader } from '../Loader/Loader';
+import { getConfirmation } from '../../Store/modalReducer';
 
 export const Comments = ({ productID, comments: commentsFromServer }) => {
   const [comments, setComments] = useState(commentsFromServer);
@@ -20,6 +21,10 @@ export const Comments = ({ productID, comments: commentsFromServer }) => {
   };
 
   const handleRemove = async (commentID) => {
+    const confirmation = await dispatch(
+      getConfirmation({ title: 'Удалить комментарий?' })
+    );
+    if (!confirmation) return;
     await dispatch(removeComment(commentID, productID));
     setComments(comments.filter((comment) => comment._id !== commentID));
     setIsOpenInput(false);

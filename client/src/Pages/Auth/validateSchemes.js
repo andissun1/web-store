@@ -10,7 +10,7 @@ export const schemes = {
     email: {
       isRequired: { message: 'Обязательное поле' },
       min: { message: 'Должно быть более 2 символов', value: 2 },
-      max: { message: 'Не более 20 символов', value: 20 },
+      max: { message: 'Не более 50 символов', value: 50 },
     },
     password: {
       isRequired: { message: 'Обязательное поле' },
@@ -33,7 +33,7 @@ export const schemes = {
     email: {
       isRequired: { message: 'Обязательное поле' },
       min: { message: 'Должно быть более 2 символов', value: 2 },
-      max: { message: 'Не более 20 символов', value: 20 },
+      max: { message: 'Не более 50 символов', value: 50 },
     },
     password: {
       isRequired: { message: 'Обязательное поле' },
@@ -50,7 +50,7 @@ export const schemes = {
     email: {
       isRequired: { message: 'Обязательное поле' },
       min: { message: 'Должно быть более 2 символов', value: 2 },
-      max: { message: 'Не более 20 символов', value: 20 },
+      max: { message: 'Не более 50 символов', value: 50 },
     },
   },
 };

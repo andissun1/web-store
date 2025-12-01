@@ -3,6 +3,7 @@ import style from './HorizontalCard.module.css';
 import { addToCart, decreaseProductCount, actions } from '../../Store/cartReducer';
 import { addToFavorites, removeFromFavorites } from '../../Store/favoritesReducer';
 import { useNavigate } from 'react-router';
+import { Button } from '../Button/Button';
 
 export const HorizontalCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -30,30 +31,23 @@ export const HorizontalCard = ({ product }) => {
           <img src={product.image_URL} onClick={goToProduct} />
           <h2>{product.name}</h2>
           <div className={style.cardActions}>
-            <button onClick={toggleHeart} className={style.addToFavorites}>
-              <span
-                className={
-                  isFavorite ? 'btn-icon icon-favorites-f' : 'btn-icon icon-favorites'
-                }
-              />
-              В избранном
-            </button>
-            <button onClick={handleRemoveItem}>
-              <span className="icon icon-trash" />
+            <Button
+              icon={isFavorite ? 'btn-icon icon-favorites-f' : 'btn-icon icon-favorites'}
+              onClick={toggleHeart}
+              className={style.addToFavorites}
+              children={'В избранном'}
+            />
+            <Button icon="icon icon-trash" onClick={handleRemoveItem}>
               Удалить
-            </button>
+            </Button>
           </div>
         </div>
         <div className={style.secondDescription}>
           <span className={style.price}>{product.price} ₽</span>
           <div className={style.controller}>
-            <button onClick={decreaseCount}>
-              <span className="icon icon-minus" />
-            </button>
+            <Button icon="icon icon-minus" onClick={decreaseCount} />
             <input type="text" value={product.count} disabled />
-            <button onClick={increaseCount}>
-              <span className="icon icon-plus" />
-            </button>
+            <Button icon="icon icon-plus" onClick={increaseCount} />
           </div>
         </div>
       </div>

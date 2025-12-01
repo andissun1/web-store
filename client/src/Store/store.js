@@ -1,14 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { routes } from '../Router/routes';
 import { me, reducer as userReducer } from './userReducer';
 import { reducer as productReducer } from './productReducer';
 import { reducer as appReducer } from './appReducer';
 import { reducer as cartReducer } from './cartReducer';
 import { reducer as favoritesReducer } from './favoritesReducer';
-import { routes } from '../Router/routes';
 import { reducer as modalReducer } from './modalReducer';
 import { reducer as usersReducer } from './usersReducer';
 import { reducer as productsReducer } from './productsReducer';
 import { reducer as categoriesReducer, getCategories } from './categoriesReducer';
+import { reducer as orderReducer } from './orderReducer';
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     modal: modalReducer,
     favorites: favoritesReducer,
     categories: categoriesReducer,
+    order: orderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

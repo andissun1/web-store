@@ -36,10 +36,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    addresses: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Address',
-    },
+    addresses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Address',
+      },
+    ],
+    orders: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order',
+      },
+    ],
   },
   {
     timestamps: true,

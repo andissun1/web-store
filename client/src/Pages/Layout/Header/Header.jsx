@@ -11,15 +11,15 @@ import { getConfirmation } from '../../../Store/modalReducer';
 
 const pages = [
   {
-    link: '/payment',
+    link: '/page/payment',
     title: 'Оплата',
   },
   {
-    link: '/delivery',
+    link: '/page/delivery',
     title: 'Доставка',
   },
   {
-    link: '/refund',
+    link: '/page/refund',
     title: 'Обмен и возврат',
   },
 ];
@@ -65,7 +65,9 @@ export const Header = () => {
         <nav className={style.headerContent}>
           <ul>
             {pages.map((page) => (
-              <li key={page.link}>{page.title}</li>
+              <li key={page.link}>
+                <Link to={page.link}>{page.title}</Link>
+              </li>
             ))}
           </ul>
           <p>Доставка с 8:00 до 23:00</p>

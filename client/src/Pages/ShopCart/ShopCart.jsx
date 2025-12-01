@@ -4,10 +4,12 @@ import style from './ShopCart.module.css';
 import { useEffect, useMemo } from 'react';
 import { getShopCartProducts } from '../../Store/cartReducer';
 import { getConfirmation } from '../../Store/modalReducer';
+import { useNavigate } from 'react-router';
 
 export const ShopCart = (props) => {
   const products = useSelector((store) => store.cart.products);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getShopCartProducts());
@@ -23,8 +25,8 @@ export const ShopCart = (props) => {
     [products]
   );
 
-  const openModal = () => {
-    dispatch(getConfirmation({ type: 'OneClickOrder' }));
+  const goToCustomerForm = () => {
+    navigate('/newOrder');
   };
 
   return (
@@ -42,7 +44,7 @@ export const ShopCart = (props) => {
           <span className={style.promocode}>Введите промокод</span>
           <span className={style.price}>{total} ₽</span>
           <div className={style.actions}>
-            <button onClick={openModal} className={style.buy}>
+            <button onClick={goToCustomerForm} className={style.buy}>
               Оформить заказ
             </button>
             <button className={style.share}>Поделиться</button>

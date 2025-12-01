@@ -14,6 +14,8 @@ import { getFavorites } from '../Store/favoritesReducer';
 import { EditProduct } from '../Pages/EditProduct/EditProduct';
 import { Loader } from '../Components/Loader/Loader';
 import { PrivateRoute } from '../Components/PrivateRoute/PrivateRoute';
+import { Order } from '../Pages/Order/Order';
+import { TextPages } from '../Pages/TextPages/TextPages';
 // Динамический импорт чтобы избежать циклической зависимости со Store
 const store = import('../Store/store').then(({ store }) => store);
 
@@ -64,8 +66,16 @@ export const routes = createBrowserRouter([
         Component: NewOrder,
       },
       {
+        path: 'order/:id',
+        Component: Order,
+      },
+      {
         path: 'adminConsole',
         element: <PrivateRoute children={<AdminConsole />} />,
+      },
+      {
+        path: 'page/:pageName',
+        Component: TextPages,
       },
       {
         path: '*',

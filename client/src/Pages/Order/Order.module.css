@@ -1,0 +1,32 @@
+.Order {
+  padding-inline: 20px;
+  margin: auto;
+}
+
+.Order h3 {
+  font-size: 18px;
+  color: var(--textDark);
+}
+
+.info {
+  border: 1px solid transparent;
+  border-top-color: #ccc;
+  border-bottom-color: #ccc;
+}
+
+.info {
+  margin: 0;
+  padding: 12px 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+.info li {
+  padding: 12px 0;
+}
+
+.key {
+  display: inline-block;
+  color: var(--gray);
+  width: 200px;
+}

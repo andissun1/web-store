@@ -19,6 +19,7 @@ export const Breadcrumbs = ({ collectionID, pageName }) => {
       //  Для отображения номальных имён пришлось преобразовывать адрес
       currentLink += `/${crumb}`;
 
+      if (crumb === 'page') return;
       if (crumb === 'product') {
         return (
           <Link to={`/collection/${collectionID}`} className={style.crumb} key={crumb}>

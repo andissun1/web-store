@@ -1,0 +1,43 @@
+.UserContolCenter {
+  list-style: none;
+  padding: 0;
+}
+
+.UserContolCenter li {
+  display: grid;
+  grid-template-columns: 200px 100px 1fr;
+  align-items: center;
+
+  margin-bottom: 10px;
+  padding: 2px 10px;
+  background-color: var(--lightGray);
+}
+
+.UserContolCenter li:hover {
+  background-color: lightgray;
+}
+
+.controllers {
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+
+.controllers button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.delete {
+  background-color: red;
+}
+
+.delete:hover {
+  background-color: red;
+}
+
+.UserContolCenter li:hover .controllers {
+  opacity: 1;
+}
