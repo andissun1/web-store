@@ -1,5 +1,5 @@
 import { SideMenu } from '../../Components/SideMenu/SideMenu';
-import { PromoWidget } from '../../Components/promoWidget/promoWidget';
+import { PromoWidget } from '../../Components/PromoWidget/PromoWidget';
 import { CollectionsWidget } from '../../Components/CollectionsWidget/CollectionsWidget';
 import { Banners } from '../../Components/Banners/Banners';
 import { BenefitsWidget } from '../../Components/BenefitsWidget/BenefitsWidget';
