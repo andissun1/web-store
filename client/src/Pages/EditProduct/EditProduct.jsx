@@ -67,7 +67,6 @@ export const EditProduct = (props) => {
       specifications,
     };
 
-    console.log(newProductInfo);
     isCreate
       ? dispatch(createProduct(newProductInfo))
       : dispatch(editProduct(productID, newProductInfo));
@@ -121,6 +120,7 @@ export const EditProduct = (props) => {
             handlers={{ saveChanges }}
             isCreate={isCreate}
             productID={productInfo._id}
+            productInfo={productInfo}
           />
         </div>
 

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Loader } from '../../Loader/Loader';
 import { createOrder } from '../../../Store/orderReducer';
 import { DELIVERY_COST } from '../../../Pages/NewOrder/NewOrder';
+import { Link } from 'react-router';
 
 const schema = {
   fullname: {
@@ -75,6 +76,12 @@ export const OneClickOrder = ({ modalParams }) => {
     <div className={style.modalWindow}>
       <div className={style.content} onClick={(event) => event.stopPropagation()}>
         <h2>Заказ в один клик</h2>
+        {!user.id && (
+          <p onClick={() => modalParams.onClose()}>
+            Для оформления заказа необходимо{' '}
+            <Link to={'/auth/login'}>авторизоваться</Link>.
+          </p>
+        )}
         <form onSubmit={handleSubmit}>
           <FormInput
             name="fullname"
@@ -103,7 +110,11 @@ export const OneClickOrder = ({ modalParams }) => {
             required={true}
             error={error?.address}
           />
-          <button className={style.confirm} type="submit" disabled={!isValid}>
+          <button
+            className={style.confirm}
+            type="submit"
+            disabled={!isValid || !user._id}
+          >
             Оформить заказ
           </button>
         </form>

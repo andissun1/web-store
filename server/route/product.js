@@ -49,7 +49,8 @@ productRouter.patch('/:id', hasRole(['admin']), async (req, res) => {
     const { id } = req.params;
     const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
       new: true,
-    });
+    }).populate('comments');
+
     res.status(200).json(updatedProduct);
   } catch (error) {
     res.status(500).json({ message: error.message });

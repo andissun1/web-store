@@ -11,6 +11,7 @@
   border-radius: 6px;
 
   font-size: 18px;
+  white-space: break-spaces;
 }
 
 .feedback p {

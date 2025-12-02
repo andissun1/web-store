@@ -52,7 +52,7 @@ export const Footer = () => (
         </div>
       </div>
       <div className={style.rights}>
-        Сайт создан в учебных целях на основе дизайна insales
+        Приложение создано в учебных целях на основе макетов из открытых источников
       </div>
     </div>
   </footer>

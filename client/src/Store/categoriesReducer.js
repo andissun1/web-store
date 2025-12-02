@@ -21,15 +21,6 @@ const categoriesSlice = createSlice({
 
 export const { reducer, actions } = categoriesSlice;
 
-export const getAllProducts = () => async (dispatch, getState) => {
-  try {
-    const products = request(`http://localhost:3005/api/v1/product`);
-    dispatch(actions.setAllProducts(products));
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 export const getCategory =
   (id, limit, page) =>
   async (dispatch, getState, { routes }) => {

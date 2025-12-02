@@ -3,7 +3,7 @@ import style from './EditorPannel.module.css';
 import { getConfirmation } from '../../Store/modalReducer';
 import { deleteProduct } from '../../Store/productReducer';
 
-export const EditorPannel = ({ handlers, isCreate, productID }) => {
+export const EditorPannel = ({ handlers, isCreate, productID, productInfo }) => {
   const dispatch = useDispatch();
   const { saveChanges } = handlers;
 
@@ -17,9 +17,13 @@ export const EditorPannel = ({ handlers, isCreate, productID }) => {
     if (confirm) dispatch(deleteProduct(productID));
   };
 
+  const isValid = productInfo.price && productInfo.category && productInfo.name;
+
   return (
     <div className={style.buttonsPanel} id="editorPannel">
-      <button onClick={saveChanges}>Сохранить карточку</button>
+      <button onClick={saveChanges} disabled={!isValid}>
+        Сохранить карточку
+      </button>
       {!isCreate && (
         <button onClick={deleteCard} className={style.deleteButton}>
           Удалить карточку

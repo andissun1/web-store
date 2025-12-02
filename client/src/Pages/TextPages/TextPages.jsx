@@ -1,16 +1,39 @@
-import { useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router';
 import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
-import { pages } from './textForPages';
 import style from './TextPages.module.css';
+import { Payment } from './ContentByPageName/payment';
+import { Delivery } from './ContentByPageName/delivery';
+import { Refund } from './ContentByPageName/Refund';
+
+const pageNamesRU = {
+  payment: 'Оплата',
+  delivery: 'Доставка',
+  refund: 'Обмен и возврат',
+};
 
 export const TextPages = (props) => {
   const pageName = useParams().pageName;
 
+  const getContent = () => {
+    switch (pageName) {
+      case 'payment':
+        return <Payment />;
+
+      case 'delivery':
+        return <Delivery />;
+
+      case 'refund':
+        return <Refund />;
+
+      default:
+        return <Navigate to={'/error'} />;
+    }
+  };
+
   return (
     <div className={style.TextPages}>
-      <Breadcrumbs pageName={pages[pageName].title} />
-      <h1>{pages[pageName].title}</h1>
-      <p style={{ whiteSpace: 'break-spaces' }}>{pages[pageName].body}</p>
+      <Breadcrumbs pageName={pageNamesRU[pageName]} />
+      {getContent()}
     </div>
   );
 };

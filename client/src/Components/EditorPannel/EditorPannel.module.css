@@ -9,6 +9,10 @@
   width: fit-content;
 }
 
+.buttonsPanel button:disabled {
+  background-color: var(--lightPurple);
+}
+
 .deleteButton {
   background-color: red;
 }

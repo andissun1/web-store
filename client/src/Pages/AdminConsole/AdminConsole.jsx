@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import style from './AdminConsole.module.css';
-import { Link } from 'react-router';
 import { deleteProduct } from '../../Store/productReducer';
 import { useEffect, useState } from 'react';
 import { actions as usersActions, getAllUsers } from '../../Store/usersReducer';
@@ -36,7 +35,13 @@ export const AdminConsole = () => {
       })
     );
 
-    if (confirm) dispatch(deleteProduct(id));
+    if (confirm) {
+      dispatch(deleteProduct(id));
+      const newProductsList = productsActions.setAllProducts(
+        products.filter((products) => products._id !== id)
+      );
+      dispatch(newProductsList);
+    }
   };
 
   if (!users || !products || !orders) return <Loader />;

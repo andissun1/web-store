@@ -45,7 +45,7 @@ export const Comments = ({ productID, comments: commentsFromServer }) => {
     setIsOpenInput(false);
   };
 
-  if (!user) return <Loader />;
+  if (!user._id) return <Loader />;
 
   return (
     <div className={style.feedbacks}>
@@ -77,7 +77,7 @@ export const Comments = ({ productID, comments: commentsFromServer }) => {
         </button>
       )}
 
-      {comments.length > 0
+      {comments?.length > 0
         ? comments.map((feedback) => (
             <div className={style.feedback} key={feedback._id}>
               <p className={style.userName}>{feedback.author.fullname}</p>

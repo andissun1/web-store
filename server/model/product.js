@@ -22,7 +22,6 @@ const productSchema = new mongoose.Schema(
     },
     image_URL: {
       type: String,
-      // required: true,
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,

@@ -37,7 +37,6 @@ export const createProduct =
   (productInfo) =>
   async (dispatch, getState, { routes }) => {
     try {
-      console.log(productInfo);
       const newProduct = await request(
         `http://localhost:3005/api/v1/product`,
         'POST',
@@ -55,12 +54,12 @@ export const editProduct =
   (productID, productInfo) =>
   async (dispatch, getState, { routes }) => {
     try {
-      console.log(productInfo);
       const newProduct = await request(
         `http://localhost:3005/api/v1/product/${productID}`,
         'PATCH',
         productInfo
       );
+
       dispatch(actions.setProduct(newProduct));
       routes.navigate(`/product/${newProduct._id}`);
     } catch (error) {

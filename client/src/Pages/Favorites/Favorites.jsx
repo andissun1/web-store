@@ -5,8 +5,6 @@ import style from './Favorites.module.css';
 export const Favorites = () => {
   const favorites = useSelector((store) => store.favorites.favoritesCards);
 
-  console.log(favorites);
-
   return (
     <div className={style.favorites}>
       <h2>Избранное</h2>

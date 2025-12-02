@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { actions as appActions } from './appReducer';
 import { request } from '../utils';
 
 const initialState = null;
@@ -24,6 +25,7 @@ export const getAllProducts = () => async (dispatch, getState) => {
     const products = await request(`http://localhost:3005/api/v1/product`);
     dispatch(actions.setAllProducts(products));
   } catch (error) {
-    console.log(error.message);
+    dispatch(appActions.setError(error.message));
+    routes.navigate('/error');
   }
 };
