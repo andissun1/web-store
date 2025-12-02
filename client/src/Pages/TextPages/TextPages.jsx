@@ -1,8 +1,8 @@
 import { Navigate, useParams } from 'react-router';
 import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
 import style from './TextPages.module.css';
-import { Payment } from './ContentByPageName/payment';
-import { Delivery } from './ContentByPageName/delivery';
+import { Payment } from './ContentByPageName/Payment';
+import { Delivery } from './ContentByPageName/Delivery';
 import { Refund } from './ContentByPageName/Refund';
 
 const pageNamesRU = {
