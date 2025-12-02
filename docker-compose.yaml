@@ -1,9 +1,8 @@
-version: '3.9'
 services:
   server:
-  build:
-    context: .
-    dockerfile: ./Dockerfile
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     container_name: myServer
     restart: always
     ports:
@@ -19,8 +18,8 @@ services:
     ports:
       - '27017:27017'
     environment:
-      MONGO_INITDB_DATABASE: ${testdb}
-      MONGO_INITDB_ROOT_USERNAME: ${userok}
-      MONGO_INITDB_ROOT_PASSWORD: ${mongopass}
+      MONGO_INITDB_DATABASE: testdb
+      MONGO_INITDB_ROOT_USERNAME: userok
+      MONGO_INITDB_ROOT_PASSWORD: mongopass
     volumes:
       - mongo_data:/data/db

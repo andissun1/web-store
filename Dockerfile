@@ -11,5 +11,3 @@ COPY --from=builder /app/client/dist ./dist
 
 EXPOSE 3005
 CMD [ "node", "index.js" ]
-
-
