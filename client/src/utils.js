@@ -37,7 +37,7 @@ export function validator(allValues, scheme) {
   return errors;
 }
 
-const serverURL = 'kochnev-andrey.result-student.tw1.ru';
+const serverURL = 'http://kochnev-andrey.result-student.tw1.ru';
 
 // Упрощение запросов на сервер
 export const request = async (path, method = 'GET', payload) => {

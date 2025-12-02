@@ -22,7 +22,7 @@ dotenv.config();
 const app = express();
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'http://localhost:80',
     credentials: true,
   })
 );
@@ -46,6 +46,8 @@ app.use('/api/v1/filters', filtersRouter);
 
 const start = async () => {
   try {
+    console.log(process.env.CONNECTION_STRING);
+
     await mongoose.connect(process.env.CONNECTION_STRING);
     app.listen(process.env.PORT, () =>
       console.log(`Сервер запущен на ${process.env.PORT} порту`)

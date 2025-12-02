@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import style from './promoWidget.module.css';
+import style from './PromoWidget.module.css';
 
 export const PromoWidget = (props) => {
   return (
