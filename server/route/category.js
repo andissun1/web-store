@@ -7,8 +7,8 @@ export const categoryRouter = Router();
 // get all
 categoryRouter.get('/', async (req, res) => {
   try {
-    const caregories = await Category.find();
-    res.status(200).json(caregories);
+    const categories = await Category.find().sort({ position: 1 });
+    res.status(200).json(categories);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

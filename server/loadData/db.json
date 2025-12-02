@@ -4,6 +4,7 @@
       "fullname": "Андрей Админов",
       "email": "admin@mail.ru",
       "password": "1234",
+      "roleAdmin": "admin",
       "phone": "89113356738"
     },
     {
@@ -728,58 +729,72 @@
   "categories": [
     {
       "img": "https://static.insales-cdn.com/r/FU42bD6UcCY/rs:fit:410:0:1/q:100/plain/images/collections/1/5615/90215919/large_Frame_112.jpg@webp",
+      "position": 1,
       "name": "Для девочек"
     },
     {
       "img": "https://static.insales-cdn.com/r/FqN0LMVuykk/rs:fit:410:0:1/q:100/plain/images/collections/1/5618/90215922/large_Frame_112__1_.jpg@webp",
+      "position": 2,
       "name": "Для мальчиков"
     },
     {
       "img": "https://static.insales-cdn.com/r/l7UchXefv8U/rs:fit:410:0:1/q:100/plain/images/collections/1/5622/90215926/large_Frame_112__2_.jpg@webp",
+      "position": 3,
       "name": "Для новорождённых"
     },
     {
       "img": "https://static.insales-cdn.com/r/z91QMJtfYBs/rs:fit:410:0:1/q:100/plain/images/collections/1/5627/90215931/large_Frame_112__3_.jpg@webp",
+      "position": 4,
       "name": "Канцелярия"
     },
     {
       "img": "https://static.insales-cdn.com/r/bpGwqY6vSAo/rs:fit:500:500:1/plain/images/collections/1/5631/90215935/Frame_112__4_.jpg@webp",
+      "position": 5,
       "name": "Аксессуары"
     },
     {
       "img": "https://static.insales-cdn.com/r/c-elXdMd8hQ/rs:fit:500:500:1/plain/images/collections/1/5635/90215939/Frame_112__5_.jpg@webp",
+      "position": 6,
       "name": "Спорт"
     },
     {
       "img": "https://static.insales-cdn.com/r/T2cFsFQgdxM/rs:fit:500:500:1/plain/images/collections/1/5638/90215942/Frame_112__6_.jpg@webp",
+      "position": 7,
       "name": "Настольные игры"
     },
     {
       "img": "https://static.insales-cdn.com/r/GOMWMQ6ftEw/rs:fit:500:500:1/plain/images/collections/1/5642/90215946/Frame_112__7_.jpg@webp",
+      "position": 8,
       "name": "Коляски"
     },
     {
       "img": "https://static.insales-cdn.com/r/cVwN8Sr4aFI/rs:fit:500:500:1/plain/images/collections/1/5656/90215960/Frame_112__9_.jpg@webp",
+      "position": 9,
       "name": "Развитие"
     },
     {
       "img": "https://static.insales-cdn.com/r/eEk4Wzm5LPs/rs:fit:500:500:1/plain/images/collections/1/5659/90215963/Frame_112__8_.jpg@webp",
+      "position": 10,
       "name": "Конструкторы"
     },
     {
       "img": "https://static.insales-cdn.com/r/ZvArZRmvkfc/rs:fit:500:500:1/plain/images/collections/1/7540/90455412/Хиты.jpg@webp",
+      "position": 11,
       "name": "Хиты"
     },
     {
       "img": "https://static.insales-cdn.com/r/0IA26rPUaGk/rs:fit:500:500:1/plain/images/collections/1/7543/90455415/Новинки.jpg@webp",
+      "position": 12,
       "name": "Новинки"
     },
     {
       "img": "https://static.insales-cdn.com/r/RVPtW0DM5W0/rs:fit:500:500:1/plain/images/collections/1/7546/90455418/Акции.jpg@webp",
+      "position": 13,
       "name": "Акции"
     },
     {
       "img": "https://static.insales-cdn.com/r/Io8yeR9yaQE/rs:fit:500:500:1/plain/images/collections/1/7549/90455421/Популярное.jpg@webp",
+      "position": 14,
       "name": "Популярное"
     }
   ]

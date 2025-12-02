@@ -45,8 +45,6 @@ export const Comments = ({ productID, comments: commentsFromServer }) => {
     setIsOpenInput(false);
   };
 
-  if (!user._id) return <Loader />;
-
   return (
     <div className={style.feedbacks}>
       <h4>Отзывы</h4>
@@ -68,7 +66,7 @@ export const Comments = ({ productID, comments: commentsFromServer }) => {
         </>
       )}
 
-      {user._id && (
+      {user?._id && (
         <button
           onClick={() => setIsOpenInput((prev) => !prev)}
           className={style.openFeedback}
