@@ -22,7 +22,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: userok
       MONGO_INITDB_ROOT_PASSWORD: mongopass
     volumes:
-      - mongo_data:/data/db
+      - mongo-data:/data/db
 
 volumes:
   mongo-data:
