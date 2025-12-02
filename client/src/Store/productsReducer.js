@@ -22,7 +22,7 @@ export const { reducer, actions } = productsSlice;
 
 export const getAllProducts = () => async (dispatch, getState) => {
   try {
-    const products = await request(`http://localhost:3005/api/v1/product`);
+    const products = await request(`/api/v1/product`);
     dispatch(actions.setAllProducts(products));
   } catch (error) {
     dispatch(appActions.setError(error.message));

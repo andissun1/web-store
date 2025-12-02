@@ -23,7 +23,7 @@ export const getOrder =
   (id) =>
   async (dispatch, getState, { routes }) => {
     try {
-      const order = await request(`http://localhost:3005/api/v1/order/${id}`);
+      const order = await request(`/api/v1/order/${id}`);
       dispatch(actions.setOrderInfo(order));
     } catch (error) {
       dispatch(appActions.setError(error.message));
@@ -35,7 +35,7 @@ export const getAllOrders =
   () =>
   async (dispatch, getState, { routes }) => {
     try {
-      const orders = await request(`http://localhost:3005/api/v1/order`);
+      const orders = await request(`/api/v1/order`);
       return orders;
     } catch (error) {
       dispatch(appActions.setError(error.message));
@@ -47,11 +47,7 @@ export const createOrder =
   (orderInfo) =>
   async (dispatch, getState, { routes }) => {
     try {
-      const newOrder = await request(
-        `http://localhost:3005/api/v1/order`,
-        'POST',
-        orderInfo
-      );
+      const newOrder = await request(`/api/v1/order`, 'POST', orderInfo);
       dispatch(actions.setOrderInfo(newOrder));
       routes.navigate(`/order/${newOrder._id}`);
     } catch (error) {
@@ -64,7 +60,7 @@ export const deleteOrder =
   (id) =>
   async (dispatch, getState, { routes }) => {
     try {
-      const status = await request(`http://localhost:3005/api/v1/order/${id}`, 'DELETE');
+      const status = await request(`/api/v1/order/${id}`, 'DELETE');
       dispatch(actions.removeOrder());
       return status;
     } catch (error) {

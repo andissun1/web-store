@@ -24,7 +24,7 @@ export const getProduct =
   (productID) =>
   async (dispatch, getState, { routes }) => {
     try {
-      const product = await request(`http://localhost:3005/api/v1/product/${productID}`);
+      const product = await request(`/api/v1/product/${productID}`);
       dispatch(actions.setProduct(product));
       return product;
     } catch (error) {
@@ -37,11 +37,7 @@ export const createProduct =
   (productInfo) =>
   async (dispatch, getState, { routes }) => {
     try {
-      const newProduct = await request(
-        `http://localhost:3005/api/v1/product`,
-        'POST',
-        productInfo
-      );
+      const newProduct = await request(`/api/v1/product`, 'POST', productInfo);
       dispatch(actions.setProduct(newProduct));
       routes.navigate(`/product/${newProduct._id}`);
     } catch (error) {
@@ -55,7 +51,7 @@ export const editProduct =
   async (dispatch, getState, { routes }) => {
     try {
       const newProduct = await request(
-        `http://localhost:3005/api/v1/product/${productID}`,
+        `/api/v1/product/${productID}`,
         'PATCH',
         productInfo
       );
@@ -72,7 +68,7 @@ export const deleteProduct =
   (productID) =>
   async (dispatch, getState, { routes }) => {
     try {
-      await request(`http://localhost:3005/api/v1/product/${productID}`, 'DELETE');
+      await request(`/api/v1/product/${productID}`, 'DELETE');
       dispatch(actions.removeProduct());
       routes.navigate(`/adminConsole`);
     } catch (error) {
@@ -87,7 +83,7 @@ export const addComment =
   async (dispatch, getState, { routes }) => {
     try {
       const newComment = await request(
-        `http://localhost:3005/api/v1/comments/${productID}`,
+        `/api/v1/comments/${productID}`,
         'POST',
         commentInfo
       );
@@ -102,10 +98,7 @@ export const removeComment =
   (commentID, productID) =>
   async (dispatch, getState, { routes }) => {
     try {
-      await request(
-        `http://localhost:3005/api/v1/comments/${commentID}/${productID}`,
-        'DELETE'
-      );
+      await request(`/api/v1/comments/${commentID}/${productID}`, 'DELETE');
     } catch (error) {
       dispatch(appActions.setError(error.message));
       routes.navigate('/error');
@@ -117,7 +110,7 @@ export const updateComment =
   async (dispatch, getState, { routes }) => {
     try {
       const newComment = await request(
-        `http://localhost:3005/api/v1/comments/${commentID}`,
+        `/api/v1/comments/${commentID}`,
         'PATCH',
         commentInfo
       );

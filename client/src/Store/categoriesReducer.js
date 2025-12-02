@@ -26,9 +26,7 @@ export const getCategory =
   async (dispatch, getState, { routes }) => {
     try {
       let { products, lastPage, count } = await request(
-        `http://localhost:3005/api/v1/category/${id}${
-          limit ? `&limit=${limit}&page=${page}` : ''
-        }`
+        `/api/v1/category/${id}${limit ? `&limit=${limit}&page=${page}` : ''}`
       );
 
       dispatch(appActions.removeError());
@@ -49,7 +47,7 @@ export const getCategories =
   () =>
   async (dispatch, getState, { routes }) => {
     try {
-      const response = await request('http://localhost:3005/api/v1/category');
+      const response = await request('/api/v1/category');
       dispatch(appActions.removeError());
       dispatch(actions.setCategories(response));
       return response;

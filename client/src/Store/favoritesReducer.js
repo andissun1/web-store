@@ -32,7 +32,7 @@ export const getFavorites =
       if (favoritesIDs.length === 0) return;
 
       const favoritesCards = await Promise.all(
-        favoritesIDs.map((id) => request(`http://localhost:3005/api/v1/product/${id}`))
+        favoritesIDs.map((id) => request(`/api/v1/product/${id}`))
       );
 
       dispatch(actions.setFavoritesCards(favoritesCards));

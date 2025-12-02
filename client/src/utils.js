@@ -37,9 +37,11 @@ export function validator(allValues, scheme) {
   return errors;
 }
 
+const serverURL = 'kochnev-andrey.result-student.tw1.ru';
+
 // Упрощение запросов на сервер
-export const request = async (URL, method = 'GET', payload) => {
-  const response = await fetch(URL, {
+export const request = async (path, method = 'GET', payload) => {
+  const response = await fetch(serverURL + path, {
     method,
     headers: { 'Content-Type': 'application/json;charset=utf-8' },
     body: payload ? JSON.stringify(payload) : undefined,

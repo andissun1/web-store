@@ -12,6 +12,11 @@ import { categoryRouter } from './route/category.js';
 import { loadInitialDBData } from './loadData/loadData.js';
 import { filtersRouter } from './route/filters.js';
 import { orderRouter } from './route/order.js';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 const app = express();
@@ -21,10 +26,15 @@ app.use(
     credentials: true,
   })
 );
-// app.use(express.static(join(__dirname, '../client/dist')));
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(join(__dirname, 'dist')));
+
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(join(__dirname, 'dist', 'index.html'));
+});
+
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/role', roleRouter);
 app.use('/api/v1/user', userRouter);
@@ -33,10 +43,6 @@ app.use('/api/v1/comments', commentsRouter);
 app.use('/api/v1/product', productRouter);
 app.use('/api/v1/order', orderRouter);
 app.use('/api/v1/filters', filtersRouter);
-
-// app.get('регулярное выражение', (req, res) => {
-//   res.sendFile(join('dist', 'index.html'));
-// });
 
 const start = async () => {
   try {

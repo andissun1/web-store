@@ -23,7 +23,7 @@ export const getAllUsers =
   () =>
   async (dispatch, getState, { routes }) => {
     try {
-      const users = await request(`http://localhost:3005/api/v1/user`);
+      const users = await request(`/api/v1/user`);
       dispatch(actions.setAllUsers(users));
     } catch (error) {
       console.log(error.message);
