@@ -43,19 +43,17 @@ export const authorize =
     }
   };
 
-export const logout =
-  () =>
-  async (dispatch, getState, { routes }) => {
-    try {
-      dispatch(actions.setIsLoadingUser(true));
+export const logout = () => async (dispatch) => {
+  try {
+    dispatch(actions.setIsLoadingUser(true));
 
-      await request(`/api/v1/auth/logout`, 'POST');
-      dispatch(actions.removeUser());
-      dispatch(actions.setIsLoadingUser(false));
-    } catch (error) {
-      dispatch(goToErrorPage(error.message));
-    }
-  };
+    await request(`/api/v1/auth/logout`, 'POST');
+    dispatch(actions.removeUser());
+    dispatch(actions.setIsLoadingUser(false));
+  } catch (error) {
+    dispatch(goToErrorPage(error.message));
+  }
+};
 
 export const register =
   (formData) =>

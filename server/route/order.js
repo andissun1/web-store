@@ -24,7 +24,7 @@ orderRouter.get('/:id', isAuth, async (req, res) => {
 
     const user = await User.findById(req.user);
 
-    if (user._id !== order.customer._id && user.roleName !== 'admin')
+    if (!order.customer._id.equals(user._id) && user.roleName !== 'admin')
       throw new Error('Нет прав на просмотр заказа');
 
     res.status(200).json(order);

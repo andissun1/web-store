@@ -79,7 +79,7 @@ export const OneClickOrder = ({ modalParams }) => {
     <div className={style.modalWindow}>
       <div className={style.content} onClick={(event) => event.stopPropagation()}>
         <h2>Заказ в один клик</h2>
-        {!user.id && (
+        {!user._id && (
           <p onClick={() => modalParams.onClose()}>
             Для оформления заказа необходимо{' '}
             <Link to={'/auth/login'}>авторизоваться</Link>.
