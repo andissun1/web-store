@@ -122,3 +122,17 @@
   font-weight: 600;
   margin-left: 10px;
 }
+
+@media (max-width: 1550px) {
+  .secondLine {
+    margin-inline: 50px;
+  }
+
+  .headerContent {
+    margin-inline: 50px;
+  }
+
+  .controlPannel span {
+    display: none;
+  }
+}

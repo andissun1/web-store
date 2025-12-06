@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { request } from '../utils';
-import { actions as appActions } from './appReducer';
+import { goToErrorPage } from './appReducer';
 
 const initialState = {
   favorites: localStorage.getItem('favorites')
@@ -37,8 +37,7 @@ export const getFavorites =
 
       dispatch(actions.setFavoritesCards(favoritesCards));
     } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
+      dispatch(goToErrorPage(error.message));
     }
   };
 

@@ -3,3 +3,9 @@
   margin: auto;
   min-height: 100vh;
 }
+
+@media (max-width: 1550px) {
+  .page {
+    margin-inline: 50px;
+  }
+}

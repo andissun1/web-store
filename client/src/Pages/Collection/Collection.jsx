@@ -12,8 +12,11 @@ import { useState } from 'react';
 export const Collection = (props) => {
   const dispatch = useDispatch();
   const collectionID = useParams().id;
-  const products = useSelector((store) => store.products);
-  const categories = useSelector((store) => store.categories);
+  const { products } = useSelector((store) => store.products);
+  const categories = useSelector((store) => store.categories.categories);
+  const isLoadingCategories = useSelector(
+    (store) => store.categories.isLoadingCategories
+  );
 
   // Сохраняю необходимые данные для пагинации
   const [paginationInfo, setPaginationInfo] = useState(null);
@@ -23,7 +26,7 @@ export const Collection = (props) => {
     dispatch(getCategory(`${collectionID}?${sort}`)).then(setPaginationInfo);
   }, [collectionID, sort]);
 
-  if (!products || !paginationInfo || !categories) return <Loader />;
+  if (!products || !paginationInfo || isLoadingCategories) return <Loader />;
 
   const categoryName = categories?.find((item) => item._id === collectionID)?.name;
 

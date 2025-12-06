@@ -1,5 +1,19 @@
 .productList {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, 200px);
   gap: 30px;
+}
+
+@media (max-width: 1550px) {
+  .productList {
+    grid-template-columns: repeat(5, 200px);
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .productList {
+    grid-template-columns: repeat(3, 200px);
+    justify-content: center;
+  }
 }

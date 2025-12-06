@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { actions as appActions } from './appReducer';
+import { goToErrorPage } from './appReducer';
 import { request } from '../utils';
 
-const initialState = null;
+const initialState = {
+  isLoadingProduct: true,
+};
 
 const productSlice = createSlice({
   name: 'product',
@@ -14,6 +16,9 @@ const productSlice = createSlice({
     removeProduct() {
       return initialState;
     },
+    setIsLoadingProduct(state, action) {
+      state.isLoadingProduct = action.payload;
+    },
   },
 });
 
@@ -24,12 +29,14 @@ export const getProduct =
   (productID) =>
   async (dispatch, getState, { routes }) => {
     try {
+      dispatch(actions.setIsLoadingProduct(true));
       const product = await request(`/api/v1/product/${productID}`);
       dispatch(actions.setProduct(product));
+      dispatch(actions.setIsLoadingProduct(false));
+
       return product;
     } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
+      dispatch(goToErrorPage(error.message));
     }
   };
 
@@ -37,12 +44,14 @@ export const createProduct =
   (productInfo) =>
   async (dispatch, getState, { routes }) => {
     try {
+      dispatch(actions.setIsLoadingProduct(true));
       const newProduct = await request(`/api/v1/product`, 'POST', productInfo);
       dispatch(actions.setProduct(newProduct));
+      dispatch(actions.setIsLoadingProduct(false));
+
       routes.navigate(`/product/${newProduct._id}`);
     } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
+      dispatch(goToErrorPage(error.message));
     }
   };
 
@@ -50,6 +59,8 @@ export const editProduct =
   (productID, productInfo) =>
   async (dispatch, getState, { routes }) => {
     try {
+      dispatch(actions.setIsLoadingProduct(true));
+
       const newProduct = await request(
         `/api/v1/product/${productID}`,
         'PATCH',
@@ -57,10 +68,11 @@ export const editProduct =
       );
 
       dispatch(actions.setProduct(newProduct));
+      dispatch(actions.setIsLoadingProduct(false));
+
       routes.navigate(`/product/${newProduct._id}`);
     } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
+      dispatch(goToErrorPage(error.message));
     }
   };
 
@@ -68,12 +80,14 @@ export const deleteProduct =
   (productID) =>
   async (dispatch, getState, { routes }) => {
     try {
+      dispatch(actions.setIsLoadingProduct(true));
       await request(`/api/v1/product/${productID}`, 'DELETE');
       dispatch(actions.removeProduct());
+      dispatch(actions.setIsLoadingProduct(false));
+
       routes.navigate(`/adminConsole`);
     } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
+      dispatch(goToErrorPage(error.message));
     }
   };
 
@@ -82,15 +96,17 @@ export const addComment =
   (productID, commentInfo) =>
   async (dispatch, getState, { routes }) => {
     try {
+      dispatch(actions.setIsLoadingProduct(true));
       const newComment = await request(
         `/api/v1/comments/${productID}`,
         'POST',
         commentInfo
       );
+      dispatch(actions.setIsLoadingProduct(false));
+
       return newComment;
     } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
+      dispatch(goToErrorPage(error.message));
     }
   };
 
@@ -98,10 +114,11 @@ export const removeComment =
   (commentID, productID) =>
   async (dispatch, getState, { routes }) => {
     try {
+      dispatch(actions.setIsLoadingProduct(true));
       await request(`/api/v1/comments/${commentID}/${productID}`, 'DELETE');
+      dispatch(actions.setIsLoadingProduct(false));
     } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
+      dispatch(goToErrorPage(error.message));
     }
   };
 
@@ -109,14 +126,17 @@ export const updateComment =
   (commentID, commentInfo) =>
   async (dispatch, getState, { routes }) => {
     try {
+      dispatch(actions.setIsLoadingProduct(true));
+
       const newComment = await request(
         `/api/v1/comments/${commentID}`,
         'PATCH',
         commentInfo
       );
+      dispatch(actions.setIsLoadingProduct(false));
+
       return newComment;
     } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
+      dispatch(goToErrorPage(error.message));
     }
   };

@@ -5,11 +5,13 @@ import { Loader } from '../Loader/Loader';
 
 export const Breadcrumbs = ({ collectionID, pageName }) => {
   const { pathname } = useLocation();
-  let collections = useSelector((store) => store.categories);
+  let collections = useSelector((store) => store.categories.categories);
+  const isLoading = useSelector((store) => store.categories.isLoadingCategories);
 
   let currentLink = '';
 
-  if (!collections) return <Loader />;
+  if (isLoading) return <Loader />;
+
   collections = collections.find(({ _id }) => _id === collectionID);
 
   const crumbs = pathname

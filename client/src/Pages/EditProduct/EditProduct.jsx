@@ -32,7 +32,11 @@ const initialState = {
 export const EditProduct = (props) => {
   const productID = useParams().id;
   const isCreate = useMatch('product/create');
-  const categories = useSelector((store) => store.categories);
+  const categories = useSelector((store) => store.categories.categories);
+  const isLoadingCategories = useSelector(
+    (store) => store.categories.isLoadingCategories
+  );
+
   const allSpecifications = useRef(null);
   const dispatch = useDispatch();
   const [productInfo, setProductInfo] = useState(null);
@@ -100,7 +104,7 @@ export const EditProduct = (props) => {
     event.preventDefault();
   }
 
-  if (!categories || !productInfo) return <Loader />;
+  if (isLoadingCategories || !productInfo) return <Loader />;
 
   return (
     <div className={style.productLayout}>

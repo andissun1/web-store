@@ -12,15 +12,18 @@ import { UserContolCenter } from '../../Components/UserContolCenter/UserContolCe
 import { AdminProductsPannel } from '../../Components/AdminProductsPannel/AdminProductsPannel';
 
 export const AdminConsole = () => {
-  const users = useSelector((store) => store.users);
-  const products = useSelector((store) => store.products);
-  const [orders, setOrders] = useState(null);
+  const { users } = useSelector((store) => store.users);
+  const isLoadingUsers = useSelector((store) => store.users.isLoadingUsers);
+  const { products } = useSelector((store) => store.products);
+  const isLoadingProducts = useSelector((store) => store.products.isLoadingProducts);
+  const orders = useSelector((store) => store.order.orders);
+  const isLoadingOrder = useSelector((store) => store.order.isLoadingOrder);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllUsers());
     dispatch(getAllProducts());
-    dispatch(getAllOrders()).then(setOrders);
+    dispatch(getAllOrders());
 
     return () => {
       dispatch(usersActions.removeUsers());
@@ -44,7 +47,7 @@ export const AdminConsole = () => {
     }
   };
 
-  if (!users || !products || !orders) return <Loader />;
+  if (isLoadingUsers || isLoadingProducts || isLoadingOrder) return <Loader />;
 
   return (
     <div className={style.adminConsole}>

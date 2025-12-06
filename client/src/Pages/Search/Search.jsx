@@ -3,6 +3,7 @@ import { ProductCard } from '../../Components/ProductCard/ProductCard';
 import style from './Search.module.css';
 import { Breadcrumbs } from '../../Components/Breadcrumbs/Breadcrumbs';
 import { Pagination } from '../../Components/Pagination/Pagination';
+import { Loader } from '../../Components/Loader/Loader';
 
 /* const debounce = (fun, delay) => {
   let timer;
@@ -14,8 +15,9 @@ import { Pagination } from '../../Components/Pagination/Pagination';
 }; */
 
 export const Search = () => {
-  const result = useSelector((store) => store.app.search.result);
-  const error = useSelector((store) => store.app.search.error);
+  const result = useSelector((store) => store.search.result);
+  const error = useSelector((store) => store.search.error);
+  const isLoading = useSelector((store) => store.app.isLoadingSearch);
 
   // const debouncedSearch = useMemo(() => debounce(onSearch, 500), []);
   // const handlesearch = ({ target }) => debouncedSearch(target.value);
@@ -23,6 +25,7 @@ export const Search = () => {
   if (error) return <h2>{error}</h2>;
   if (!result) return <h2>Введите запрос</h2>;
   if (result.products.length === 0) return <h2>Ничего не найдено</h2>;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={style.search}>

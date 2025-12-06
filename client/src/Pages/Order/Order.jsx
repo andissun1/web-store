@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import style from './Order.module.css';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrder } from '../../Store/orderReducer';
+import { actions as actionsOrder, getOrder } from '../../Store/orderReducer';
 import { Loader } from '../../Components/Loader/Loader';
 import { OrderTable } from '../../Components/OrderTable/OrderTable';
 
@@ -10,12 +10,13 @@ export const Order = (props) => {
   const orderID = useParams().id;
   const dispatch = useDispatch();
   const order = useSelector((store) => store.order);
+  const isLoading = useSelector((store) => store.order.isLoadingOrder);
 
   useEffect(() => {
-    if (!order) dispatch(getOrder(orderID));
+    dispatch(getOrder(orderID));
   }, []);
 
-  if (!order) return <Loader />;
+  if (isLoading) return <Loader />;
 
   const preparedData = {
     'Дата оформления': new Date(order.createdAt)
@@ -24,7 +25,8 @@ export const Order = (props) => {
       .slice(0, -3),
     Сумма: order.total.toLocaleString('ru-RU'),
     Cтатус: order.status,
-    'Способ оплаты': 'Наличными курьеру',
+    'Способ оплаты':
+      order.payment === 'card' ? 'Картой при получении' : 'Наличными курьеру',
     'Способ доставки': 'Курьером (Доставка курьером в пределах области)',
     'Адрес доставки': order.address,
     Получатель: order.recipient.name,

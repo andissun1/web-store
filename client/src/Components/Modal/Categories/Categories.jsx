@@ -4,9 +4,10 @@ import { Loader } from '../../Loader/Loader';
 import { Link } from 'react-router';
 
 export const Categories = ({ modalParams }) => {
-  const categories = useSelector((store) => store.categories);
+  const categories = useSelector((store) => store.categories.categories);
+  const isLoading = useSelector((store) => store.categories.isLoadingCategories);
 
-  if (!categories) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={style.modalWindow} onClick={() => modalParams.onClose()}>

@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions, getSearchResults } from '../../../Store/appReducer';
+import { actions, getSearchResults } from '../../../Store/searchReducer';
 import { useEffect } from 'react';
 import { getShopCartProducts } from '../../../Store/cartReducer';
 import { Button } from '../../../Components/Button/Button';

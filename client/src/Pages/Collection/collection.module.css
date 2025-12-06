@@ -1,11 +1,11 @@
 .collection {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 230px 4fr;
 }
 
 .productList {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 200px);
   grid-auto-rows: 280px;
   gap: 30px;
 }
@@ -25,4 +25,22 @@
 .selector option {
   border: none;
   height: 140px;
+}
+
+@media (max-width: 1550px) {
+  .productList {
+    grid-template-columns: repeat(4, 200px);
+  }
+}
+
+@media (max-width: 1000px) {
+  .productList {
+    grid-template-columns: repeat(3, 200px);
+    justify-content: center;
+  }
+
+  .collection {
+    display: flex;
+    flex-direction: column;
+  }
 }

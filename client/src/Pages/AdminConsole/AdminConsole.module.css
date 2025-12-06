@@ -22,3 +22,17 @@
   grid-column: span 2;
   position: relative;
 }
+
+@media (max-width: 1000px) {
+  .adminConsole {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .orders,
+  .users,
+  .products {
+    width: 100%;
+  }
+}

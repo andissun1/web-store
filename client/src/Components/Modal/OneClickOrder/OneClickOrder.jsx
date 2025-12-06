@@ -29,9 +29,11 @@ const schema = {
 export const OneClickOrder = ({ modalParams }) => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const isLoadingUser = useSelector((store) => store.user.isLoadingUser);
   const product = useSelector((store) => store.product);
+  const isLoadingProduct = useSelector((store) => store.product.isLoadingProduct);
   const cart = useSelector((store) => store.cart);
-  if (!user || !product || !cart) return <Loader />;
+  if (isLoadingUser || isLoadingProduct) return <Loader />;
 
   const [formData, setFormData] = useState({
     fullname: user.fullname || '',
@@ -58,7 +60,8 @@ export const OneClickOrder = ({ modalParams }) => {
 
     const thisProductInCart = cart.products.find(
       (cartProduct) => cartProduct._id === product._id
-    );
+    ) || { ...product, count: 1 };
+
     modalParams.onClose();
 
     dispatch(

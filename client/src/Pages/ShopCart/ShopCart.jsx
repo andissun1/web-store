@@ -3,7 +3,6 @@ import { HorizontalCard } from '../../Components/HorizontalCard/HorizontalCard';
 import style from './ShopCart.module.css';
 import { useEffect, useMemo } from 'react';
 import { getShopCartProducts } from '../../Store/cartReducer';
-import { getConfirmation } from '../../Store/modalReducer';
 import { useNavigate } from 'react-router';
 
 export const ShopCart = (props) => {

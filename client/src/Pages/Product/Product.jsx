@@ -13,17 +13,17 @@ import { Loader } from '../../Components/Loader/Loader';
 export const Product = () => {
   const address = useLocation().pathname;
   const product = useSelector((store) => store.product);
+  const isLoading = useSelector((store) => store.product.isLoadingProduct);
   const isAdmin = useSelector((store) => store.user.roleName) === 'admin';
   const dispatch = useDispatch();
   const productID = useParams().id;
 
   useEffect(() => {
     dispatch(getProduct(productID));
-
     return () => dispatch(productActions.removeProduct());
   }, [productID]);
 
-  if (!product) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={style.productLayout}>

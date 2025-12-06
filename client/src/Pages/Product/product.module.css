@@ -24,6 +24,22 @@
   font-size: 20px;
 }
 
+.editLink {
+  margin-block: 20px;
+}
+
 .editLink > * {
   width: max-content;
+}
+
+@media (max-width: 1000px) {
+  .productCard {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .productLayout {
+    display: flex;
+    flex-direction: column;
+  }
 }

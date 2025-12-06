@@ -6,7 +6,9 @@ import { useState } from 'react';
 import { Button } from '../Button/Button';
 
 export const CollectionsWidget = (props) => {
-  const categories = useSelector((store) => store.categories);
+  const categories = useSelector((store) => store.categories.categories);
+  const isLoading = useSelector((store) => store.categories.isLoadingCategories);
+
   const [categoryIndex, setCategoryIndex] = useState(0);
 
   const prevSlide = () => {
@@ -21,7 +23,7 @@ export const CollectionsWidget = (props) => {
       : setCategoryIndex(categoryIndex + 1);
   };
 
-  if (!categories) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={style.wrapper}>

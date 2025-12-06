@@ -96,3 +96,18 @@
 .parameter button:hover {
   background-color: red;
 }
+
+@media (max-width: 1000px) {
+  .productLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .productCard {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 10px;
+  }
+}

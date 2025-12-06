@@ -46,3 +46,17 @@
 .share:hover {
   background-color: white;
 }
+
+@media (max-width: 1000px) {
+  .shopCart {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .info {
+    width: 100%;
+    margin: 20px;
+    max-width: none;
+  }
+}

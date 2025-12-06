@@ -1,18 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as productsActions } from './productsReducer';
-import { actions as appActions } from './appReducer';
+import { actions as appActions, goToErrorPage } from './appReducer';
 import { request } from '../utils';
 
-const initialState = null;
+const initialState = {
+  isLoadingCategories: true,
+  categories: null,
+};
 
 const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    setCategories(state, action) {
-      return action.payload;
+    setIsLoadingCategories(state, action) {
+      state.isLoadingCategories = action.payload;
     },
-
+    setCategories(state, action) {
+      state.categories = action.payload;
+    },
     removeCategories() {
       return initialState;
     },
@@ -25,12 +30,14 @@ export const getCategory =
   (id, limit, page) =>
   async (dispatch, getState, { routes }) => {
     try {
+      dispatch(actions.setIsLoadingCategories(true));
       let { products, lastPage, count } = await request(
         `/api/v1/category/${id}${limit ? `&limit=${limit}&page=${page}` : ''}`
       );
 
       dispatch(appActions.removeError());
       dispatch(productsActions.setAllProducts(products));
+      dispatch(actions.setIsLoadingCategories(false));
 
       return {
         lastPage,
@@ -38,8 +45,7 @@ export const getCategory =
         products,
       };
     } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
+      dispatch(goToErrorPage(error.message));
     }
   };
 
@@ -47,12 +53,13 @@ export const getCategories =
   () =>
   async (dispatch, getState, { routes }) => {
     try {
+      dispatch(actions.setIsLoadingCategories(true));
       const response = await request('/api/v1/category');
       dispatch(appActions.removeError());
       dispatch(actions.setCategories(response));
+      dispatch(actions.setIsLoadingCategories(false));
       return response;
     } catch (error) {
-      dispatch(appActions.setError(error.message));
-      routes.navigate('/error');
+      dispatch(goToErrorPage(error.message));
     }
   };

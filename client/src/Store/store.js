@@ -10,6 +10,7 @@ import { reducer as usersReducer } from './usersReducer';
 import { reducer as productsReducer } from './productsReducer';
 import { reducer as categoriesReducer, getCategories } from './categoriesReducer';
 import { reducer as orderReducer } from './orderReducer';
+import { reducer as searchReducer } from './searchReducer';
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     favorites: favoritesReducer,
     categories: categoriesReducer,
     order: orderReducer,
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

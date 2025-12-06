@@ -37,6 +37,7 @@ export const NewOrder = (props) => {
     fullname: user.fullname || '',
     phone: user.phone || '',
     address: user.address || '',
+    payment: 'cash',
     comment: '',
   });
 
@@ -70,6 +71,7 @@ export const NewOrder = (props) => {
         deliveryCost: DELIVERY_COST,
         total: total + DELIVERY_COST,
         comment: formData.comment,
+        payment: formData.payment,
       })
     );
   };
@@ -132,7 +134,7 @@ export const NewOrder = (props) => {
             error={error?.phone}
           />
           <h3>Оплата</h3>
-          <select onChange={handleChange} name="payment" value={formData.phone}>
+          <select onChange={handleChange} name="payment" value={formData.payment}>
             <option value="cash">Наличные</option>
             <option value="card">Банковская карта</option>
           </select>

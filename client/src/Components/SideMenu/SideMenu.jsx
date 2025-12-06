@@ -5,8 +5,10 @@ import style from './SideMenu.module.css';
 import { Loader } from '../Loader/Loader';
 
 export const SideMenu = () => {
-  const categories = useSelector((store) => store.categories);
-  if (!categories) return <Loader />;
+  const categories = useSelector((store) => store.categories.categories);
+  const isLoading = useSelector((store) => store.categories.isLoadingCategories);
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className={style.SideMenu}>

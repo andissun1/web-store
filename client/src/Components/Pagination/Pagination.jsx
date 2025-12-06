@@ -2,17 +2,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from './Pagination.module.css';
 import { Loader } from '../Loader/Loader';
 import { useState } from 'react';
-import { getSearchResults } from '../../Store/appReducer';
+import { getSearchResults } from '../../Store/searchReducer';
 import { getCategory } from '../../Store/categoriesReducer';
 
-export const LIMIT = 10;
+export const LIMIT = 12;
 
 export const Pagination = ({ info, sort }) => {
-  const searchParams = useSelector((store) => store.app.search);
+  const searchParams = useSelector((store) => store.search);
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
 
-  if (!searchParams) return <Loader />;
+  if (searchParams.isLoadingSearch) return <Loader />;
 
   const nextPage = () => {
     info
