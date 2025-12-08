@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import style from './Order.module.css';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { actions as actionsOrder, getOrder } from '../../Store/orderReducer';
+import { getOrder } from '../../Store/orderReducer';
 import { Loader } from '../../Components/Loader/Loader';
 import { OrderTable } from '../../Components/OrderTable/OrderTable';
 

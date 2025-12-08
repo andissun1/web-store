@@ -52,3 +52,15 @@
 .productItem a {
   color: black;
 }
+
+@media (max-width: 1000px) {
+  .productList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 770px) {
+  .productList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
