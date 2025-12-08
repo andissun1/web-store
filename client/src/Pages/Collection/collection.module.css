@@ -44,3 +44,9 @@
     flex-direction: column;
   }
 }
+
+@media (max-width: 770px) {
+  .productList {
+    grid-template-columns: repeat(2, 180px);
+  }
+}

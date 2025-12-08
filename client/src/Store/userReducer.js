@@ -90,6 +90,7 @@ export const me = async (dispatch) => {
     dispatch(actions.setUser(user));
     dispatch(actions.setIsLoadingUser(false));
   } catch (error) {
+    dispatch(actions.setIsLoadingUser(false));
     // Приходит регулярно сообщение о статусе авторизации
     // console.log(error.message);
   }

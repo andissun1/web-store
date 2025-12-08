@@ -6,9 +6,7 @@ import { Loader } from '../Loader/Loader';
 
 export const SideMenu = () => {
   const categories = useSelector((store) => store.categories.categories);
-  const isLoading = useSelector((store) => store.categories.isLoadingCategories);
-
-  if (isLoading) return <Loader />;
+  if (!categories) return <Loader />;
 
   return (
     <div className={style.SideMenu}>

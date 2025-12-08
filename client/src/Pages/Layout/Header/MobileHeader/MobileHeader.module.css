@@ -1,0 +1,110 @@
+/* .MobileHeader {
+} */
+
+.purpleLine {
+  background-color: var(--lightPurple);
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+}
+
+.purpleLine img {
+  display: block;
+  width: 120px;
+}
+
+.purpleLine button {
+  width: fit-content;
+  height: fit-content;
+  background-color: transparent;
+  color: black;
+  font-size: 30px;
+  padding: 0;
+}
+
+.purpleLine a {
+  font-size: 30px;
+  color: black;
+}
+
+.sideBar {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: white;
+  z-index: 10;
+  overflow: auto;
+}
+
+.sideBar > div {
+  padding-inline: 30px;
+}
+
+.sideBar > div > div {
+  display: flex;
+}
+
+.grayLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  font-size: 30px;
+  color: black;
+  background-color: var(--lightGray);
+
+  padding: 0 30px;
+}
+
+.grayLine nav button {
+  color: black;
+  background-color: transparent;
+  font-size: 30px;
+  height: fit-content;
+  width: fit-content;
+  margin: 0;
+  padding: 0;
+}
+
+.grayLine button {
+  width: fit-content;
+}
+
+.grayLine a {
+  color: black;
+}
+
+.grayLine nav {
+  display: flex;
+  gap: 30px;
+}
+
+.search {
+  display: flex;
+}
+
+.search button:last-of-type {
+  margin-left: auto;
+}
+
+.search input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+
+  color: rgb(45, 45, 45);
+
+  border: 1px solid rgb(128, 128, 128);
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  padding: 7px;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.search input::placeholder {
+  color: #dde0e8;
+}

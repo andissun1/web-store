@@ -18,3 +18,18 @@
   justify-content: space-between;
   padding: 40px;
 }
+
+@media (max-width: 770px) {
+  .promoWidget__footer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    gap: 20px;
+  }
+
+  .promoWidget__footer h1 {
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+}

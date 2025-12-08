@@ -12,21 +12,18 @@ import { useState } from 'react';
 export const Collection = (props) => {
   const dispatch = useDispatch();
   const collectionID = useParams().id;
-  const { products } = useSelector((store) => store.products);
-  const categories = useSelector((store) => store.categories.categories);
-  const isLoadingCategories = useSelector(
-    (store) => store.categories.isLoadingCategories
-  );
+  const products = useSelector((store) => store.search.result?.products);
+  const isLoadingProducts = useSelector((store) => store.search.isLoadingSearch);
 
-  // Сохраняю необходимые данные для пагинации
-  const [paginationInfo, setPaginationInfo] = useState(null);
+  const count = useSelector((store) => store.search.result?.count);
+  const lastPage = useSelector((store) => store.search.result?.lastPage);
+  const categories = useSelector((store) => store.categories.categories);
+
   const [sort, setSort] = useState('price=asc');
 
   useEffect(() => {
-    dispatch(getCategory(`${collectionID}?${sort}`)).then(setPaginationInfo);
+    dispatch(getCategory(`${collectionID}?${sort}`));
   }, [collectionID, sort]);
-
-  if (!products || !paginationInfo || isLoadingCategories) return <Loader />;
 
   const categoryName = categories?.find((item) => item._id === collectionID)?.name;
 
@@ -35,7 +32,7 @@ export const Collection = (props) => {
       <div className={style.collection}>
         <SideMenu />
         <h2>{categoryName}</h2>
-        <span>Товаров: {paginationInfo?.count}</span>
+        <span>Товаров: {count}</span>
         <div className={style.filtersPanel}>
           <select
             name="sort"
@@ -51,13 +48,13 @@ export const Collection = (props) => {
           </select>
         </div>
         <div className={style.productList}>
-          {products.map((product) => (
-            <ProductCard product={product} key={product._id} />
-          ))}
+          {isLoadingProducts ? (
+            <Loader />
+          ) : (
+            products.map((product) => <ProductCard product={product} key={product._id} />)
+          )}
         </div>
-        {paginationInfo.lastPage > 1 && (
-          <Pagination info={{ ...paginationInfo, collectionID }} sort={sort} />
-        )}
+        {lastPage > 1 && <Pagination collectionID={collectionID} sort={sort} />}
       </div>
     </>
   );

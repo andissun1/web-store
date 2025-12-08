@@ -7,30 +7,25 @@ import { getCategory } from '../../Store/categoriesReducer';
 
 export const LIMIT = 12;
 
-export const Pagination = ({ info, sort }) => {
+export const Pagination = ({ collectionID, sort }) => {
   const searchParams = useSelector((store) => store.search);
-  const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
 
   if (searchParams.isLoadingSearch) return <Loader />;
 
-  const nextPage = () => {
-    info
-      ? dispatch(getCategory(`${info.collectionID}?${sort}`, LIMIT, currentPage + 1))
-      : dispatch(getSearchResults(searchParams.searchPhrase, LIMIT, currentPage + 1));
+  const { page: currentPage, lastPage } = searchParams.result;
 
-    setCurrentPage(currentPage + 1);
+  const nextPage = () => {
+    collectionID
+      ? dispatch(getCategory(`${collectionID}?${sort}`, LIMIT, currentPage + 1))
+      : dispatch(getSearchResults(searchParams.searchPhrase, LIMIT, currentPage + 1));
   };
 
   const prevPage = () => {
-    info
-      ? dispatch(getCategory(`${info.collectionID}?${sort}`, LIMIT, currentPage - 1))
+    collectionID
+      ? dispatch(getCategory(`${collectionID}?${sort}`, LIMIT, currentPage - 1))
       : dispatch(getSearchResults(searchParams.searchPhrase, LIMIT, currentPage - 1));
-
-    setCurrentPage(currentPage - 1);
   };
-
-  const lastPage = info?.lastPage || searchParams?.result?.lastPage;
 
   return (
     <div className={style.Pagination}>

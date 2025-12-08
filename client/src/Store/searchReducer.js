@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const appSlice = createSlice({
-  name: 'app',
+  name: 'search',
   initialState,
   reducers: {
     setSearchPhrase(state, action) {
@@ -29,18 +29,20 @@ const appSlice = createSlice({
 
 export const { reducer, actions } = appSlice;
 
-export const getSearchResults = (value, limit, page) => async (dispatch) => {
-  try {
-    dispatch(actions.setIsLoadingSearch(true));
-    const resultsOfSearch = await request(
-      `/api/v1/filters/search?name=${value}&limit=${limit}&page=${page}`
-    );
+export const getSearchResults =
+  (value, limit, page = 1) =>
+  async (dispatch) => {
+    try {
+      dispatch(actions.setIsLoadingSearch(true));
+      const resultsOfSearch = await request(
+        `/api/v1/filters/search?name=${value}&limit=${limit}&page=${page}`
+      );
 
-    dispatch(actions.setSearchError(null));
-    dispatch(actions.setSearchPhrase(value));
-    dispatch(actions.setResult(resultsOfSearch));
-    dispatch(actions.setIsLoadingSearch(false));
-  } catch (error) {
-    dispatch(actions.setSearchError(error.message));
-  }
-};
+      dispatch(actions.setSearchError(null));
+      dispatch(actions.setSearchPhrase(value));
+      dispatch(actions.setResult({ ...resultsOfSearch, page }));
+      dispatch(actions.setIsLoadingSearch(false));
+    } catch (error) {
+      dispatch(actions.setSearchError(error.message));
+    }
+  };

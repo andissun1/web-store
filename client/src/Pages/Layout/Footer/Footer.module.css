@@ -105,3 +105,20 @@
     margin-inline: 50px;
   }
 }
+
+@media (max-width: 770px) {
+  .phones {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .phones div:first-of-type,
+  .phones div:last-of-type {
+    border: none;
+    padding: 0;
+  }
+
+  .wrapper nav {
+    display: none;
+  }
+}

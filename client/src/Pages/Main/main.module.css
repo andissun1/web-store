@@ -19,3 +19,15 @@
     flex-direction: column;
   }
 }
+
+@media (max-width: 770px) {
+  .main {
+    margin-block: 40px;
+  }
+
+  /* Выбор всего кроме сайдбара */
+  .main > div:not(div:first-of-type) {
+    display: flex;
+    flex-direction: column;
+  }
+}

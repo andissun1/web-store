@@ -33,6 +33,7 @@ export const OneClickOrder = ({ modalParams }) => {
   const product = useSelector((store) => store.product);
   const isLoadingProduct = useSelector((store) => store.product.isLoadingProduct);
   const cart = useSelector((store) => store.cart);
+
   if (isLoadingUser || isLoadingProduct) return <Loader />;
 
   const [formData, setFormData] = useState({

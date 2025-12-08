@@ -1,13 +1,14 @@
 import { Link, useLocation, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, getSearchResults } from '../../../Store/searchReducer';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getShopCartProducts } from '../../../Store/cartReducer';
 import { Button } from '../../../Components/Button/Button';
 import { LIMIT } from '../../../Components/Pagination/Pagination';
 import style from './Header.module.css';
 import { useRef } from 'react';
 import { getConfirmation } from '../../../Store/modalReducer';
+import { MobileHeader } from './MobileHeader/MobileHeader';
 
 const pages = [
   {
@@ -26,6 +27,7 @@ const pages = [
 
 export const Header = () => {
   const isAdmin = useSelector((store) => store.user?.roleName) === 'admin';
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 770);
   const shopCart = useSelector((store) => store.cart.products);
   const searchInput = useRef(null);
   const location = useLocation();
@@ -34,12 +36,18 @@ export const Header = () => {
 
   useEffect(() => {
     dispatch(getShopCartProducts());
+    const handleResize = () => setIsMobile(window.innerWidth < 770);
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
     if (location.pathname !== '/search') {
       dispatch(actions.setSearchPhrase(''));
-      searchInput.current.value = '';
+      if (!isMobile) searchInput.current.value = '';
     }
   }, [location]);
 
@@ -58,6 +66,8 @@ export const Header = () => {
     (acc, product) => (acc += product.price * product.count),
     0
   );
+
+  if (isMobile) return <MobileHeader isAdmin={isAdmin} />;
 
   return (
     <header>
