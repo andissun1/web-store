@@ -1,3 +1,4 @@
+import { DELIVERY_COST } from '../../Pages/NewOrder/NewOrder';
 import style from './OrderTable.module.css';
 
 export const OrderTable = ({ order }) => (
@@ -30,7 +31,10 @@ export const OrderTable = ({ order }) => (
           {`Итого: `}
           <strong>
             {order.products
-              .reduce((acc, product) => (acc += product.price * product.count), 0)
+              .reduce(
+                (acc, product) => (acc += product.price * product.count),
+                DELIVERY_COST
+              )
               .toLocaleString('ru-RU')}{' '}
             ₽
           </strong>

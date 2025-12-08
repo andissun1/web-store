@@ -4,6 +4,7 @@ import { request } from '../utils';
 
 const initialState = {
   isLoadingOrder: true,
+  isLoadingOrders: true,
 };
 
 const orderReducer = createSlice({
@@ -12,6 +13,9 @@ const orderReducer = createSlice({
   reducers: {
     setIsLoadingfOrder(state, action) {
       state.isLoadingOrder = action.payload;
+    },
+    setIsLoadingfOrders(state, action) {
+      state.isLoadingOrders = action.payload;
     },
     setOrderInfo(state, action) {
       return action.payload;
@@ -27,32 +31,27 @@ const orderReducer = createSlice({
 
 export const { reducer, actions } = orderReducer;
 
-export const getOrder =
-  (id) =>
-  async (dispatch, getState, { routes }) => {
-    try {
-      dispatch(actions.setIsLoadingfOrder(true));
-      const order = await request(`/api/v1/order/${id}`);
+export const getOrder = (id) => async (dispatch) => {
+  try {
+    dispatch(actions.setIsLoadingfOrder(true));
+    const order = await request(`/api/v1/order/${id}`);
+    dispatch(actions.setOrderInfo(order));
+    dispatch(actions.setIsLoadingfOrder(false));
+  } catch (error) {
+    dispatch(goToErrorPage(error.message));
+  }
+};
 
-      dispatch(actions.setOrderInfo(order));
-      dispatch(actions.setIsLoadingfOrder(false));
-    } catch (error) {
-      dispatch(goToErrorPage(error.message));
-    }
-  };
-
-export const getAllOrders =
-  () =>
-  async (dispatch, getState, { routes }) => {
-    try {
-      dispatch(actions.setIsLoadingfOrder(true));
-      const orders = await request(`/api/v1/order`);
-      dispatch(actions.setOrders(orders));
-      dispatch(actions.setIsLoadingfOrder(false));
-    } catch (error) {
-      dispatch(goToErrorPage(error.message));
-    }
-  };
+export const getAllOrders = () => async (dispatch) => {
+  try {
+    dispatch(actions.setIsLoadingfOrders(true));
+    const orders = await request(`/api/v1/order`);
+    dispatch(actions.setOrders(orders));
+    dispatch(actions.setIsLoadingfOrders(false));
+  } catch (error) {
+    dispatch(goToErrorPage(error.message));
+  }
+};
 
 export const createOrder =
   (orderInfo) =>
@@ -69,16 +68,14 @@ export const createOrder =
     }
   };
 
-export const deleteOrder =
-  (id) =>
-  async (dispatch, getState, { routes }) => {
-    try {
-      dispatch(actions.setIsLoadingfOrder(true));
-      const status = await request(`/api/v1/order/${id}`, 'DELETE');
-      dispatch(actions.removeOrder());
-      dispatch(actions.setIsLoadingfOrder(false));
-      return status;
-    } catch (error) {
-      dispatch(goToErrorPage(error.message));
-    }
-  };
+export const deleteOrder = (id) => async (dispatch) => {
+  try {
+    dispatch(actions.setIsLoadingfOrder(true));
+    const status = await request(`/api/v1/order/${id}`, 'DELETE');
+    dispatch(actions.removeOrder());
+    dispatch(actions.setIsLoadingfOrder(false));
+    return status;
+  } catch (error) {
+    dispatch(goToErrorPage(error.message));
+  }
+};

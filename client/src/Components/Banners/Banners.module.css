@@ -4,3 +4,10 @@
   display: flex;
   gap: 50px;
 }
+
+@media (max-width: 770px) {
+  .banners {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

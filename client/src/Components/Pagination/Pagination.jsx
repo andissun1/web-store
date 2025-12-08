@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import style from './Pagination.module.css';
 import { Loader } from '../Loader/Loader';
-import { useState } from 'react';
 import { getSearchResults } from '../../Store/searchReducer';
 import { getCategory } from '../../Store/categoriesReducer';
 
 export const LIMIT = 12;
 
-export const Pagination = ({ collectionID, sort }) => {
+export const Pagination = ({ collectionID, sort, limit }) => {
   const searchParams = useSelector((store) => store.search);
   const dispatch = useDispatch();
 
@@ -17,13 +16,13 @@ export const Pagination = ({ collectionID, sort }) => {
 
   const nextPage = () => {
     collectionID
-      ? dispatch(getCategory(`${collectionID}?${sort}`, LIMIT, currentPage + 1))
+      ? dispatch(getCategory(`${collectionID}?${sort}`, limit || LIMIT, currentPage + 1))
       : dispatch(getSearchResults(searchParams.searchPhrase, LIMIT, currentPage + 1));
   };
 
   const prevPage = () => {
     collectionID
-      ? dispatch(getCategory(`${collectionID}?${sort}`, LIMIT, currentPage - 1))
+      ? dispatch(getCategory(`${collectionID}?${sort}`, limit || LIMIT, currentPage - 1))
       : dispatch(getSearchResults(searchParams.searchPhrase, LIMIT, currentPage - 1));
   };
 

@@ -54,7 +54,9 @@ export const Collection = (props) => {
             products.map((product) => <ProductCard product={product} key={product._id} />)
           )}
         </div>
-        {lastPage > 1 && <Pagination collectionID={collectionID} sort={sort} />}
+        {lastPage > 1 && (
+          <Pagination collectionID={collectionID} sort={sort} limit={10} />
+        )}
       </div>
     </>
   );

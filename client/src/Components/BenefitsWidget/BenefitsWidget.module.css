@@ -25,8 +25,13 @@
 
 @media (max-width: 770px) {
   .benefits {
+    flex-direction: column;
     height: fit-content;
     padding: 10px;
     gap: 20px;
+  }
+
+  .benefitsCard {
+    gap: 0px;
   }
 }

@@ -25,20 +25,18 @@ const productSlice = createSlice({
 export const { reducer, actions } = productSlice;
 
 // Асинхронные операции
-export const getProduct =
-  (productID) =>
-  async (dispatch, getState, { routes }) => {
-    try {
-      dispatch(actions.setIsLoadingProduct(true));
-      const product = await request(`/api/v1/product/${productID}`);
-      dispatch(actions.setProduct(product));
-      dispatch(actions.setIsLoadingProduct(false));
+export const getProduct = (productID) => async (dispatch) => {
+  try {
+    dispatch(actions.setIsLoadingProduct(true));
+    const product = await request(`/api/v1/product/${productID}`);
+    dispatch(actions.setProduct(product));
+    dispatch(actions.setIsLoadingProduct(false));
 
-      return product;
-    } catch (error) {
-      dispatch(goToErrorPage(error.message));
-    }
-  };
+    return product;
+  } catch (error) {
+    dispatch(goToErrorPage(error.message));
+  }
+};
 
 export const createProduct =
   (productInfo) =>
@@ -92,51 +90,38 @@ export const deleteProduct =
   };
 
 // Комментарии (решил попробовать в локальном состоянии компонента хранить данные о комметраниях)
-export const addComment =
-  (productID, commentInfo) =>
-  async (dispatch, getState, { routes }) => {
-    try {
-      dispatch(actions.setIsLoadingProduct(true));
-      const newComment = await request(
-        `/api/v1/comments/${productID}`,
-        'POST',
-        commentInfo
-      );
-      dispatch(actions.setIsLoadingProduct(false));
+export const addComment = (productID, commentInfo) => async (dispatch) => {
+  try {
+    const newComment = await request(
+      `/api/v1/comments/${productID}`,
+      'POST',
+      commentInfo
+    );
 
-      return newComment;
-    } catch (error) {
-      dispatch(goToErrorPage(error.message));
-    }
-  };
+    return newComment;
+  } catch (error) {
+    dispatch(goToErrorPage(error.message));
+  }
+};
 
-export const removeComment =
-  (commentID, productID) =>
-  async (dispatch, getState, { routes }) => {
-    try {
-      dispatch(actions.setIsLoadingProduct(true));
-      await request(`/api/v1/comments/${commentID}/${productID}`, 'DELETE');
-      dispatch(actions.setIsLoadingProduct(false));
-    } catch (error) {
-      dispatch(goToErrorPage(error.message));
-    }
-  };
+export const removeComment = (commentID, productID) => async (dispatch) => {
+  try {
+    await request(`/api/v1/comments/${commentID}/${productID}`, 'DELETE');
+  } catch (error) {
+    dispatch(goToErrorPage(error.message));
+  }
+};
 
-export const updateComment =
-  (commentID, commentInfo) =>
-  async (dispatch, getState, { routes }) => {
-    try {
-      dispatch(actions.setIsLoadingProduct(true));
+export const updateComment = (commentID, commentInfo) => async (dispatch) => {
+  try {
+    const newComment = await request(
+      `/api/v1/comments/${commentID}`,
+      'PATCH',
+      commentInfo
+    );
 
-      const newComment = await request(
-        `/api/v1/comments/${commentID}`,
-        'PATCH',
-        commentInfo
-      );
-      dispatch(actions.setIsLoadingProduct(false));
-
-      return newComment;
-    } catch (error) {
-      dispatch(goToErrorPage(error.message));
-    }
-  };
+    return newComment;
+  } catch (error) {
+    dispatch(goToErrorPage(error.message));
+  }
+};

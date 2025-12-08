@@ -17,7 +17,7 @@ export const AdminConsole = () => {
   const { products } = useSelector((store) => store.products);
   const isLoadingProducts = useSelector((store) => store.products.isLoadingProducts);
   const orders = useSelector((store) => store.order.orders);
-  const isLoadingOrder = useSelector((store) => store.order.isLoadingOrder);
+  const isLoadingOrders = useSelector((store) => store.order.isLoadingOrders);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export const AdminConsole = () => {
     }
   };
 
-  if (isLoadingUsers || isLoadingProducts || isLoadingOrder) return <Loader />;
+  if (isLoadingUsers || isLoadingProducts || isLoadingOrders) return <Loader />;
 
   return (
     <div className={style.adminConsole}>

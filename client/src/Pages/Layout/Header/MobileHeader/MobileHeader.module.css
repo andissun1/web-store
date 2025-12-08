@@ -83,10 +83,19 @@
 
 .search {
   display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.search button:first-of-type {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .search button:last-of-type {
-  margin-left: auto;
+  background-color: transparent;
+  color: black;
+  font-size: 30px;
 }
 
 .search input {

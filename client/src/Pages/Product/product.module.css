@@ -28,8 +28,9 @@
   margin-block: 20px;
 }
 
+.editLink,
 .editLink > * {
-  width: max-content;
+  width: fit-content;
 }
 
 @media (max-width: 1000px) {

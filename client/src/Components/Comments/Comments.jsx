@@ -3,7 +3,6 @@ import { Button } from '../Button/Button';
 import style from './Comments.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment, removeComment, updateComment } from '../../Store/productReducer';
-import { Loader } from '../Loader/Loader';
 import { getConfirmation } from '../../Store/modalReducer';
 
 export const Comments = ({ productID, comments: commentsFromServer }) => {
