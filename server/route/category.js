@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { Category } from '../model/category.js';
 import { Product } from '../model/product.js';
+import { hasRole } from '../middleweare/hasRole.js';
 
 export const categoryRouter = Router();
 
@@ -50,7 +51,7 @@ categoryRouter.get('/:id', async (req, res) => {
 });
 
 // create
-categoryRouter.post('/', async (req, res) => {
+categoryRouter.post('/', hasRole(['admin']), async (req, res) => {
   try {
     const newCategory = await Category.create(req.body);
     res.status(200).json(newCategory);
@@ -60,7 +61,7 @@ categoryRouter.post('/', async (req, res) => {
 });
 
 // update
-categoryRouter.patch('/:id', async (req, res) => {
+categoryRouter.patch('/:id', hasRole(['admin']), async (req, res) => {
   try {
     const newCategory = await Category.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -72,7 +73,7 @@ categoryRouter.patch('/:id', async (req, res) => {
 });
 
 // delete
-categoryRouter.delete('/:id', async (req, res) => {
+categoryRouter.delete('/:id', hasRole(['admin']), async (req, res) => {
   try {
     await Category.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'Категория была удалена' });

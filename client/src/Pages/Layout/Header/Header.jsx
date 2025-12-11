@@ -54,6 +54,7 @@ export const Header = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const { value } = event.target.search;
+    if (!value.trim()) return;
     dispatch(getSearchResults(value, LIMIT, 1));
     navigate('/search');
   };

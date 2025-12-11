@@ -17,7 +17,7 @@ import { Loader } from '../../Components/Loader/Loader';
 export const Search = () => {
   const result = useSelector((store) => store.search.result);
   const error = useSelector((store) => store.search.error);
-  const isLoading = useSelector((store) => store.app.isLoadingSearch);
+  const isLoading = useSelector((store) => store.search.isLoadingSearch);
 
   // const debouncedSearch = useMemo(() => debounce(onSearch, 500), []);
   // const handlesearch = ({ target }) => debouncedSearch(target.value);

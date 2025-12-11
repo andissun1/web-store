@@ -71,7 +71,7 @@ export const register =
     }
   };
 
-export const resetPassword = (email) => () => {
+export const resetPassword = (email) => (dispatch) => {
   try {
     dispatch(actions.setIsLoadingUser(true));
     const newPassword = request(`/api/v1/auth/resetPassword`, 'POST', { email });

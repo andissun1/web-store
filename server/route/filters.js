@@ -9,11 +9,11 @@ filtersRouter.get('/search', async (req, res) => {
     const { page, limit, name } = req.query;
 
     const [products, count] = await Promise.all([
-      Product.find({ name: { $regex: name, $options: 'i' } })
+      Product.find({ $text: { $search: name } })
         .limit(limit)
         .skip((page - 1) * limit)
         .sort({ createdAt: -1 }),
-      Product.countDocuments({ name: { $regex: name, $options: 'i' } }),
+      Product.countDocuments({ $text: { $search: name } }),
     ]);
 
     res.status(200).json({ products, lastPage: Math.ceil(count / limit) });
