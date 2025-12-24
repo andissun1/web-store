@@ -37,7 +37,7 @@ export function validator(allValues, scheme) {
   return errors;
 }
 
-const serverURL = 'http://localhost:3005';
+const serverURL = 'https://web-store-blush-five.vercel.app';
 
 // Упрощение запросов на сервер
 export const request = async (path, method = 'GET', payload) => {
