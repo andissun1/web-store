@@ -13,14 +13,15 @@ services:
       - .env
   mongo:
     image: mongo:7
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MY_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MY_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MY_DATABASE}
     container_name: myMongo
     restart: always
     ports:
       - '27017:27017'
-    environment:
-      MONGO_INITDB_DATABASE: testdb
-      MONGO_INITDB_ROOT_USERNAME: userok
-      MONGO_INITDB_ROOT_PASSWORD: mongopass
+
     volumes:
       - mongo-data:/data/db
 
