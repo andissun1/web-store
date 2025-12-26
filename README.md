@@ -31,14 +31,17 @@
 - mongoDB + docker
 
 ## Как запустить проект
-Проект уже запущен на VPS, но при желании можно настроить локально запуск
+Проект уже запущен на Vercel, но при желании можно настроить локально запуск
 
-Для этого в файле utils в переменной serverURL ставим значение http://localhost  
+Для этого в файле utils в переменной serverURL ставим значение http://localhost:80 
 В корне проекта создаём .env файл:
 ```
 PORT = 3005
-CONNECTION_STRING = "mongodb://user:mongopass@localhost:27017/testdb?authSource=admin"
-JWT_SECRET = 'test'
+CONNECTION_STRING=mongodb://admin:mongopass@myMongo:27017/testdb?authSource=admin
+JWT_SECRET=test
+USERNAME=admin
+PASSWORD=mongopass
+DATABASE=testdb
 ```
 
 Запускаем контейнеры:
