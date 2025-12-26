@@ -39,9 +39,9 @@
 PORT = 3005
 CONNECTION_STRING=mongodb://admin:mongopass@myMongo:27017/testdb?authSource=admin
 JWT_SECRET=test
-USERNAME=admin
-PASSWORD=mongopass
-DATABASE=testdb
+MY_USERNAME=admin
+MY_PASSWORD=mongopass
+MY_DATABASE=testdb
 ```
 
 Запускаем контейнеры:
